@@ -16,7 +16,6 @@
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
-bool checktime = false;
 bool randomtext = false;
 int k = 0;
 int randomNO=0;
@@ -24,7 +23,8 @@ char MapArray[80][25];
 
 bool soundcheck = false;
 bool paused = false;
-bool level1 = true;
+bool Levelselect = true;
+bool loading = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -64,8 +64,8 @@ void createbottommiddle(int g) {
 void createtopmiddle(int g) {
     COORD c;
     int k = 2;
-    for (int i = g; i <g+5 ; i++) {
-        if (i < g+3) {
+    for (int i = g; i < g + 5; i++) {
+        if (i < g + 3) {
             for (int j = 0; j < 5 - k; j++) {
                 c.X = i;
                 c.Y = j;
@@ -85,6 +85,113 @@ void createtopmiddle(int g) {
         }
 
     }
+}
+void loadingscreen(void) {
+    srand(time(NULL));
+    COORD c;
+    if (randomtext == true) {
+        randomNO = rand() % 4;
+        randomtext = false;
+    }
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 25; j++) {
+            c.X = i;
+            c.Y = j;
+            g_Console.writeToBuffer(c, " ", 0xAA);
+        }
+    }
+    int k = 0;
+    //top left
+    for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 5; i++) {
+            if (i < 8 - j) {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x4A);
+            }
+        }
+    }
+    //bottom left
+    for (int i = 0; i < 5; i++) {
+        for (int j = 17 + i; j < 25; j++) {
+            c.X = i;
+            c.Y = j;
+            g_Console.writeToBuffer(c, " ", 0x4A);
+        }
+    }
+    //top right
+    for (int i = 75; i < 80; i++) {
+        for (int j = 0; j < 4 + k; j++) {
+            c.X = i;
+            c.Y = j;
+            g_Console.writeToBuffer(c, " ", 0x4A);
+        }
+        k++;
+    }
+    //bottom right
+    k = 0;
+    for (int i = 75; i < 80; i++) {
+        for (int j = 21 - k; j < 25; j++) {
+            c.X = i;
+            c.Y = j;
+            g_Console.writeToBuffer(c, " ", 0x4A);
+        }
+        k++;
+    }
+    //top middle
+    createtopmiddle(9);
+    createtopmiddle(16);
+    createtopmiddle(23);
+    createtopmiddle(30);
+    createtopmiddle(37);
+    createtopmiddle(44);
+    createtopmiddle(51);
+    createtopmiddle(58);
+    createtopmiddle(65);
+    //bottom middle
+    createbottommiddle(8);
+    createbottommiddle(16);
+    createbottommiddle(23);
+    createbottommiddle(30);
+    createbottommiddle(37);
+    createbottommiddle(44);
+    createbottommiddle(51);
+    createbottommiddle(58);
+    createbottommiddle(65);
+    c.X = 33;
+    c.Y = g_Console.getConsoleSize().Y / 2;
+    //loading bar
+    g_Console.writeToBuffer(c, "Loading....", 0x03);
+    //random text at bottom
+    if (randomNO == 0) {
+        c.X = 27;
+        c.Y++;
+        g_Console.writeToBuffer(c, "Imma firin my....water");
+    }
+    else if (randomNO == 1) {
+        c.X = 21;
+        c.Y++;
+        g_Console.writeToBuffer(c, "Spacebar to shoot,arrow keys to move");
+    }
+    else if (randomNO == 2) {
+        c.X = 8;
+        c.Y++;
+        g_Console.writeToBuffer(c, "Did you know?Phlogistion is created by four braindead Students? ");
+    }
+    else if (randomNO == 3) {
+        c.X = 31;
+        c.Y++;
+        g_Console.writeToBuffer(c, "Welcome to hell!");
+    }
+}
+void deathscreen(void) {
+
+}
+void victoryscreen(void) {
+
+}
+void credits(void) {
+
 }
 void Ammunition(void) {
     COORD C;
@@ -116,12 +223,11 @@ void levelEvents(void) {
             g_bQuitGame = true;
         }
         else if (g_mouseEvent.mousePosition.X >= 25 && g_mouseEvent.mousePosition.X <= 31 && g_mouseEvent.mousePosition.Y == 10) {
-            level1 = false;
-            checktime = true;
+            Levelselect = false;
             soundcheck = true;
             randomtext = true;
+            loading = true;
             k = g_dElapsedTime;
-            g_eGameState = S_SPLASHSCREEN;
         }
     }
 }
@@ -212,7 +318,7 @@ void levelselect(void) {
 void pauseEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 49 && g_mouseEvent.mousePosition.X <= 69 && g_mouseEvent.mousePosition.Y == 7) {
-            level1 = true;
+            Levelselect = true;
             paused = false;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
@@ -583,12 +689,10 @@ void gameplayMouseHandler(const MOUSE_EVENT_RECORD& mouseEvent)
     g_mouseEvent.buttonState = mouseEvent.dwButtonState;
     g_mouseEvent.eventFlags = mouseEvent.dwEventFlags;
 }
-void splashScreenWait2(int g) {
-    if (g_dElapsedTime > 5.0 + g) {
-        g_eGameState = S_GAME;
-        checktime = false;
+void LoadingScreenWait2(int g,int time) {
+    if (g_dElapsedTime > time + g) {
+        loading = false;
     }
-
 }
 //--------------------------------------------------------------
 // Purpose  : Update function
@@ -607,21 +711,22 @@ void splashScreenWait2(int g) {
 void update(double dt)
 {
     // get the delta time
-   
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
 
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN :
-            if (checktime == true) {
-                splashScreenWait2(k);
+            splashScreenWait(); // game logic for the splash screen
+            break;
+        case S_GAME: 
+            if (loading == true) {
+                LoadingScreenWait2(k,5);//number represents how long the loading screen time is depending on how long 
+                //the entities and stuff load
             }
             else {
-                splashScreenWait(); // game logic for the splash screen
+                updateGame(); // gameplay logic when we are in the game
             }
-            break;
-        case S_GAME: updateGame(); // gameplay logic when we are in the game
             break;
     }
 }
@@ -677,7 +782,7 @@ void moveCharacter()
 }
 void processUserInput()
 {
-    // quits the game if player hits the escape key
+    // pause the game if player hits the escape key
     if (g_skKeyEvent[K_ESCAPE].keyReleased) {
         paused = true;
         PlaySound(NULL, 0, 0);
@@ -705,9 +810,12 @@ void render()
             pausemenu();
             pauseEvents();
         }
-        else if (level1 == true) {
+        else if (Levelselect == true) {
             levelselect();
             levelEvents();
+        }
+        else if (loading == true) {
+            loadingscreen();
         }
         else {
             if (soundcheck == true) {
@@ -740,13 +848,7 @@ void renderToScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-    srand(time(NULL));
-    if (randomtext == true) {
-        randomNO = rand() % 4;
-        randomtext = false;
-    }
     COORD c;
-    if (level1 != false) {
         //turns entire screen gray
         for (int i = 0; i < 80; i++) {
             for (int j = 0; j < 25; j++) {
@@ -793,54 +895,6 @@ void renderSplashScreen()  // renders the splash screen
             }
             k++;
         }
-    }
-    else {
-        for (int i = 0; i < 80; i++) {
-            for (int j = 0; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0xAA);
-            }
-        }
-        int k = 0;
-        //top left
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 5; i++) {
-                if (i < 8 - j) {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, " ", 0x4A);
-                }
-            }
-        }
-        //bottom left
-        for (int i = 0; i < 5; i++) {
-            for (int j = 17 + i; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x4A);
-            }
-        }
-        //top right
-        for (int i = 75; i < 80; i++) {
-            for (int j = 0; j < 4 + k; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x4A);
-            }
-            k++;
-        }
-        //bottom right
-        k = 0;
-        for (int i = 75; i < 80; i++) {
-            for (int j = 21 - k; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x4A);
-            }
-            k++;
-        }
-    }
     //top middle
     createtopmiddle(9);
     createtopmiddle(16);
@@ -861,33 +915,11 @@ void renderSplashScreen()  // renders the splash screen
     createbottommiddle(51);
     createbottommiddle(58);
     createbottommiddle(65);
-    c.X = 33;
+    c.X = 28;
     c.Y = g_Console.getConsoleSize().Y / 2;
-    //loading bar
-    g_Console.writeToBuffer(c, "Loading....", 0x03);
-    //random text at bottom
-    if (level1 == false) {
-        if (randomNO ==0) {
-            c.X = 27;
-            c.Y++;
-            g_Console.writeToBuffer(c, "Imma firin my....water");
-        }
-        else if (randomNO == 1) {
-            c.X = 21;
-            c.Y++;
-            g_Console.writeToBuffer(c, "Spacebar to shoot,arrow keys to move");
-        }
-        else if (randomNO == 2) {
-            c.X = 8;
-            c.Y++;
-            g_Console.writeToBuffer(c, "Did you know?Phlogistion is created by four braindead Students? ");
-        }
-        else if (randomNO == 3) {
-            c.X = 31;
-            c.Y++;
-            g_Console.writeToBuffer(c, "Welcome to hell!");
-        }
-    }
+    //Text
+    g_Console.writeToBuffer(c, "Enter the gates of hell", 0x03);
+   
 }
 
 void renderGame()
