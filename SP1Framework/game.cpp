@@ -12,6 +12,7 @@
 #include <Windows.h>
 #include "mmsystem.h"
 #include "Bullet.h"
+#include "firehydrant.h"
 using namespace std;
 
 double  g_dElapsedTime;
@@ -390,6 +391,15 @@ void MakesBullet()
         }
     }
 }
+
+void HydrantPosition(firehydrant* hydrantposonmap)
+{
+    for (int i = 0; i < 2; i++)
+    {
+        hydrantposonmap[i].firehydrant::firehydrant();
+    }
+}
+
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
