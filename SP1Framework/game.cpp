@@ -8,13 +8,10 @@
 #include <sstream>
 #include<stdio.h> 
 #include "player.h"
-<<<<<<< HEAD
 #include "LevelMap.h"
 using namespace std;
-=======
 #include <Windows.h>
 #include "mmsystem.h"
->>>>>>> ae03b55b9d16f26d055e0e7058637abf79f5381e
 #include "Bullet.h"
 #include <stdlib.h>
 using namespace std;
