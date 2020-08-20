@@ -7,10 +7,14 @@
 #include <iomanip>
 #include <sstream>
 #include<stdio.h> 
-#include "Map.h"
 #include "player.h"
+<<<<<<< HEAD
+#include "LevelMap.h"
+using namespace std;
+=======
 #include <Windows.h>
 #include "mmsystem.h"
+>>>>>>> ae03b55b9d16f26d055e0e7058637abf79f5381e
 #include "Bullet.h"
 #include <stdlib.h>
 using namespace std;
@@ -950,65 +954,67 @@ void renderMap()
     // 0x3D Light Blue
     // 0xFF White
     COORD c;
-    
-    
+    LevelMap Level1;
     // Checking for Symbol
-    for (int i = 0; i < 80; i++)
-    {
-        for (int j = 0; j < 25; j++)
+    
+       
+        for (int i = 0; i < 80; i++)
         {
-            // Black -> '*' -> Walls
-            if (MapArray[i][j] == '*')
+            for (int j = 0; j < 25; j++)
             {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[5]);
-            }
-            // Gray -> '@'
-            if (MapArray[i][j] == '@')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[8]);
-            }
-            // White -> '#'
-            if (MapArray[i][j] == '#')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[7]);
-            }
-            // Green -> '&'
-            if (MapArray[i][j] == '&')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, "   ", colors[10]);
+                // Black -> '*' -> Walls
+                if (MapArray[i][j] == 'x')
+                {
+                    c.X = i;
+                    c.Y = j;
+                    g_Console.writeToBuffer(c, "  ", colors[5]);
+                }
+                // Gray -> '@'
+                if (MapArray[i][j] == '.')
+                {
+                    c.X = i;
+                    c.Y = j;
+                    g_Console.writeToBuffer(c, "  ", colors[8]);
+                }
+                // White -> '#'
+                if (MapArray[i][j] == '#')
+                {
+                    c.X = i;
+                    c.Y = j;
+                    g_Console.writeToBuffer(c, "  ", colors[7]);
+                }
+                // Green -> '&'
+                if (MapArray[i][j] == '&')
+                {
+                    c.X = i;
+                    c.Y = j;
+                    g_Console.writeToBuffer(c, "   ", colors[10]);
+                }
             }
         }
-    }
+    
     for (int i = 0; i < 80; i++)
     {
         if (i < 17 || i > 28 && i < 51 || i > 63 && i < 79)
         {
-            MapArray[i][4] = '*';
-            MapArray[i][10] = '*';
-            MapArray[i][14] = '*';
-            MapArray[i][20] = '*';
+            MapArray[i][4] = 'x';
+            MapArray[i][10] = 'x';
+            MapArray[i][14] = 'x';
+            MapArray[i][20] = 'x';
         }
         if (i < 5 || i > 9 && i < 15 || i > 19 && i < 25)
         {
-            MapArray[15][i] = '*';
-            MapArray[29][i] = '*';
-            MapArray[50][i] = '*';
-            MapArray[64][i] = '*';
+            MapArray[15][i] = 'x';
+            MapArray[29][i] = 'x';
+            MapArray[50][i] = 'x';
+            MapArray[64][i] = 'x';
         }
         // Gray colour oF ROAD
         for (int i = 17; i < 28; i++)
         {
             for (int j = 0; j < 25; j++)
             {
-                MapArray[i][j] = '@';
+                MapArray[i][j] = '.';
             }
         }
         for (int i = 52; i < 63; i++)
@@ -1016,7 +1022,7 @@ void renderMap()
 
             for (int j = 0; j < 25; j++)
             {
-                MapArray[i][j] = '@';
+                MapArray[i][j] = '.';
             }
         }
         for (int i = 0; i < 79; i++)
@@ -1024,7 +1030,7 @@ void renderMap()
 
             for (int j = 5; j < 10; j++)
             {
-                MapArray[i][j] = '@';
+                MapArray[i][j] = '.';
             }
         }
         for (int i = 0; i < 79; i++)
@@ -1032,7 +1038,7 @@ void renderMap()
 
             for (int j = 15; j < 20; j++)
             {
-                MapArray[i][j] = '@';
+                MapArray[i][j] = '.';
             }
         }
         // White colour of road
