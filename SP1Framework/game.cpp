@@ -9,6 +9,7 @@
 #include<stdio.h> 
 #include "player.h"
 #include "LevelMap.h"
+#include "GlobalVar.h"
 using namespace std;
 #include <Windows.h>
 #include "mmsystem.h"
@@ -26,6 +27,7 @@ bool soundcheck = false;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
+int level;
 bool Tutorial = false;
 bool level1 = false;
 bool level2 = false;
@@ -744,6 +746,7 @@ void gameplayMouseHandler(const MOUSE_EVENT_RECORD& mouseEvent)
 void LoadingScreenWait2(int g,int time) {
     if (g_dElapsedTime > time + g) {
         loading = false;
+        //put all my in and outs here for xl
     }
 }
 //--------------------------------------------------------------
@@ -774,6 +777,15 @@ void update(double dt)
         case S_GAME: 
             if (loading == true) {
                 LoadingScreenWait2(k,5);//number represents how long the loading screen time is depending on how long 
+                for (int i = 0; i < 20; i++) {
+                    lvlmanager[i] = nullptr;
+                }
+
+                for (int i = 0; i < 20; i++) {
+                    //lvlmanager[i] = lvl_array[level][i];
+                    //int level;
+                }
+
                 //the entities and stuff load
             }
             else {
@@ -1197,6 +1209,7 @@ void renderGame()
     }
     CheckAndUpdate();
     renderCharacter();  // renders the character into the buffer
+    renderInputEvents();
 }
 
 
@@ -1268,6 +1281,7 @@ void renderInputEvents()
     // mouse events    
     ss.str("");
     ss << "Mouse position (" << g_mouseEvent.mousePosition.X << ", " << g_mouseEvent.mousePosition.Y << ")";
+    g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y, ss.str(), 0x5A);
    // g_Console.writeToBuffer(g_mouseEvent.mousePosition, ss.str(), 0x59);
     ss.str("");
     switch (g_mouseEvent.eventFlags)
