@@ -11,6 +11,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="GlobalVar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -23,9 +24,9 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="GlobalVar.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Level1.txt" />
-    <Text Include="Level2.txt" />
   </ItemGroup>
 </Project>

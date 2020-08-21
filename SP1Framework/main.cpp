@@ -2,7 +2,8 @@
 
 #include "Framework\timer.h"
 #include "game.h"
-
+#include "GlobalVar.h"
+#include <Windows.h>
 
 
 CStopWatch g_Timer;                            // Timer function to keep track of time and the frame rate
@@ -12,6 +13,7 @@ const unsigned int gc_uFrameTime = 1000 / gc_ucFPS;    // time for each frame
 
 //main loop declaration
 void mainLoop( void );
+void destroy_all(void);
 
 // TODO:
 // Bug in waitUntil. it waits for the time from getElapsedTime to waitUntil, but should be insignificant.
@@ -36,6 +38,8 @@ int main( void )
 //--------------------------------------------------------------
 void mainLoop( void )
 {
+    atexit(destroy_all);
+
     g_Timer.startTimer();    // Start timer to calculate how long it takes to render this frame
     while (!g_bQuitGame)      // run this loop until user wants to quit 
     {        
@@ -45,3 +49,21 @@ void mainLoop( void )
         g_Timer.waitUntil(gc_uFrameTime);   // Frame rate limiter. Limits each frame to a specified time in ms.     
     }    
 } 
+
+void destroy_all(void) //destroys everything when the program close
+{
+    for (int i = 0; i < 5; i++) 
+    {
+        if (lvl_array[i] == nullptr) 
+        {
+            continue;
+        }
+        for (int n = 0; n < 20; n++) 
+        {
+            if (lvl_array[i][n] != nullptr) 
+            {
+                delete lvl_array[i][n];
+            }
+        }
+    }
+}

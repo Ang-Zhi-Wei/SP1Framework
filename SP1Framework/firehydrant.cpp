@@ -1,11 +1,11 @@
 
-/*
 #include "firehydrant.h"
+int firehydrant::total_no_of_hydrant = 0;
 
-firehydrant::firehydrant()
+firehydrant::firehydrant(int x, int y)
 {
-	position.X = 10;
-	position.Y = 10;
+	position.X = x;
+	position.Y = y;
 
 }
 
@@ -22,5 +22,9 @@ int firehydrant::GetTotalHydrant()
 {
 	return total_no_of_hydrant;
 }
-*/
+
+COORD firehydrant::get_coord(void) {
+	return position;
+}
+
 

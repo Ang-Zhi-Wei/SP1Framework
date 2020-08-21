@@ -1,5 +1,5 @@
 
-/*#pragma once
+#pragma once
 #include "Entities.h"
 #include <Windows.h>
 
@@ -11,8 +11,10 @@ protected:
 	COORD position;
 public:
 
-	firehydrant();
+	firehydrant(int x = 10, int y = 10);
 	~firehydrant();
+
+	COORD get_coord(void);
 
 	static void SetTotalHydrant(int SetTotalHr);
 	static int GetTotalHydrant();
@@ -21,4 +23,4 @@ public:
 
 	
 };
-*/
+
