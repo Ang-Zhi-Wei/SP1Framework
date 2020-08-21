@@ -23,7 +23,7 @@ int k = 0;
 int randomNO=0;
 char MapArray[80][25];
 bool startingscreen = true;
-bool soundcheck = false;
+bool soundcheck = true;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
@@ -101,16 +101,16 @@ void StartingGamescreen(void) {
     //Phlogiston
     C.X = 20;
     C.Y = 10;
-    g_Console.writeToBuffer(C, "Phlogiston", 0xA1);
+    g_Console.writeToBuffer(C, "Phlogiston", 0x4A);
     //Story Mode
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Story Mode", 0xA1);
+    g_Console.writeToBuffer(C, "Story Mode", 0x8B);
     //Credits
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Credits", 0xA1);
+    g_Console.writeToBuffer(C, "Credits", 0x8B);
     //Exit
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Exit", 0xA1);
+    g_Console.writeToBuffer(C, "Exit", 0x8B);
 }
 void createbottommiddle(int g) {
     COORD c;
@@ -162,6 +162,7 @@ void createtopmiddle(int g) {
     }
 }
 void loadingscreen(void) {
+    PlaySound(NULL, 0, 0);
     srand(time(NULL));
     COORD c;
     if (randomtext == true) {
@@ -421,6 +422,7 @@ void pauseEvents(void) {
             Levelselect = true;
             paused = false;
             Tutorial = false;
+            soundcheck = true;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
             paused = false;
@@ -516,14 +518,14 @@ void pausemenu(void) {
         for (int j = 6; j < 9; j++) {
             C.X = i;
             C.Y = j;
-            g_Console.writeToBuffer(C, " ");
+            g_Console.writeToBuffer(C, " ",0xBB);
         }
     }
     for (int i = 53; i < 65; i++) {
         for (int j = 14; j < 17; j++) {
             C.X = i;
             C.Y = j;
-            g_Console.writeToBuffer(C, " ");
+            g_Console.writeToBuffer(C, " ",0xBB);
         }
     }
     //Back to level select
@@ -1126,7 +1128,8 @@ void render()
         }
         else if (Levelselect == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+               PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+               soundcheck = false;
             }
             levelselect();
             levelEvents();
@@ -1137,6 +1140,7 @@ void render()
         else if (startingscreen == true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+                soundcheck = false;
             }
             StartingGamescreen();
             StartingEvents();
@@ -1337,7 +1341,7 @@ void renderInputEvents()
     // mouse events    
     ss.str("");
     ss << "Mouse position (" << g_mouseEvent.mousePosition.X << ", " << g_mouseEvent.mousePosition.Y << ")";
-    g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y, ss.str(), 0x5A);
+   // g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y, ss.str(), 0x5A);
    // g_Console.writeToBuffer(g_mouseEvent.mousePosition, ss.str(), 0x59);
     ss.str("");
     switch (g_mouseEvent.eventFlags)
