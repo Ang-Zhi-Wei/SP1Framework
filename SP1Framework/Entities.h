@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
+#include "Position.h"
 using namespace std;
-class Entity
+class Entity : public Position
 {
 protected:
 	string name;
-	int x, y, health, dmg;
+	int health, dmg;
 
 public:
 	Entity();
