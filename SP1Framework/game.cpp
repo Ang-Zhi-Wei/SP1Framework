@@ -10,6 +10,7 @@
 #include "player.h"
 #include "LevelMap.h"
 #include "GlobalVar.h"
+using namespace std;
 #include <Windows.h>
 #include "mmsystem.h"
 #include "Bullet.h"
@@ -44,7 +45,14 @@ Console g_Console(80, 25, "SP1 Framework");
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
 
-
+void randomdots(int g, int k) {
+    COORD C;
+    for (int i = g; i < g + 2; i++) {
+        C.X = i;
+        C.Y = k;
+        g_Console.writeToBuffer(C, " ", 0x4A);
+    }
+}
 player play(&g_sChar);
 void StartingEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
@@ -67,6 +75,26 @@ void StartingGamescreen(void) {
             g_Console.writeToBuffer(C, " ", 0x3A);
         }
     }
+    //dots
+    randomdots(2, 2);
+    randomdots(3, 17);
+    randomdots(17, 22);
+    randomdots(75, 18);
+    randomdots(43, 7);
+    randomdots(50, 21);
+    randomdots(17, 0);
+    randomdots(4, 14);
+    randomdots(64, 16);
+    randomdots(72, 3);
+    randomdots(67, 5);
+    //border
+    for (int i = 18; i < 32; i++) {
+        for (int j = 9; j < 18; j++) {
+            C.X = i;
+            C.Y = j;
+            g_Console.writeToBuffer(C, " ", 0xBB);
+        }
+    }
     //Phlogiston
     C.X = 20;
     C.Y = 10;
@@ -76,7 +104,7 @@ void StartingGamescreen(void) {
     g_Console.writeToBuffer(C, "Story Mode", 0xA1);
     //Credits
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Credits",0xA1);
+    g_Console.writeToBuffer(C, "Credits", 0xA1);
     //Exit
     C.Y += 2;
     g_Console.writeToBuffer(C, "Exit", 0xA1);
