@@ -3,11 +3,13 @@
 class LevelMap
 {
 private:
-	char MapArray[80][25]{};
+	const unsigned int HEIGHT = 25;
+	const unsigned int WIDTH = 80;
+	char MapArray[25][80];
 public:
 	 LevelMap();
 	 void Load(void);
-	 char Get2DArray(int i , int j);
-	 
+	 char LevelArray[80][25];
+	 void TransferArray(void);
 };
 
