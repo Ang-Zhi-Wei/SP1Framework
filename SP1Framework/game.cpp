@@ -10,7 +10,6 @@
 #include "player.h"
 #include "LevelMap.h"
 #include "GlobalVar.h"
-using namespace std;
 #include <Windows.h>
 #include "mmsystem.h"
 #include "Bullet.h"
