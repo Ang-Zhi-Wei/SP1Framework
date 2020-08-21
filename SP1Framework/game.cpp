@@ -246,9 +246,9 @@ void loadingscreen(void) {
         g_Console.writeToBuffer(c, "Spacebar to shoot,arrow keys to move");
     }
     else if (randomNO == 2) {
-        c.X = 8;
+        c.X = 9;
         c.Y++;
-        g_Console.writeToBuffer(c, "Did you know?Phlogistion is created by four braindead Students? ");
+        g_Console.writeToBuffer(c, "Did you know?Phlogiston is created by four braindead Students? ");
     }
     else if (randomNO == 3) {
         c.X = 31;
