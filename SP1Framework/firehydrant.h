@@ -1,5 +1,5 @@
-/*
-#pragma once
+
+/*#pragma once
 #include "Entities.h"
 #include <Windows.h>
 
@@ -22,4 +22,3 @@ public:
 	
 };
 */
-

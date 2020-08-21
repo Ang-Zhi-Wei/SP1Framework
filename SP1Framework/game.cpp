@@ -25,7 +25,14 @@ char MapArray[80][25];
 
 bool soundcheck = false;
 bool paused = false;
-bool level1 = true;
+bool Levelselect = false;
+bool loading = false;
+bool Tutorial = false;
+bool level1 = false;
+bool level2 = false;
+bool level3 = false;
+bool level4 = false;
+bool startingscreen = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -38,6 +45,41 @@ Console g_Console(80, 25, "SP1 Framework");
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
 player play(&g_sChar);
+void StartingEvents(void) {
+    if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 29 && g_mouseEvent.mousePosition.Y == 12) {
+            startingscreen = false;
+            Levelselect = true;
+        }
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 16) {
+            g_bQuitGame = true;
+        }
+    }
+}
+void StartingGamescreen(void) {
+    //entire screen blue
+    COORD C;
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 80; j++) {
+            C.X = i;
+            C.Y = j;
+            g_Console.writeToBuffer(C, " ", 0x3A);
+        }
+    }
+    //Phlogiston
+    C.X = 20;
+    C.Y = 10;
+    g_Console.writeToBuffer(C, "Phlogiston", 0xA1);
+    //Story Mode
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Story Mode", 0xA1);
+    //Credits
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Credits", 0xA1);
+    //Exit
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Exit", 0xA1);
+}
 void createbottommiddle(int g) {
     COORD c;
     int k = 2;
@@ -113,16 +155,17 @@ void Ammunition(void) {
 }
 void levelEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 10) {
-            g_bQuitGame = true;
+        if (g_mouseEvent.mousePosition.X >= 15 && g_mouseEvent.mousePosition.X <= 18 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            startingscreen = true;
         }
-        else if (g_mouseEvent.mousePosition.X >= 25 && g_mouseEvent.mousePosition.X <= 31 && g_mouseEvent.mousePosition.Y == 10) {
-            level1 = false;
-            checktime = true;
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
             soundcheck = true;
             randomtext = true;
+            loading = true;
+            Tutorial = true;
             k = g_dElapsedTime;
-            g_eGameState = S_SPLASHSCREEN;
         }
     }
 }
@@ -199,6 +242,7 @@ void levelselect(void) {
     g_Console.writeToBuffer(C, "Exit", 0x8B);
     //Level 1
     C.X += 5;
+    C.X += 9;
     g_Console.writeToBuffer(C, "Level 1", 0x8B);
     //Level 2
     C.X += 8;
@@ -684,7 +728,18 @@ void processUserInput()
         PlaySound(NULL, 0, 0);
     }
 }
+void renderLevel1() {
 
+}
+void renderLevel2() {
+
+}
+void renderLevel3() {
+
+}
+void renderLevel4() {
+
+}
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
 //            At this point, you should know exactly what to draw onto the screen.
@@ -698,7 +753,7 @@ void render()
     clearScreen();      // clears the current screen and draw from scratch 
     switch (g_eGameState)
     {
-    case S_SPLASHSCREEN: 
+    case S_SPLASHSCREEN:
         renderSplashScreen();
         break;
     case S_GAME:
@@ -706,11 +761,11 @@ void render()
             pausemenu();
             pauseEvents();
         }
-        else if (level1 == true) {
+        else if (Levelselect == true) {
             levelselect();
             levelEvents();
         }
-        else {
+        else if (Tutorial == true||level1==true||level2==true||level3==true|| level4==true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC|SND_LOOP);
                 soundcheck = false;
