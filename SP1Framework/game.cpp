@@ -21,6 +21,7 @@ bool checktime = false;
 bool randomtext = false;
 int k = 0;
 int randomNO=0;
+char MapArray[80][25];
 
 bool soundcheck = false;
 bool paused = false;
