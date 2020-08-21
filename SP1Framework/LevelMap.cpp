@@ -8,7 +8,7 @@ LevelMap::LevelMap()
 {
 }
 
-void LevelMap::Load(void)
+void LevelMap::LoadLevel1(void)
 {
     ifstream fin;
     fin.open("Level1.txt");

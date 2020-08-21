@@ -20,7 +20,6 @@ double  g_dDeltaTime;
 bool randomtext = false;
 int k = 0;
 int randomNO=0;
-char MapArray[80][25];
 bool startingscreen = true;
 bool soundcheck = false;
 bool paused = false;
@@ -875,6 +874,9 @@ void renderLevel1() {
 }
 void renderTutorial()
 {
+    LevelMap TutorialLevel;
+    TutorialLevel.LoadLevel1();
+    TutorialLevel.TransferArray();
     // Set up sample colours, and output shadings
     const char colors[] = {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x0F,0xF7, 0xFF,0x7C,0xA2,0xAA,
@@ -903,161 +905,32 @@ void renderTutorial()
         for (int j = 0; j < 25; j++)
         {
             // Black -> '*' -> Walls
-            if (MapArray[i][j] == 'x')
+            if (TutorialLevel.LevelArray[i][j] == 'x')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[5]);
+                g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (MapArray[i][j] == '.')
+            if (TutorialLevel.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[8]);
+                g_Console.writeToBuffer(c, " ", colors[8]);
             }
             // White -> '#'
-            if (MapArray[i][j] == '#')
+            if (TutorialLevel.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "  ", colors[7]);
+                g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (MapArray[i][j] == '&')
+            if (TutorialLevel.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "   ", colors[10]);
-            }
-        }
-    }
-
-    for (int i = 0; i < 80; i++)
-    {
-        if (i < 17 || i > 28 && i < 51 || i > 63 && i < 79)
-        {
-            MapArray[i][4] = 'x';
-            MapArray[i][10] = 'x';
-            MapArray[i][14] = 'x';
-            MapArray[i][20] = 'x';
-        }
-        if (i < 5 || i > 9 && i < 15 || i > 19 && i < 25)
-        {
-            MapArray[15][i] = 'x';
-            MapArray[29][i] = 'x';
-            MapArray[50][i] = 'x';
-            MapArray[64][i] = 'x';
-        }
-        // Gray colour oF ROAD
-        for (int i = 17; i < 28; i++)
-        {
-            for (int j = 0; j < 25; j++)
-            {
-                MapArray[i][j] = '.';
-            }
-        }
-        for (int i = 52; i < 63; i++)
-        {
-
-            for (int j = 0; j < 25; j++)
-            {
-                MapArray[i][j] = '.';
-            }
-        }
-        for (int i = 0; i < 79; i++)
-        {
-
-            for (int j = 5; j < 10; j++)
-            {
-                MapArray[i][j] = '.';
-            }
-        }
-        for (int i = 0; i < 79; i++)
-        {
-
-            for (int j = 15; j < 20; j++)
-            {
-                MapArray[i][j] = '.';
-            }
-        }
-        // White colour of road
-        for (int i = 0; i < 25; i++)
-        {
-            if (i > 0 && i < 4 || i > 5 && i < 9 || i > 10 && i < 14 || i > 15 && i < 19 || i > 20 && i < 24)
-            {
-                for (int j = 22; j < 24; j++)
-                {
-                    MapArray[j][i] = '#';
-                }
-                for (int j = 57; j < 59; j++)
-                {
-                    MapArray[j][i] = '#';
-                }
-            }
-        }
-
-
-        for (int i = 0; i < 80; i++)
-        {
-            if (i < 3 || i > 7 && i < 14 || i > 30 && i < 37 || i > 42 && i < 49 || i > 65 && i < 72 || i == 77 || i == 78)
-            {
-                MapArray[i][7] = '#';
-                MapArray[i][17] = '#';
-            }
-        }
-        // Green Colour
-        for (int i = 0; i < 14; i++)
-        {
-
-            for (int j = 21; j < 25; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-            for (int j = 11; j < 14; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-
-            for (int j = 0; j < 4; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-
-        }
-        for (int i = 31; i < 49; i++)
-        {
-
-            for (int j = 21; j < 25; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-            for (int j = 11; j < 14; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-
-            for (int j = 0; j < 4; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-
-        }
-        for (int i = 66; i < 78; i++)
-        {
-
-            for (int j = 21; j < 25; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-            for (int j = 11; j < 14; j++)
-            {
-                MapArray[i][j] = '&';
-            }
-
-            for (int j = 0; j < 4; j++)
-            {
-                MapArray[i][j] = '&';
+                g_Console.writeToBuffer(c, " ", colors[10]);
             }
         }
     }
