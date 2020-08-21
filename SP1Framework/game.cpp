@@ -31,6 +31,10 @@ bool level1 = false;
 bool level2 = false;
 bool level3 = false;
 bool level4 = false;
+bool level1status = false;
+bool level2status = false;
+bool level3status = false;
+bool level4status = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -382,16 +386,37 @@ void levelselect(void) {
     g_Console.writeToBuffer(C, "Tutorial", 0x8B);
     //Level 1
     C.X += 9;
-    g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    if (level1status==false){
+        g_Console.writeToBuffer(C, "       ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    }
+   
     //Level 2
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    if (level2status == false) {
+        g_Console.writeToBuffer(C, "       ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    }
     //Level 3
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    if (level3status == false) {
+        g_Console.writeToBuffer(C, "       ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    }
     //Level 4
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    if (level4status == false) {
+        g_Console.writeToBuffer(C, "       ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    }
 }
 void pauseEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
