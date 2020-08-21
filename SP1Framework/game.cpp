@@ -35,7 +35,10 @@ Console g_Console(80, 25, "SP1 Framework");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
+
+
 player play(&g_sChar);
+
 void createbottommiddle(int g) {
     COORD c;
     int k = 2;
@@ -86,7 +89,7 @@ void createtopmiddle(int g) {
     }
 }
 void Ammunition(void) {
-    COORD C;
+    COORD C;     
     //border
     for (int i = 0; i < 24; i++) {
         C.X = i;
@@ -392,13 +395,7 @@ void MakesBullet()
     }
 }
 
-void HydrantPosition(firehydrant* hydrantposonmap)
-{
-    for (int i = 0; i < 2; i++)
-    {
-        hydrantposonmap[i].firehydrant::firehydrant();
-    }
-}
+
 
 
 //--------------------------------------------------------------
@@ -1065,7 +1062,6 @@ void renderInputEvents()
 
             ss.str("Left Button Pressed");
            // g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y + 1, ss.str(), 0x59);
-            MakesBullet();
         }
         else if (g_mouseEvent.buttonState == RIGHTMOST_BUTTON_PRESSED)
         {
