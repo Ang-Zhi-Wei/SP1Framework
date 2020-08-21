@@ -21,11 +21,16 @@ bool randomtext = false;
 int k = 0;
 int randomNO=0;
 char MapArray[80][25];
-
+bool startingscreen = true;
 bool soundcheck = false;
 bool paused = false;
-bool Levelselect = true;
+bool Levelselect = false;
 bool loading = false;
+bool Tutorial = false;
+bool level1 = false;
+bool level2 = false;
+bool level3 = false;
+bool level4 = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -38,6 +43,41 @@ Console g_Console(80, 25, "SP1 Framework");
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
 player play(&g_sChar);
+void StartingEvents(void) {
+    if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 29 && g_mouseEvent.mousePosition.Y == 12) {
+            startingscreen = false;
+            Levelselect = true;
+        }
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 16) {
+            g_bQuitGame = true;
+        }
+    }
+}
+void StartingGamescreen(void) {
+    //entire screen blue
+    COORD C;
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 80; j++) {
+            C.X = i;
+            C.Y = j;
+            g_Console.writeToBuffer(C, " ", 0x3A);
+        }
+    }
+    //Phlogiston
+    C.X = 20;
+    C.Y = 10;
+    g_Console.writeToBuffer(C, "Phlogiston", 0xA1);
+    //Story Mode
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Story Mode", 0xA1);
+    //Credits
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Credits",0xA1);
+    //Exit
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Exit", 0xA1);
+}
 void createbottommiddle(int g) {
     COORD c;
     int k = 2;
@@ -220,14 +260,16 @@ void Ammunition(void) {
 }
 void levelEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 10) {
-            g_bQuitGame = true;
+        if (g_mouseEvent.mousePosition.X >= 15 && g_mouseEvent.mousePosition.X <= 18 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            startingscreen = true;
         }
-        else if (g_mouseEvent.mousePosition.X >= 25 && g_mouseEvent.mousePosition.X <= 31 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             soundcheck = true;
             randomtext = true;
             loading = true;
+            Tutorial = true;
             k = g_dElapsedTime;
         }
     }
@@ -243,17 +285,17 @@ void levelselect(void) {
         }
     }
     //background for buttons
-    for (int i = 18; i < 58; i++) {
+    for (int i = 13; i < 63; i++) {
         C.X = i;
         C.Y = 9;
         g_Console.writeToBuffer(C, " ", 0xBB);
     }
-    for (int i = 18; i < 58; i++) {
+    for (int i = 13; i < 63; i++) {
         C.X = i;
         C.Y = 10;
         g_Console.writeToBuffer(C, " ", 0xBB);
     }
-    for (int i = 18; i < 58; i++) {
+    for (int i = 13; i < 63; i++) {
         C.X = i;
         C.Y = 11;
         g_Console.writeToBuffer(C, " ", 0xBB);
@@ -299,12 +341,15 @@ void levelselect(void) {
         C.Y = 5;
         g_Console.writeToBuffer(C, " ", 0x3a);
     }
-    //Exit
-    C.X = 20;
+    //Back
+    C.X = 15;
     C.Y = 10;
-    g_Console.writeToBuffer(C, "Exit", 0x8B);
-    //Level 1
+    g_Console.writeToBuffer(C, "Back", 0x8B);
+    //Tutorial
     C.X += 5;
+    g_Console.writeToBuffer(C, "Tutorial", 0x8B);
+    //Level 1
+    C.X += 9;
     g_Console.writeToBuffer(C, "Level 1", 0x8B);
     //Level 2
     C.X += 8;
@@ -321,6 +366,7 @@ void pauseEvents(void) {
         if (g_mouseEvent.mousePosition.X >= 49 && g_mouseEvent.mousePosition.X <= 69 && g_mouseEvent.mousePosition.Y == 7) {
             Levelselect = true;
             paused = false;
+            Tutorial = false;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
             paused = false;
@@ -789,148 +835,19 @@ void processUserInput()
         PlaySound(NULL, 0, 0);
     }
 }
+void renderLevel4() {
 
-//--------------------------------------------------------------
-// Purpose  : Render function is to update the console screen
-//            At this point, you should know exactly what to draw onto the screen.
-//            Just draw it!
-//            To get an idea of the values for colours, look at console.h and the URL listed there
-// Input    : void
-// Output   : void
-//--------------------------------------------------------------
-void render()
-{
-    clearScreen();      // clears the current screen and draw from scratch 
-    switch (g_eGameState)
-    {
-    case S_SPLASHSCREEN: 
-        renderSplashScreen();
-        break;
-    case S_GAME:
-        if (paused == true) {
-            pausemenu();
-            pauseEvents();
-        }
-        else if (Levelselect == true) {
-            levelselect();
-            levelEvents();
-        }
-        else if (loading == true) {
-            loadingscreen();
-        }
-        else {
-            if (soundcheck == true) {
-                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC|SND_LOOP);
-                soundcheck = false;
-            }
-            renderGame();
-            Ammunition();
-            healthbar();
-            renderFramerate();      // renders debug information, frame rate, elapsed time, etc
-            renderInputEvents();    // renders status of input events
-        }
-        break;
-    }
-    
-    renderToScreen();       // dump the contents of the buffer to the screen, one frame worth of game
 }
+void renderLevel3() {
 
-void clearScreen()
-{
-    // Clears the buffer with this colour attribute
-    g_Console.clearBuffer(0x1F);
 }
+void renderLevel2() {
 
-void renderToScreen()
-{
-    // Writes the buffer to the console, hence you will see what you have written
-    g_Console.flushBufferToConsole();
 }
+void renderLevel1() {
 
-void renderSplashScreen()  // renders the splash screen
-{
-    COORD c;
-        //turns entire screen gray
-        for (int i = 0; i < 80; i++) {
-            for (int j = 0; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x7A);
-            }
-        }
-        int k = 0;
-        //top left
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 5; i++) {
-                if (i < 8 - j) {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, " ", 0x5A);
-                }
-            }
-        }
-        //bottom left
-        for (int i = 0; i < 5; i++) {
-            for (int j = 17 + i; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x5A);
-            }
-        }
-        //top right
-        for (int i = 75; i < 80; i++) {
-            for (int j = 0; j < 4 + k; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x5A);
-            }
-            k++;
-        }
-        //bottom right
-        k = 0;
-        for (int i = 75; i < 80; i++) {
-            for (int j = 21 - k; j < 25; j++) {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x5A);
-            }
-            k++;
-        }
-    //top middle
-    createtopmiddle(9);
-    createtopmiddle(16);
-    createtopmiddle(23);
-    createtopmiddle(30);
-    createtopmiddle(37);
-    createtopmiddle(44);
-    createtopmiddle(51);
-    createtopmiddle(58);
-    createtopmiddle(65);
-    //bottom middle
-    createbottommiddle(8);
-    createbottommiddle(16);
-    createbottommiddle(23);
-    createbottommiddle(30);
-    createbottommiddle(37);
-    createbottommiddle(44);
-    createbottommiddle(51);
-    createbottommiddle(58);
-    createbottommiddle(65);
-    c.X = 28;
-    c.Y = g_Console.getConsoleSize().Y / 2;
-    //Text
-    g_Console.writeToBuffer(c, "Enter the gates of hell", 0x03);
-   
 }
-
-void renderGame()
-{
-    renderMap();// renders the map to the buffer first
-    CheckAndUpdate();
-    renderCharacter();  // renders the character into the buffer
-}
-
-void renderMap()
+void renderTutorial()
 {
     // Set up sample colours, and output shadings
     const char colors[] = {
@@ -953,43 +870,43 @@ void renderMap()
     COORD c;
     LevelMap Level1;
     // Checking for Symbol
-    
-       
-        for (int i = 0; i < 80; i++)
+
+
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
         {
-            for (int j = 0; j < 25; j++)
+            // Black -> '*' -> Walls
+            if (MapArray[i][j] == 'x')
             {
-                // Black -> '*' -> Walls
-                if (MapArray[i][j] == 'x')
-                {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, "  ", colors[5]);
-                }
-                // Gray -> '@'
-                if (MapArray[i][j] == '.')
-                {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, "  ", colors[8]);
-                }
-                // White -> '#'
-                if (MapArray[i][j] == '#')
-                {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, "  ", colors[7]);
-                }
-                // Green -> '&'
-                if (MapArray[i][j] == '&')
-                {
-                    c.X = i;
-                    c.Y = j;
-                    g_Console.writeToBuffer(c, "   ", colors[10]);
-                }
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "  ", colors[5]);
+            }
+            // Gray -> '@'
+            if (MapArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "  ", colors[8]);
+            }
+            // White -> '#'
+            if (MapArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "  ", colors[7]);
+            }
+            // Green -> '&'
+            if (MapArray[i][j] == '&')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "   ", colors[10]);
             }
         }
-    
+    }
+
     for (int i = 0; i < 80; i++)
     {
         if (i < 17 || i > 28 && i < 51 || i > 63 && i < 79)
@@ -1119,6 +1036,165 @@ void renderMap()
         }
     }
 }
+//--------------------------------------------------------------
+// Purpose  : Render function is to update the console screen
+//            At this point, you should know exactly what to draw onto the screen.
+//            Just draw it!
+//            To get an idea of the values for colours, look at console.h and the URL listed there
+// Input    : void
+// Output   : void
+//--------------------------------------------------------------
+void render()
+{
+    clearScreen();      // clears the current screen and draw from scratch 
+    switch (g_eGameState)
+    {
+    case S_SPLASHSCREEN: 
+        renderSplashScreen();
+        break;
+    case S_GAME:
+        if (paused == true) {
+            pausemenu();
+            pauseEvents();
+        }
+        else if (Levelselect == true) {
+            levelselect();
+            levelEvents();
+        }
+        else if (loading == true) {
+            loadingscreen();
+        }
+        else if (startingscreen == true) {
+            StartingGamescreen();
+            StartingEvents();
+        }
+        else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4==true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC|SND_LOOP);
+                soundcheck = false;
+            }
+            renderGame();
+            Ammunition();
+            healthbar();
+            renderFramerate();      // renders debug information, frame rate, elapsed time, etc
+            renderInputEvents();    // renders status of input events
+        }
+        break;
+    }
+    
+    renderToScreen();       // dump the contents of the buffer to the screen, one frame worth of game
+}
+
+void clearScreen()
+{
+    // Clears the buffer with this colour attribute
+    g_Console.clearBuffer(0x1F);
+}
+
+void renderToScreen()
+{
+    // Writes the buffer to the console, hence you will see what you have written
+    g_Console.flushBufferToConsole();
+}
+
+void renderSplashScreen()  // renders the splash screen
+{
+    COORD c;
+        //turns entire screen gray
+        for (int i = 0; i < 80; i++) {
+            for (int j = 0; j < 25; j++) {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x7A);
+            }
+        }
+        int k = 0;
+        //top left
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 5; i++) {
+                if (i < 8 - j) {
+                    c.X = i;
+                    c.Y = j;
+                    g_Console.writeToBuffer(c, " ", 0x5A);
+                }
+            }
+        }
+        //bottom left
+        for (int i = 0; i < 5; i++) {
+            for (int j = 17 + i; j < 25; j++) {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x5A);
+            }
+        }
+        //top right
+        for (int i = 75; i < 80; i++) {
+            for (int j = 0; j < 4 + k; j++) {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x5A);
+            }
+            k++;
+        }
+        //bottom right
+        k = 0;
+        for (int i = 75; i < 80; i++) {
+            for (int j = 21 - k; j < 25; j++) {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x5A);
+            }
+            k++;
+        }
+    //top middle
+    createtopmiddle(9);
+    createtopmiddle(16);
+    createtopmiddle(23);
+    createtopmiddle(30);
+    createtopmiddle(37);
+    createtopmiddle(44);
+    createtopmiddle(51);
+    createtopmiddle(58);
+    createtopmiddle(65);
+    //bottom middle
+    createbottommiddle(8);
+    createbottommiddle(16);
+    createbottommiddle(23);
+    createbottommiddle(30);
+    createbottommiddle(37);
+    createbottommiddle(44);
+    createbottommiddle(51);
+    createbottommiddle(58);
+    createbottommiddle(65);
+    c.X = 28;
+    c.Y = g_Console.getConsoleSize().Y / 2;
+    //Text
+    g_Console.writeToBuffer(c, "Enter the gates of hell", 0x03);
+   
+}
+
+void renderGame()
+{
+    if (Tutorial == true) {
+        renderTutorial();// renders the map to the buffer first
+    }
+    else if (level1 == true) {
+        renderLevel1();
+    }
+    else if (level2 == true) {
+        renderLevel2();
+    }
+    else if (level3 == true) {
+        renderLevel3();
+    }
+    else if (level4 == true) {
+        renderLevel4();
+    }
+    CheckAndUpdate();
+    renderCharacter();  // renders the character into the buffer
+}
+
+
 void renderCharacter()
 {
     // Draw the location of the character
