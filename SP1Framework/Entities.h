@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <Windows.h>
 using namespace std;
 class Entity
 {
@@ -11,9 +10,8 @@ protected:
 public:
 	Entity();
 	~Entity();
-	Entity(int health, int dmg);
+	Entity(int x, int y);
 
 	string Getname();
-	virtual COORD get_coord(void);
 };
 
