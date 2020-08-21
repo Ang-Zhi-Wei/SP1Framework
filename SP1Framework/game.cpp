@@ -8,10 +8,13 @@
 #include <sstream>
 #include<stdio.h> 
 #include "player.h"
+<<<<<<< HEAD
 #include "LevelMap.h"
 using namespace std;
+=======
 #include <Windows.h>
 #include "mmsystem.h"
+>>>>>>> ae03b55b9d16f26d055e0e7058637abf79f5381e
 #include "Bullet.h"
 #include <stdlib.h>
 using namespace std;
@@ -920,51 +923,49 @@ void renderMap()
     // 0xFF White
     COORD c;
     LevelMap Level1;
-    Level1.Load();
-    Level1.TransferArray();
-    
-
     // Checking for Symbol
+    
+       
         for (int i = 0; i < 80; i++)
         {
             for (int j = 0; j < 25; j++)
             {
                 // Black -> '*' -> Walls
-                if (Level1.LevelArray[i][j] == 'x')
+                if (MapArray[i][j] == 'x')
                 {
                     c.X = i;
                     c.Y = j;
-                    g_Console.writeToBuffer(c, " ", colors[5]);
+                    g_Console.writeToBuffer(c, "  ", colors[5]);
                 }
                 // Gray -> '@'
-                if (Level1.LevelArray[i][j] == '.')
+                if (MapArray[i][j] == '.')
                 {
                     c.X = i;
                     c.Y = j;
-                    g_Console.writeToBuffer(c, " ", colors[8]);
+                    g_Console.writeToBuffer(c, "  ", colors[8]);
                 }
                 // White -> '#'
-                if (Level1.LevelArray[i][j] == 'p')
+                if (MapArray[i][j] == '#')
                 {
                     c.X = i;
                     c.Y = j;
-                    g_Console.writeToBuffer(c, " ", colors[7]);
+                    g_Console.writeToBuffer(c, "  ", colors[7]);
                 }
                 // Green -> '&'
-                if (Level1.LevelArray[i][j] == '*')
+                if (MapArray[i][j] == '&')
                 {
                     c.X = i;
                     c.Y = j;
-                    g_Console.writeToBuffer(c, " ", colors[10]);
+                    g_Console.writeToBuffer(c, "   ", colors[10]);
                 }
             }
         }
-/*    
+    
     for (int i = 0; i < 80; i++)
     {
         if (i < 17 || i > 28 && i < 51 || i > 63 && i < 79)
         {
-            MapArray[i][4] =  'x';
+            MapArray[i][4] = 'x';
             MapArray[i][10] = 'x';
             MapArray[i][14] = 'x';
             MapArray[i][20] = 'x';
@@ -1088,7 +1089,6 @@ void renderMap()
             }
         }
     }
-    */
 }
 void renderCharacter()
 {

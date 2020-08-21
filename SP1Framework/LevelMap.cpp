@@ -10,35 +10,34 @@ LevelMap::LevelMap()
 
 void LevelMap::Load(void)
 {
-
-    ifstream fin;
-    fin.open("Level1.txt");
-    string line;
-
-    //let's assume here the proper size of input Map
-    for (unsigned int i = 0; i < HEIGHT; i++)
-    {
-        getline(fin, line);
-        for (unsigned int j = 0; j < WIDTH; j++)
-        {
-            MapArray[i][j] = line[j];
-        }
-    }
-
-    //let's assume here the proper size of input Map
-}
-
-void LevelMap::TransferArray(void)
-{
-	for (int i = 0; i < 80; i++)
+	char character;
+	string Length;
+	int x = 0;
+	int row = 0;
+	int col = 0;
+	std::string str = " ";
+	ifstream Level1;
+	Level1.open("Level1.txt");
+	if (!Level1)
 	{
-		for (int j = 0; j < 25; j++)
+		cerr << "Unable to open file";
+		exit(1); // terminate with error
+	}
+	for (int i = 0; i < 80; ++i)
+	{
+		for (int j = 0; j < 25; ++j)
 		{
-			LevelArray[i][j] = (char)MapArray[j][i];
+			Level1 >> MapArray[i][j];
 		}
 	}
 }
 
+char LevelMap::Get2DArray(int i , int j)
+{
+	return MapArray[i][j];
+	i += 1;
+	j += 1;
+}
 
 
 

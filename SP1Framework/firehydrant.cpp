@@ -1,4 +1,3 @@
-/*
 #include "firehydrant.h"
 #include "Framework/console.h"
 #include "game.h"
@@ -25,6 +24,5 @@ int firehydrant::GetTotalHydrant()
 {
 	return total_no_of_hydrant;
 }
-*/
 
 
