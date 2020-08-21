@@ -27,12 +27,16 @@ bool soundcheck = false;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
-int level = -1;
+int level;
 bool Tutorial = false;
 bool level1 = false;
 bool level2 = false;
 bool level3 = false;
 bool level4 = false;
+bool level1status = false;
+bool level2status = false;
+bool level3status = false;
+bool level4status = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -43,7 +47,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 Console g_Console(80, 25, "SP1 Framework");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
-
+player play(&g_sChar);
 
 void randomdots(int g, int k) {
     COORD C;
@@ -53,7 +57,6 @@ void randomdots(int g, int k) {
         g_Console.writeToBuffer(C, " ", 0x4A);
     }
 }
-player play(&g_sChar);
 void StartingEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 29 && g_mouseEvent.mousePosition.Y == 12) {
@@ -246,9 +249,9 @@ void loadingscreen(void) {
         g_Console.writeToBuffer(c, "Spacebar to shoot,arrow keys to move");
     }
     else if (randomNO == 2) {
-        c.X = 8;
+        c.X = 7;
         c.Y++;
-        g_Console.writeToBuffer(c, "Did you know?Phlogistion is created by four braindead Students? ");
+        g_Console.writeToBuffer(c, "Did you know?Phlogiston is created by four braindead Students? ");
     }
     else if (randomNO == 3) {
         c.X = 31;
@@ -301,7 +304,6 @@ void levelEvents(void) {
             randomtext = true;
             loading = true;
             Tutorial = true;
-            level = 0;
             k = g_dElapsedTime;
         }
     }
@@ -382,16 +384,36 @@ void levelselect(void) {
     g_Console.writeToBuffer(C, "Tutorial", 0x8B);
     //Level 1
     C.X += 9;
-    g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    if (level1status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    }
     //Level 2
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    if (level2status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    }
     //Level 3
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    if (level3status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    }
     //Level 4
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    if (level4status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    }
 }
 void pauseEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
@@ -808,11 +830,9 @@ void update(double dt)
                 for (int i = 0; i < 20; i++) {
                     lvlmanager[i] = nullptr;
                 }
-                if (level < 0) {
-                    break;
-                }
+
                 for (int i = 0; i < 20; i++) {
-                    lvlmanager[i] = lvl_array[level][i];
+                    //lvlmanager[i] = lvl_array[level][i];
                     //int level;
                 }
 
@@ -892,14 +912,7 @@ void renderLevel2() {
 
 }
 void renderLevel1() {
-    for (int i = 0; i < 20; i++) {
-        if (lvlmanager[i] != nullptr) {
-            COORD obj_curr = lvlmanager[i]->get_coord();
 
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
-        }
-
-    }
 }
 void renderTutorial()
 {
@@ -1089,15 +1102,6 @@ void renderTutorial()
             }
         }
     }
-
-    for (int i = 0; i < 20; i++) {
-        if (lvlmanager[i] != nullptr) {
-            COORD obj_curr = lvlmanager[i]->get_coord();
-
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
-        }
-
-    }
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -1121,6 +1125,9 @@ void render()
             pauseEvents();
         }
         else if (Levelselect == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+            }
             levelselect();
             levelEvents();
         }
@@ -1128,6 +1135,9 @@ void render()
             loadingscreen();
         }
         else if (startingscreen == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+            }
             StartingGamescreen();
             StartingEvents();
         }
@@ -1240,25 +1250,19 @@ void renderGame()
 {
     if (Tutorial == true) {
         renderTutorial();// renders the map to the buffer first
-
     }
     else if (level1 == true) {
         renderLevel1();
-
     }
     else if (level2 == true) {
         renderLevel2();
-
     }
     else if (level3 == true) {
         renderLevel3();
-
     }
     else if (level4 == true) {
         renderLevel4();
-
     }
-
     CheckAndUpdate();
     renderCharacter();  // renders the character into the buffer
     renderInputEvents();
