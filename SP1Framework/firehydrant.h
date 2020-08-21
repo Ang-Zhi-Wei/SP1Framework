@@ -10,7 +10,7 @@ protected:
 	COORD position;
 public:
 
-	firehydrant();
+	firehydrant(int x = 10, int y = 10);
 	~firehydrant();
 
 	static void SetTotalHydrant(int SetTotalHr);

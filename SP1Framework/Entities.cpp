@@ -9,7 +9,7 @@ Entity::~Entity()
 {
 }
 
-Entity::Entity(int x, int y)
+Entity::Entity(int health, int dmg)
 {
 }
 
