@@ -27,7 +27,7 @@ bool soundcheck = false;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
-int level;
+int level = -1;
 bool Tutorial = false;
 bool level1 = false;
 bool level2 = false;
@@ -301,6 +301,7 @@ void levelEvents(void) {
             randomtext = true;
             loading = true;
             Tutorial = true;
+            level = 0;
             k = g_dElapsedTime;
         }
     }
@@ -807,9 +808,11 @@ void update(double dt)
                 for (int i = 0; i < 20; i++) {
                     lvlmanager[i] = nullptr;
                 }
-
+                if (level < 0) {
+                    break;
+                }
                 for (int i = 0; i < 20; i++) {
-                    //lvlmanager[i] = lvl_array[level][i];
+                    lvlmanager[i] = lvl_array[level][i];
                     //int level;
                 }
 
@@ -889,7 +892,14 @@ void renderLevel2() {
 
 }
 void renderLevel1() {
+    for (int i = 0; i < 20; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
 
+            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
+        }
+
+    }
 }
 void renderTutorial()
 {
@@ -1079,6 +1089,15 @@ void renderTutorial()
             }
         }
     }
+
+    for (int i = 0; i < 20; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+
+            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
+        }
+
+    }
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -1221,19 +1240,25 @@ void renderGame()
 {
     if (Tutorial == true) {
         renderTutorial();// renders the map to the buffer first
+
     }
     else if (level1 == true) {
         renderLevel1();
+
     }
     else if (level2 == true) {
         renderLevel2();
+
     }
     else if (level3 == true) {
         renderLevel3();
+
     }
     else if (level4 == true) {
         renderLevel4();
+
     }
+
     CheckAndUpdate();
     renderCharacter();  // renders the character into the buffer
     renderInputEvents();
