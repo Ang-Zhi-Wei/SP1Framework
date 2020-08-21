@@ -934,6 +934,7 @@ void renderGame()
     renderMap();// renders the map to the buffer first
     CheckAndUpdate();
     renderCharacter();  // renders the character into the buffer
+    renderInputEvents();
 }
 
 void renderMap()
