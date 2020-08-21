@@ -13,7 +13,7 @@ using namespace std;
 #include <Windows.h>
 #include "mmsystem.h"
 #include "Bullet.h"
-#include <stdlib.h>
+#include "firehydrant.h"
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -41,6 +41,8 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 Console g_Console(80, 25, "SP1 Framework");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
+
+
 
 player play(&g_sChar);
 void randomdots(int g,int k) {
@@ -264,7 +266,7 @@ void credits(void) {
 
 }
 void Ammunition(void) {
-    COORD C;
+    COORD C;     
     //border
     for (int i = 0; i < 24; i++) {
         C.X = i;
@@ -602,6 +604,9 @@ void MakesBullet()
         }
     }
 }
+
+
+
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -1312,7 +1317,6 @@ void renderInputEvents()
 
             ss.str("Left Button Pressed");
            // g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y + 1, ss.str(), 0x59);
-            MakesBullet();
         }
         else if (g_mouseEvent.buttonState == RIGHTMOST_BUTTON_PRESSED)
         {
