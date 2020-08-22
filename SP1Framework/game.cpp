@@ -272,26 +272,22 @@ void credits(void) {
 void Ammunition(void) {
     COORD C;     
     //border
-    for (int i = 0; i < 24; i++) {
-        C.X = i;
-        C.Y = 4;
-        g_Console.writeToBuffer(C, " ", 0x9A);
+    if (g_skKeyEvent[K_SPACE].keyDown) {
+        if (g_sChar.m_cLocation.Y == 0) {
+            C.Y = g_sChar.m_cLocation.Y + 1;
+        }
+        else {
+            C.Y = g_sChar.m_cLocation.Y - 1;
+        }
+        if (g_sChar.m_cLocation.X >= 68) {
+            C.X = 68;
+        }
+        else {
+            C.X = g_sChar.m_cLocation.X;
+        }
+        g_Console.writeToBuffer(C, "Ammo:255/255", 0x1A);
     }
-    for (int i = 0; i < 2; i++) {
-        C.X = i;
-        C.Y = 3;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 22; i < 24; i++) {
-        C.X = i;
-        C.Y = 3;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 2; i < 22; i++) {
-        C.X = i;
-        C.Y = 3;
-        g_Console.writeToBuffer(C, " ", 0x5A);
-    }
+
 }
 void levelEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
@@ -1021,7 +1017,7 @@ void render()
         }
         else if (Levelselect == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             levelselect();
