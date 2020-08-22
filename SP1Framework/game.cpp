@@ -21,7 +21,7 @@ bool randomtext = false;
 int k = 0;
 int randomNO=0;
 bool startingscreen = true;
-bool soundcheck = false;
+bool soundcheck = true;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
@@ -31,6 +31,10 @@ bool level1 = false;
 bool level2 = false;
 bool level3 = false;
 bool level4 = false;
+bool level1status = false;
+bool level2status = false;
+bool level3status = false;
+bool level4status = false;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -45,6 +49,14 @@ Bullet* Amount_ofbullet[256] = { nullptr,};
 
 
 player play(&g_sChar);
+void randomdots(int g, int k) {
+    COORD C;
+    for (int i = g; i < g + 2; i++) {
+        C.X = i;
+        C.Y = k;
+        g_Console.writeToBuffer(C, " ", 0x4A);
+    }
+}
 void StartingEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 29 && g_mouseEvent.mousePosition.Y == 12) {
@@ -66,19 +78,39 @@ void StartingGamescreen(void) {
             g_Console.writeToBuffer(C, " ", 0x3A);
         }
     }
+    //dots
+    randomdots(2, 2);
+    randomdots(3, 17);
+    randomdots(17, 22);
+    randomdots(75, 18);
+    randomdots(43, 7);
+    randomdots(50, 21);
+    randomdots(17, 0);
+    randomdots(4, 14);
+    randomdots(64, 16);
+    randomdots(72, 3);
+    randomdots(67, 5);
+    //border
+    for (int i = 18; i < 32; i++) {
+        for (int j = 9; j < 18; j++) {
+            C.X = i;
+            C.Y = j;
+            g_Console.writeToBuffer(C, " ", 0xBB);
+        }
+    }
     //Phlogiston
     C.X = 20;
     C.Y = 10;
-    g_Console.writeToBuffer(C, "Phlogiston", 0xA1);
+    g_Console.writeToBuffer(C, "Phlogiston", 0x4A);
     //Story Mode
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Story Mode", 0xA1);
+    g_Console.writeToBuffer(C, "Story Mode", 0x8B);
     //Credits
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Credits",0xA1);
+    g_Console.writeToBuffer(C, "Credits", 0x8B);
     //Exit
     C.Y += 2;
-    g_Console.writeToBuffer(C, "Exit", 0xA1);
+    g_Console.writeToBuffer(C, "Exit", 0x8B);
 }
 void createbottommiddle(int g) {
     COORD c;
@@ -130,6 +162,7 @@ void createtopmiddle(int g) {
     }
 }
 void loadingscreen(void) {
+    PlaySound(NULL, 0, 0);
     srand(time(NULL));
     COORD c;
     if (randomtext == true) {
@@ -217,9 +250,9 @@ void loadingscreen(void) {
         g_Console.writeToBuffer(c, "Spacebar to shoot,arrow keys to move");
     }
     else if (randomNO == 2) {
-        c.X = 8;
+        c.X = 7;
         c.Y++;
-        g_Console.writeToBuffer(c, "Did you know?Phlogistion is created by four braindead Students? ");
+        g_Console.writeToBuffer(c, "Did you know?Phlogiston is created by four braindead Students? ");
     }
     else if (randomNO == 3) {
         c.X = 31;
@@ -353,16 +386,36 @@ void levelselect(void) {
     g_Console.writeToBuffer(C, "Tutorial", 0x8B);
     //Level 1
     C.X += 9;
-    g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    if (level1status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 1", 0x8B);
+    }
     //Level 2
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    if (level2status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 2", 0x8B);
+    }
     //Level 3
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    if (level3status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 3", 0x8B);
+    }
     //Level 4
     C.X += 8;
-    g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    if (level4status == false) {
+        g_Console.writeToBuffer(C, "      ", 0x8B);
+    }
+    else {
+        g_Console.writeToBuffer(C, "Level 4", 0x8B);
+    }
 }
 void pauseEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
@@ -370,6 +423,7 @@ void pauseEvents(void) {
             Levelselect = true;
             paused = false;
             Tutorial = false;
+            soundcheck = true;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
             paused = false;
@@ -465,14 +519,14 @@ void pausemenu(void) {
         for (int j = 6; j < 9; j++) {
             C.X = i;
             C.Y = j;
-            g_Console.writeToBuffer(C, " ");
+            g_Console.writeToBuffer(C, " ", 0xBB);
         }
     }
     for (int i = 53; i < 65; i++) {
         for (int j = 14; j < 17; j++) {
             C.X = i;
             C.Y = j;
-            g_Console.writeToBuffer(C, " ");
+            g_Console.writeToBuffer(C, " ", 0xBB);
         }
     }
     //Back to level select
@@ -487,7 +541,7 @@ void pausemenu(void) {
     createtopmiddle(38);
     //bottom middle
     createbottommiddle(38);
-    
+
 
 }
 void healthbar(void) {
@@ -957,7 +1011,7 @@ void render()
     clearScreen();      // clears the current screen and draw from scratch 
     switch (g_eGameState)
     {
-    case S_SPLASHSCREEN: 
+    case S_SPLASHSCREEN:
         renderSplashScreen();
         break;
     case S_GAME:
@@ -966,6 +1020,10 @@ void render()
             pauseEvents();
         }
         else if (Levelselect == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC || SND_LOOP);
+                soundcheck = false;
+            }
             levelselect();
             levelEvents();
         }
@@ -973,12 +1031,16 @@ void render()
             loadingscreen();
         }
         else if (startingscreen == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
+                soundcheck = false;
+            }
             StartingGamescreen();
             StartingEvents();
         }
-        else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4==true) {
+        else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC|SND_LOOP);
+                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             renderGame();
@@ -989,7 +1051,7 @@ void render()
         }
         break;
     }
-    
+
     renderToScreen();       // dump the contents of the buffer to the screen, one frame worth of game
 }
 
