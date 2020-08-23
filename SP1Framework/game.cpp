@@ -90,7 +90,7 @@ void creditbackselect() {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
             startingscreen = true;
             Credits = false;
-            increaseY = 0;
+            increaseY = -1;
         }
     }
 }
