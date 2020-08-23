@@ -25,6 +25,7 @@ bool soundcheck = true;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
+bool Credits = false;
 int level = -1;
 bool Tutorial = false;
 bool level1 = false;
@@ -35,6 +36,10 @@ bool level1status = false;
 bool level2status = false;
 bool level3status = false;
 bool level4status = false;
+bool dadstatus = false;
+bool momstatus = false;
+int Text =  0;
+int increaseY = 0;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -49,6 +54,46 @@ Bullet* Amount_ofbullet[256] = { nullptr,};
 
 
 player play(&g_sChar);
+bool credittimer(int currenttime,float interval) {
+    if (g_dElapsedTime >= currenttime + interval) {
+        return true;
+    }
+}
+void creditMovement(string text,int startingy,int xposition){
+    if (Text == 0) {
+        k = g_dElapsedTime;
+    }
+    COORD C;
+    if (credittimer(k,1) == true) {
+        increaseY++;
+        Text=-1;
+    }
+    C.X = xposition;
+    C.Y = startingy+increaseY;
+    if (C.Y >= 0 && C.Y <= 25) {
+        g_Console.writeToBuffer(C, text, 0x1A);
+    }
+    if (Text == 2) {
+        Text--;
+    }
+    Text++;
+}
+void credittext() {
+    creditMovement("Luke Ng", -8,37);
+    creditMovement("Teo Jian Yong", -6,34);
+    creditMovement("Lee Xie Loong",-4,34);
+    creditMovement("Ang Zhi Wei", -2,35);
+    creditMovement("Done By", 0,37);
+}
+void creditbackselect() {
+    if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+        if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
+            startingscreen = true;
+            Credits = false;
+            increaseY = 0;
+        }
+    }
+}
 void randomdots(int g, int k) {
     COORD C;
     for (int i = g; i < g + 2; i++) {
@@ -65,6 +110,10 @@ void StartingEvents(void) {
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 16) {
             g_bQuitGame = true;
+        }
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 26 && g_mouseEvent.mousePosition.Y == 14) {
+            startingscreen = false;
+            Credits = true;
         }
     }
 }
@@ -267,7 +316,34 @@ void victoryscreen(void) {
 
 }
 void credits(void) {
-
+    COORD C;
+    //turn entire border red
+    for (int i = 0; i < 80; i++) {
+        for (int j = 0; j < 25; j++) {
+            C.X = i;
+            C.Y = j;
+            g_Console.writeToBuffer(C, " ", 0x4A);
+        }
+    }
+    //pillars
+    for (int i = 0; i < 25; i++) {
+        C.X = 20;
+        C.Y = i;
+        g_Console.writeToBuffer(C, " ", 0x5A);
+    }
+    for (int i = 0; i < 25; i++) {
+        C.X = 60;
+        C.Y = i;
+        g_Console.writeToBuffer(C, " ", 0x5A);
+    }
+    createbottommiddle(18);
+    createbottommiddle(58);
+    createtopmiddle(18);
+    createtopmiddle(58);
+    //back
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Back", 0x8B);
 }
 void Ammunition(void) {
     COORD C;     
@@ -903,7 +979,10 @@ void processUserInput()
         PlaySound(NULL, 0, 0);
     }
 }
-void renderLevel4() {
+void renderdadlevel() {
+
+}
+void rendermomlevel() {
 
 }
 void renderLevel3() {
@@ -1025,6 +1104,11 @@ void render()
         }
         else if (loading == true) {
             loadingscreen();
+        }
+        else if (Credits == true) {
+            credits();
+            creditbackselect();
+            credittext();
         }
         else if (startingscreen == true) {
             if (soundcheck == true) {
@@ -1158,7 +1242,12 @@ void renderGame()
 
     }
     else if (level4 == true) {
-        renderLevel4();
+        if (momstatus == true) {
+            rendermomlevel();
+        }
+        else if (dadstatus == true) {
+            renderdadlevel();
+        }
 
     }
 
