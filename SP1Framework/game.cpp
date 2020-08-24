@@ -40,6 +40,7 @@ bool dadstatus = false;
 bool momstatus = false;
 int Text =  0;
 int increaseY = 0;
+int Ammo = 50;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -346,23 +347,19 @@ void credits(void) {
     g_Console.writeToBuffer(C, "Back", 0x8B);
 }
 void Ammunition(void) {
-    COORD C;     
+    COORD C;    
+    string Display = to_string(Ammo);
+
     //border
+    C.X = 0;
+    C.Y = 24;
+        
+    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
     if (g_skKeyEvent[K_SPACE].keyDown) {
-        if (g_sChar.m_cLocation.Y == 0) {
-            C.Y = g_sChar.m_cLocation.Y + 1;
-        }
-        else {
-            C.Y = g_sChar.m_cLocation.Y - 1;
-        }
-        if (g_sChar.m_cLocation.X >= 68) {
-            C.X = 68;
-        }
-        else {
-            C.X = g_sChar.m_cLocation.X;
-        }
-        g_Console.writeToBuffer(C, "Ammo:255/255", 0x1A);
+        if (Ammo > 0)
+            Ammo -= 1;
     }
+        
 
 }
 void levelEvents(void) {
@@ -966,7 +963,11 @@ void moveCharacter()
     if (g_skKeyEvent[K_SPACE].keyDown)
     {
         /*g_sChar.m_bActive = !g_sChar.m_bActive;*/
-        MakesBullet();
+        if ((Ammo != 0) || (Ammo > 0))
+        {
+            MakesBullet();
+            Ammunition();
+        }
     }
 
    
