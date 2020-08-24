@@ -3,6 +3,7 @@
 #include "Framework\timer.h"
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
+
 // struct to store keyboard events
 // a small subset of KEY_EVENT_RECORD
 struct SKeyEvent
@@ -29,6 +30,7 @@ enum EKEYS
     K_RIGHT,
     K_ESCAPE,
     K_SPACE,
+    K_R,
     K_COUNT
 };
 
@@ -46,7 +48,8 @@ struct SGameChar
     COORD m_cLocation;
     bool  m_bActive;
 };
-
+extern SGameChar g_sChar;
+extern SKeyEvent g_skKeyEvent[K_COUNT];
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
 void update      ( double dt ); // update the game and the state of the game
