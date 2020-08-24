@@ -38,8 +38,15 @@ bool level3status = false;
 bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
+bool Storytutorial = false;
 int Text =  0;
 int increaseY = 0;
+int increaseX = 0;
+int storyincreaseY[100] = { 0, };
+int storyincreaseX[100] = { 0, };
+int StoryText[100] = { 0, };
+int storytime[100] = { 0, };
+int Ammo = 50;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -54,6 +61,249 @@ Bullet* Amount_ofbullet[256] = { nullptr,};
 
 
 player play(&g_sChar);
+bool storytimer(float time,float interval) {
+    if (g_dElapsedTime >= time + interval) {
+        return true;
+    }
+}
+void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,string text,string direction,int no,float speed,string type) {
+    if (StoryText[no] == 0) {
+        storytime[no] = g_dElapsedTime;
+    }
+    COORD C;
+    if (storytimer(storytime[no], speed) == true) {
+        if (direction == "LEFT") {
+            storyincreaseX[no]-=1;
+        }
+        else if (direction == "RIGHT") {
+            storyincreaseX[no]++;
+        }
+        else if (direction == "UP") {
+            storyincreaseY[no] -= 1;
+        }
+        else if (direction == "DOWN") {
+            storyincreaseY[no]++;
+        }
+        StoryText[no] = -1;
+    }
+    C.X = startingx + storyincreaseX[no];
+    C.Y = startingy + storyincreaseY[no];
+    if (endingx == NULL) {
+        if (C.Y >= startingy && C.Y <= endingy &&direction=="DOWN") {
+            if (text != "EMPTY") {
+                g_Console.writeToBuffer(C, text, 0x8B);
+            }
+            else if (type == "ACTOR") {
+                g_Console.writeToBuffer(C, char(1), 0x1A);
+            }
+        }
+        else if (C.Y <= startingy && C.Y >= endingy && direction == "UP") {
+            if (text != "EMPTY") {
+                g_Console.writeToBuffer(C, text, 0x8B);
+            }
+            else if (type == "ACTOR") {
+                g_Console.writeToBuffer(C, char(1), 0x1A);
+            }
+        }
+    }
+    else if (endingy == NULL) {
+        if (C.X >= startingx && C.X <= endingx && direction=="RIGHT") {
+            if (text != "EMPTY") {
+                g_Console.writeToBuffer(C, text, 0x8B);
+            }
+            else if (type == "ACTOR") {
+                g_Console.writeToBuffer(C, char(1), 0x1A);
+            }
+        }
+        else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
+            if (text != "EMPTY") {
+                g_Console.writeToBuffer(C, text, 0x8B);
+            }
+            else if (type == "ACTOR") {
+                g_Console.writeToBuffer(C, char(1), 0x1A);
+            }
+        }
+    }
+    if (StoryText[no] == 2) {
+        StoryText[no]--;
+    }
+    StoryText[no]++;
+}
+void storytutorialskip(void) {
+    if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+        if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
+            Tutorial = true;
+            Storytutorial = false;
+            soundcheck = true;
+            for (int i = 0; i < 100; i++) {
+                storyincreaseX[i] = -1;
+                storyincreaseY[i] = -1;
+            }
+        }
+    }
+}
+void storytutorial(void) {
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "skip", 0x8B);
+    //Actor
+    if (storytimer(k, 0) == true) {
+        //mainpeople
+        actorandtextmovement(20, 7, NULL, 17, "EMPTY", "DOWN", 0, 2.0, "ACTOR");
+        actorandtextmovement(19, 8, NULL, 18, "EMPTY", "DOWN", 1, 2.0, "ACTOR");
+        actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "ACTOR");
+        //randompeople
+        actorandtextmovement(79, 6, 0, NULL, "EMPTY", "LEFT", 3, 1.0, "ACTOR");
+    }
+    if (storytimer(k, 6.0) == true) {
+        actorandtextmovement(25, 10, NULL, 13, "Player:There's only one person here...","DOWN",4,2.0,"EMPTY");
+    }
+    if (storytimer(k, 12.0) == true) {
+        actorandtextmovement(25, 13, NULL, 17, "Dad:Of Course,it's a ghost town we're exploring", "DOWN", 5, 2.0, "EMPTY");
+    }
+    if (storytimer(k, 22.0) == true) {
+        actorandtextmovement(20, 17, 66, NULL, "EMPTY", "RIGHT", 6, 2.0, "ACTOR");
+        actorandtextmovement(19, 18, 65, NULL, "EMPTY", "RIGHT", 7, 2.0, "ACTOR");
+        actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "ACTOR");
+    }
+    if (storytimer(k, 22.0) == true) {
+        if (storytimer(k, 28.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:Why are we even here?",0x8B);
+        }
+    }
+    if (storytimer(k, 28.0) == true) {
+        if (storytimer(k, 36.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Mum:Can't you be a little bit energetic?", 0x8B);
+        }
+    }
+    if (storytimer(k, 36.0) == true) {
+        if (storytimer(k, 42.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Mum:We haven't been going out for days", 0x8B);
+        }
+    }
+    if (storytimer(k, 42.0) == true) {
+        if (storytimer(k, 48.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Mum:This should be have been exciting for us!", 0x8B);
+        }
+    }
+    if (storytimer(k, 48.0) == true) {
+        if (storytimer(k, 56.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:And when are you going to get a job?", 0x8B);
+        }
+    }
+    if (storytimer(k, 56.0) == true) {
+        if (storytimer(k, 62.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:You've been lazying around this year...", 0x8B);
+        }
+    }
+    if (storytimer(k, 62.0) == true) {
+        if (storytimer(k, 68.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:Watching whatever vtuber things you've been saying", 0x8B);
+        }
+    }
+    if (storytimer(k, 68.0) == true) {
+        if (storytimer(k, 72.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:...", 0x8B);
+        }
+    }
+    if (storytimer(k, 72.0) == true) {
+        if (storytimer(k, 78.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:I will get a job just give me some more time", 0x8B);
+        }
+    }
+    if (storytimer(k, 78.0) == true) {
+        if (storytimer(k, 84.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:And don't forget what happened last time", 0x8B);
+        }
+    }
+    if (storytimer(k, 84.0) == true) {
+        if (storytimer(k, 90.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:Oh right....that time....", 0x8B);
+        }
+    }
+    if (storytimer(k, 90.0) == true) {
+        if (storytimer(k, 96.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:That Accident....", 0x8B);
+        }
+    }
+    if (storytimer(k, 96.0) == true) {
+        if (storytimer(k, 102.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:You quit your firefighting job becaue of that", 0x8B);
+        }
+    }
+    if (storytimer(k, 102.0) == true) {
+        if (storytimer(k, 108.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Dad:I should have disowned you back then", 0x8B);
+        }
+    }
+    if (storytimer(k, 108.0) == true) {
+        if (storytimer(k, 116.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:It wasn't like that!Back then was-", 0x8B);
+        }
+    }
+    if (storytimer(k, 116.0) == true) {
+        if (storytimer(k, 122.0) != true) {
+            C.X = 65;
+            C.Y = 0;
+            g_Console.writeToBuffer(C, "BOOM!!", 0x1B);
+        }
+        
+        //mom
+        C.X = 65;
+        C.Y = 18;
+        g_Console.writeToBuffer(C, char(1), 0x1A);
+        //dad
+        C.X = 66;
+        C.Y = 17;
+        g_Console.writeToBuffer(C, char(1), 0x1A);
+        //player
+        C.X = 67;
+        C.Y = 18;
+        g_Console.writeToBuffer(C, char(1), 0x1A);
+    }
+    if (storytimer(k, 122.0) == true) {
+        if (storytimer(k, 128.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Player:Whats happening", 0x8B);
+        }
+    }
+    if (storytimer(k, 128.0) == true) {
+        actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 9, 0.5, "ACTOR");
+    }
+}
 bool credittimer(int currenttime,float interval) {
     if (g_dElapsedTime >= currenttime + interval) {
         return true;
@@ -346,23 +596,21 @@ void credits(void) {
     g_Console.writeToBuffer(C, "Back", 0x8B);
 }
 void Ammunition(void) {
-    COORD C;     
+    COORD C;
+    string Display;
+
     //border
+    C.X = 0;
+    C.Y = 24;
+
     if (g_skKeyEvent[K_SPACE].keyDown) {
-        if (g_sChar.m_cLocation.Y == 0) {
-            C.Y = g_sChar.m_cLocation.Y + 1;
+        if (Ammo > 0) {
+            Ammo--;
         }
-        else {
-            C.Y = g_sChar.m_cLocation.Y - 1;
-        }
-        if (g_sChar.m_cLocation.X >= 68) {
-            C.X = 68;
-        }
-        else {
-            C.X = g_sChar.m_cLocation.X;
-        }
-        g_Console.writeToBuffer(C, "Ammo:255/255", 0x1A);
+  
     }
+    Display = to_string(Ammo);
+    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
 
 }
 void levelEvents(void) {
@@ -373,10 +621,9 @@ void levelEvents(void) {
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
-            soundcheck = true;
+            Storytutorial = true;
             randomtext = true;
             loading = true;
-            Tutorial = true;
             level = 0;
             k = g_dElapsedTime;
         }
@@ -871,6 +1118,7 @@ void gameplayMouseHandler(const MOUSE_EVENT_RECORD& mouseEvent)
 void LoadingScreenWait2(int g,int time) {
     if (g_dElapsedTime > time + g) {
         loading = false;
+        k = g_dElapsedTime;
         //put all my in and outs here for xl
     }
 }
@@ -967,7 +1215,10 @@ void moveCharacter()
     if (g_skKeyEvent[K_SPACE].keyDown)
     {
         /*g_sChar.m_bActive = !g_sChar.m_bActive;*/
-        MakesBullet();
+        if ((Ammo != 0) || (Ammo > 0))
+        {
+            MakesBullet();
+        }
     }
 
 
@@ -1111,6 +1362,11 @@ void render()
             credits();
             creditbackselect();
             credittext();
+        }
+        else if (Storytutorial == true) {
+            renderTutorial();
+            storytutorial();
+            storytutorialskip();
         }
         else if (startingscreen == true) {
             if (soundcheck == true) {
