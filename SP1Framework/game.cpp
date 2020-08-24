@@ -150,8 +150,10 @@ void storytutorialskip(void) {
             Storytutorial = false;
             soundcheck = true;
             for (int i = 0; i < 100; i++) {
-                storyincreaseX[i] = -1;
-                storyincreaseY[i] = -1;
+                storyincreaseX[i] = 0;
+                storyincreaseY[i] = 0;
+                storytime[i] = 0;
+                StoryText[i] = 0;
             }
         }
     }
@@ -161,7 +163,7 @@ void storytutorial(void) {
     //skip button
     C.X = 76;
     C.Y = 0;
-    g_Console.writeToBuffer(C, "skip", 0x8B);
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
     //Actor
     if (storytimer(float(k), 0) == true) {
         //mainpeople
@@ -295,7 +297,7 @@ void storytutorial(void) {
         }
         
         //mom
-        if (storytimer(k, 151.0) != true) {
+        if (storytimer(k, 148.0) != true) {
             C.X = 65;
             C.Y = 18;
             g_Console.writeToBuffer(C, char(1), 0x1A);
@@ -324,7 +326,7 @@ void storytutorial(void) {
         actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 11, 0.5, "ENEMY");
         actorandtextmovement(65, 5, 0, NULL, "GET BACK HERE!!!", "LEFT", 12, 0.5, "EMPTY");
     }
-    if (storytimer(k, 140.0) == true) {
+    if (storytimer(k, 138.0) == true) {
         if (storytimer(k, 146.0) != true) {
             C.X = 25;
             C.Y = 21;
@@ -334,7 +336,7 @@ void storytutorial(void) {
     if (storytimer(k, 146.0) == true) {
         actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ENEMY");
     }
-    if (storytimer(k, 151.0) == true) {
+    if (storytimer(k, 148.0) == true) {
         if (storytimer(k, 157.0) != true) {
             C.X = 0;
             C.Y = 17;
@@ -352,7 +354,7 @@ void storytutorial(void) {
     if (storytimer(k, 157.0) == true) {
         actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "ACTOR");
     }
-    if (storytimer(k, 160.0) == true) {
+    if (storytimer(k, 158.0) == true) {
         //enemies
         C.X = 36;
         C.Y = 16;
@@ -400,8 +402,10 @@ void storytutorial(void) {
         Storytutorial = false;
         soundcheck = true;
         for (int i = 0; i < 100; i++) {
-            storyincreaseX[i] = -1;
-            storyincreaseY[i] = -1;
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
         }
     }
 }
