@@ -28,9 +28,9 @@ void firehydrant::EVERYTHINGUPDATE()
 	if ((g_sChar.m_cLocation.X == position.X && g_sChar.m_cLocation.Y == position.Y))
 	{
 		g_Console.writeToBuffer(position.X + 1, position.Y + 1, "Press R to refill", 0x8B);
-		if (g_skKeyEvent[K_R].keyDown)
+		if (g_skKeyEvent[K_R].keyReleased)
 		{
-			
+			Ammo = 100;
 		}
 	}
 }

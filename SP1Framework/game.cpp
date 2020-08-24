@@ -46,7 +46,7 @@ int storyincreaseY[100] = { 0, };
 int storyincreaseX[100] = { 0, };
 int StoryText[100] = { 0, };
 int storytime[100] = { 0, };
-int Ammo = 50;
+int Ammo = 100;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -610,7 +610,7 @@ void Ammunition(void) {
   
     }
     Display = to_string(Ammo);
-    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
+    g_Console.writeToBuffer(C, Display + "/100", 0x1A);
 
 }
 void levelEvents(void) {
