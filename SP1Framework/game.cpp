@@ -916,7 +916,7 @@ void CheckAndUpdate()
         if (Amount_ofbullet[i] != nullptr)
         {
             Amount_ofbullet[i]->UpdateXandY(g_Console);
-            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)))
+            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) || Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] == 'x' || Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] == '*')
             {
                 delete Amount_ofbullet[i];
                 Amount_ofbullet[i] = nullptr;
