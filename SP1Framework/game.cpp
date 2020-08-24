@@ -933,6 +933,7 @@ void updateGame()       // gameplay logic
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
+
 }
 
 void moveCharacter()
@@ -1129,6 +1130,13 @@ void render()
             healthbar();
             renderFramerate();      // renders debug information, frame rate, elapsed time, etc
             renderInputEvents();    // renders status of input events
+            for (int i = 0; i < 20; i++)
+            {
+                if (lvlmanager[i] != nullptr)
+                {
+                    lvlmanager[i]->EVERYTHINGUPDATE();
+                }
+            }
         }
         break;
     }

@@ -3,7 +3,8 @@
 #include "Framework\timer.h"
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
-
+class Console;
+extern Console g_Console;
 // struct to store keyboard events
 // a small subset of KEY_EVENT_RECORD
 struct SKeyEvent

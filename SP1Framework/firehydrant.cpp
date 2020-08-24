@@ -23,18 +23,20 @@ int firehydrant::GetTotalHydrant()
 	return total_no_of_hydrant;
 }
 
-void firehydrant::updategame()
+void firehydrant::EVERYTHINGUPDATE()
 {
 	if ((g_sChar.m_cLocation.X == position.X && g_sChar.m_cLocation.Y == position.Y))
 	{
+		g_Console.writeToBuffer(position.X + 1, position.Y + 1, "Press R to refill", 0x8B);
 		if (g_skKeyEvent[K_R].keyDown)
 		{
-
+			
 		}
 	}
 }
 
-COORD firehydrant::get_coord(void) {
+COORD firehydrant::get_coord(void) 
+{
 	return position;
 }
 
