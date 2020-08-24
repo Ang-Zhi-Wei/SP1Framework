@@ -19,6 +19,7 @@ public:
 	static void SetTotalHydrant(int SetTotalHr);
 	static int GetTotalHydrant();
 
+	void updategame();
 
 
 	

@@ -1,4 +1,6 @@
 #include "Entities.h"
+#include "game.h"
+#include "firehydrant.h"
 
 Entity::Entity()
 {
@@ -24,4 +26,9 @@ COORD Entity::get_coord(void) {
 	c.X = x;
 	c.Y = y;
 	return c;
+}
+
+void Entity::updategame()
+{
+
 }
