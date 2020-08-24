@@ -666,7 +666,7 @@ void CheckAndUpdate()
         if (Amount_ofbullet[i] != nullptr)
         {
             Amount_ofbullet[i]->UpdateXandY(g_Console);
-            if ( (Amount_ofbullet[i]->x > 79) && (Amount_ofbullet[i]->x < 0) && (Amount_ofbullet[i]->y > 24) && (Amount_ofbullet[i]->y < 0) )
+            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) )
             {
                 delete Amount_ofbullet[i];
                 Amount_ofbullet[i] = nullptr;
@@ -700,7 +700,6 @@ void MakesBullet()
         }
     }
 }
-
 
 
 
@@ -838,6 +837,7 @@ void gameplayKBHandler(const KEY_EVENT_RECORD& keyboardEvent)
     case VK_RIGHT: key = K_RIGHT; break; 
     case VK_SPACE: key = K_SPACE; break;
     case VK_ESCAPE: key = K_ESCAPE; break; 
+    case 'R': key = K_R; break;
     }
     // a key pressed event would be one with bKeyDown == true
     // a key released event would be one with bKeyDown == false
@@ -968,6 +968,7 @@ void moveCharacter()
         /*g_sChar.m_bActive = !g_sChar.m_bActive;*/
         MakesBullet();
     }
+
 
    
 }
@@ -1308,6 +1309,8 @@ void renderInputEvents()
         case K_RIGHT: key = "RIGHT";
             break;
         case K_SPACE: key = "SPACE";
+            break;
+        case K_R: key = "RELOAD";
             break;
         default: continue;
         }
