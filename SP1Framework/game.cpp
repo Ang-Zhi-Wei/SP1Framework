@@ -47,6 +47,7 @@ int storyincreaseX[100] = { 0, };
 int StoryText[100] = { 0, };
 int storytime[100] = { 0, };
 int Ammo = 100;
+LevelMap Level;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -915,7 +916,7 @@ void CheckAndUpdate()
         if (Amount_ofbullet[i] != nullptr)
         {
             Amount_ofbullet[i]->UpdateXandY(g_Console);
-            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) )
+            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)))
             {
                 delete Amount_ofbullet[i];
                 Amount_ofbullet[i] = nullptr;
@@ -967,8 +968,8 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+    g_sChar.m_cLocation.X = 73;
+    g_sChar.m_cLocation.Y = 16;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -1183,34 +1184,38 @@ void updateGame()       // gameplay logic
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
-
 }
 
 void moveCharacter()
 {    
+
     // Updating the location of the character based on the key release
     // providing a beep sound whenver we shift the character
     if (g_skKeyEvent[K_UP].keyDown && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x')
         g_sChar.m_cLocation.Y--;
         play.SetDirection('U');
     }
     if (g_skKeyEvent[K_LEFT].keyDown && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X--;
         play.SetDirection('L');
     }
     if (g_skKeyEvent[K_DOWN].keyDown && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x')
         g_sChar.m_cLocation.Y++;   
         play.SetDirection('D');
     }
     if (g_skKeyEvent[K_RIGHT].keyDown && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X++;    
         play.SetDirection('R');
     }
@@ -1258,9 +1263,9 @@ void renderLevel1() {
 }
 void renderTutorial()
 {
-    LevelMap TutorialLevel;
-    TutorialLevel.LoadLevel1();
-    TutorialLevel.TransferArray();
+    
+    Level.LoadLevel1();
+    Level.TransferArray();
     // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
@@ -1289,28 +1294,28 @@ void renderTutorial()
         for (int j = 0; j < 25; j++)
         {
             // Black -> '*' -> Walls
-            if (TutorialLevel.LevelArray[i][j] == 'x')
+            if (Level.LevelArray[i][j] == 'x')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (TutorialLevel.LevelArray[i][j] == '.')
+            if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
             // White -> '#'
-            if (TutorialLevel.LevelArray[i][j] == '#')
+            if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (TutorialLevel.LevelArray[i][j] == '*')
+            if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
@@ -1388,13 +1393,6 @@ void render()
             healthbar();
             renderFramerate();      // renders debug information, frame rate, elapsed time, etc
             renderInputEvents();    // renders status of input events
-            for (int i = 0; i < 20; i++)
-            {
-                if (lvlmanager[i] != nullptr)
-                {
-                    lvlmanager[i]->EVERYTHINGUPDATE();
-                }
-            }
         }
         break;
     }
