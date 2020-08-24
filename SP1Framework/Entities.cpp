@@ -28,7 +28,7 @@ COORD Entity::get_coord(void) {
 	return c;
 }
 
-void Entity::updategame()
+void Entity::EVERYTHINGUPDATE()
 {
 
 }
