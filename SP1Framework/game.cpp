@@ -46,7 +46,8 @@ int storyincreaseY[100] = { 0, };
 int storyincreaseX[100] = { 0, };
 int StoryText[100] = { 0, };
 int storytime[100] = { 0, };
-int Ammo = 50;
+int Ammo = 100;
+LevelMap Level;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -61,17 +62,18 @@ Bullet* Amount_ofbullet[256] = { nullptr,};
 
 
 player play(&g_sChar);
-bool storytimer(double time,float interval) {
-    if (g_dElapsedTime >= time + interval) {
+bool storytimer(float time,float interval) {
+    if (int(g_dElapsedTime) >= unsigned long long (time) + unsigned long long (interval)) {
         return true;
     }
+    return false;
 }
 void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,string text,string direction,int no,float speed,string type) {
     if (StoryText[no] == 0) {
-        storytime[no] = g_dElapsedTime;
+        storytime[no] = int (g_dElapsedTime);
     }
     COORD C;
-    if (storytimer(storytime[no], speed) == true) {
+    if (storytimer(float(storytime[no]), speed) == true) {
         if (direction == "LEFT") {
             storyincreaseX[no]--;
         }
@@ -161,7 +163,7 @@ void storytutorial(void) {
     C.Y = 0;
     g_Console.writeToBuffer(C, "skip", 0x8B);
     //Actor
-    if (storytimer(k, 0) == true) {
+    if (storytimer(float(k), 0) == true) {
         //mainpeople
         actorandtextmovement(20, 7, NULL, 17, "EMPTY", "DOWN", 0, 2.0, "ACTOR");
         actorandtextmovement(19, 8, NULL, 18, "EMPTY", "DOWN", 1, 2.0, "ACTOR");
@@ -169,124 +171,124 @@ void storytutorial(void) {
         //randompeople
         actorandtextmovement(0, 6, 80, NULL, "EMPTY", "RIGHT", 3, 1.0, "ACTOR");
     }
-    if (storytimer(k, 6.0) == true) {
+    if (storytimer(float(k), 6.0) == true) {
         actorandtextmovement(25, 10, NULL, 13, "Player:There's only one person here...","DOWN",4,2.0,"EMPTY");
     }
-    if (storytimer(k, 12.0) == true) {
+    if (storytimer(float(k), 12.0) == true) {
         actorandtextmovement(25, 13, NULL, 17, "Dad:Of Course,it's a ghost town we're exploring", "DOWN", 5, 2.0, "EMPTY");
     }
-    if (storytimer(k, 22.0) == true) {
+    if (storytimer(float(k), 22.0) == true) {
         actorandtextmovement(20, 17, 66, NULL, "EMPTY", "RIGHT", 6, 2.0, "ACTOR");
         actorandtextmovement(19, 18, 65, NULL, "EMPTY", "RIGHT", 7, 2.0, "ACTOR");
         actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "ACTOR");
     }
-    if (storytimer(k, 22.0) == true) {
-        if (storytimer(k, 28.0) != true) {
+    if (storytimer(float(k), 22.0) == true) {
+        if (storytimer(float(k), 28.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Player:Why are we even here?",0x8B);
         }
     }
-    if (storytimer(k, 28.0) == true) {
-        if (storytimer(k, 36.0) != true) {
+    if (storytimer(float(k), 28.0) == true) {
+        if (storytimer(float(k), 36.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Mum:Can't you be a little bit energetic?", 0x8B);
         }
     }
-    if (storytimer(k, 36.0) == true) {
-        if (storytimer(k, 42.0) != true) {
+    if (storytimer(float(k), 36.0) == true) {
+        if (storytimer(float(k), 42.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Mum:We haven't been going out for days", 0x8B);
         }
     }
-    if (storytimer(k, 42.0) == true) {
-        if (storytimer(k, 48.0) != true) {
+    if (storytimer(float(k), 42.0) == true) {
+        if (storytimer(float(k), 48.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Mum:This should have been exciting for us!", 0x8B);
         }
     }
-    if (storytimer(k, 48.0) == true) {
-        if (storytimer(k, 56.0) != true) {
+    if (storytimer(float(k), 48.0) == true) {
+        if (storytimer(float(k), 56.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:And when are you going to get a job?", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: And when are you going to get a job?", 0x8B);
         }
     }
-    if (storytimer(k, 56.0) == true) {
-        if (storytimer(k, 62.0) != true) {
+    if (storytimer(float(k), 56.0) == true) {
+        if (storytimer(float(k), 62.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:You've been lazying around this year...", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: You've been lazying around this year...", 0x8B);
         }
     }
-    if (storytimer(k, 62.0) == true) {
-        if (storytimer(k, 68.0) != true) {
+    if (storytimer(float(k), 62.0) == true) {
+        if (storytimer(float(k), 68.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:Watching whatever vtuber things you've been saying", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: Watching whatever vtuber things you've been saying", 0x8B);
         }
     }
-    if (storytimer(k, 68.0) == true) {
-        if (storytimer(k, 72.0) != true) {
+    if (storytimer(float(k), 68.0) == true) {
+        if (storytimer(float(k), 72.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Player:...", 0x8B);
+            g_Console.writeToBuffer(C, "Player: ...", 0x8B);
         }
     }
-    if (storytimer(k, 72.0) == true) {
-        if (storytimer(k, 78.0) != true) {
+    if (storytimer(float(k), 72.0) == true) {
+        if (storytimer(float(k), 78.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Player:I will get a job just give me some more time", 0x8B);
+            g_Console.writeToBuffer(C, "Player: I will get a job just give me some more time.", 0x8B);
         }
     }
-    if (storytimer(k, 78.0) == true) {
-        if (storytimer(k, 84.0) != true) {
+    if (storytimer(float(k), 78.0) == true) {
+        if (storytimer(float(k), 84.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Player:And don't forget what happened last time", 0x8B);
+            g_Console.writeToBuffer(C, "Player: And don't forget what happened last time...", 0x8B);
         }
     }
-    if (storytimer(k, 84.0) == true) {
-        if (storytimer(k, 90.0) != true) {
+    if (storytimer(float(k), 84.0) == true) {
+        if (storytimer(float(k), 90.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:Oh right....that time....", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: Oh right...that time...", 0x8B);
         }
     }
-    if (storytimer(k, 90.0) == true) {
-        if (storytimer(k, 96.0) != true) {
+    if (storytimer(float(k), 90.0) == true) {
+        if (storytimer(float(k), 96.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:That Accident....", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: That Accident...", 0x8B);
         }
     }
-    if (storytimer(k, 96.0) == true) {
-        if (storytimer(k, 102.0) != true) {
+    if (storytimer(float(k), 96.0) == true) {
+        if (storytimer(float(k), 102.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Dad:You quit your firefighting job because of that", 0x8B);
         }
     }
-    if (storytimer(k, 102.0) == true) {
-        if (storytimer(k, 108.0) != true) {
+    if (storytimer(float(k), 102.0) == true) {
+        if (storytimer(float(k), 108.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad:I should have disowned you back then", 0x8B);
+            g_Console.writeToBuffer(C, "Dad: I should have disowned you back then...", 0x8B);
         }
     }
-    if (storytimer(k, 108.0) == true) {
-        if (storytimer(k, 116.0) != true) {
+    if (storytimer(float(k), 108.0) == true) {
+        if (storytimer(float(k), 116.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Player:It wasn't like that!Back then was-", 0x8B);
+            g_Console.writeToBuffer(C, "Player: It wasn't like that! Back then was-", 0x8B);
         }
     }
-    if (storytimer(k, 116.0) == true) {
-        if (storytimer(k, 122.0) != true) {
+    if (storytimer(float(k), 116.0) == true) {
+        if (storytimer(float(k), 122.0) != true) {
             C.X = 65;
             C.Y = 0;
             g_Console.writeToBuffer(C, "BOOM!!", 0x1B);
@@ -307,14 +309,14 @@ void storytutorial(void) {
             g_Console.writeToBuffer(C, char(1), 0x1A);
         }
     }
-    if (storytimer(k, 122.0) == true) {
-        if (storytimer(k, 128.0) != true) {
+    if (storytimer(float(k), 122.0) == true) {
+        if (storytimer(float(k), 128.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Player:Whats happening", 0x8B);
+            g_Console.writeToBuffer(C, "Player: Whats happening?", 0x8B);
         }
     }
-    if (storytimer(k, 128.0) == true) {
+    if (storytimer(float(k), 128.0) == true) {
         actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 9, 0.5, "ACTOR");
         actorandtextmovement(69, 5, 0, NULL, "Help me!!!!!","LEFT",10, 0.5, "EMPTY");
     }
@@ -404,13 +406,14 @@ void storytutorial(void) {
     }
 }
 bool credittimer(int currenttime,float interval) {
-    if (g_dElapsedTime >= currenttime + interval) {
+    if (int(g_dElapsedTime) >= unsigned long long (currenttime) + unsigned long long (interval)) {
         return true;
     }
+    return false;
 }
 void creditMovement(string text,int startingy,int xposition){
     if (Text == 0) {
-        k = g_dElapsedTime;
+        k = int(g_dElapsedTime);
     }
     COORD C;
     if (credittimer(k,1) == true) {
@@ -561,7 +564,7 @@ void createtopmiddle(int g) {
 }
 void loadingscreen(void) {
     PlaySound(NULL, 0, 0);
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     COORD c;
     if (randomtext == true) {
         randomNO = rand() % 4;
@@ -709,7 +712,7 @@ void Ammunition(void) {
   
     }
     Display = to_string(Ammo);
-    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
+    g_Console.writeToBuffer(C, Display + "/100", 0x1A);
 
 }
 void levelEvents(void) {
@@ -724,7 +727,7 @@ void levelEvents(void) {
             randomtext = true;
             loading = true;
             level = 0;
-            k = g_dElapsedTime;
+            k = int(g_dElapsedTime);
         }
     }
 }
@@ -1012,7 +1015,11 @@ void CheckAndUpdate()
         if (Amount_ofbullet[i] != nullptr)
         {
             Amount_ofbullet[i]->UpdateXandY(g_Console);
-            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) )
+            if (Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] != 'x' && Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] != '*')
+            {
+                Amount_ofbullet[i]->print();
+            }
+            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) || Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] == 'x' || Level.LevelArray[Amount_ofbullet[i]->x][Amount_ofbullet[i]->y] == '*')
             {
                 delete Amount_ofbullet[i];
                 Amount_ofbullet[i] = nullptr;
@@ -1064,8 +1071,8 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+    g_sChar.m_cLocation.X = 73;
+    g_sChar.m_cLocation.Y = 16;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -1215,9 +1222,9 @@ void gameplayMouseHandler(const MOUSE_EVENT_RECORD& mouseEvent)
     g_mouseEvent.eventFlags = mouseEvent.dwEventFlags;
 }
 void LoadingScreenWait2(int g,int time) {
-    if (g_dElapsedTime > time + g) {
+    if (g_dElapsedTime > unsigned long long(time) + unsigned long long (g)) {
         loading = false;
-        k = g_dElapsedTime;
+        k = int(g_dElapsedTime);
         //put all my in and outs here for xl
     }
 }
@@ -1284,29 +1291,34 @@ void updateGame()       // gameplay logic
 
 void moveCharacter()
 {    
+
     // Updating the location of the character based on the key release
     // providing a beep sound whenver we shift the character
     if (g_skKeyEvent[K_UP].keyDown && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x')
         g_sChar.m_cLocation.Y--;
         play.SetDirection('U');
     }
     if (g_skKeyEvent[K_LEFT].keyDown && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X--;
         play.SetDirection('L');
     }
     if (g_skKeyEvent[K_DOWN].keyDown && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x')
         g_sChar.m_cLocation.Y++;   
         play.SetDirection('D');
     }
     if (g_skKeyEvent[K_RIGHT].keyDown && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X++;    
         play.SetDirection('R');
     }
@@ -1354,13 +1366,13 @@ void renderLevel1() {
 }
 void renderTutorial()
 {
-    LevelMap TutorialLevel;
-    TutorialLevel.LoadLevel1();
-    TutorialLevel.TransferArray();
+    
+    Level.LoadLevel1();
+    Level.TransferArray();
     // Set up sample colours, and output shadings
     const char colors[] = {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x0F,0xF7, 0xFF,0x7C,0xA2,0xAA,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,0xC0,
+        char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0),
     };
     // 0x1C No colour
     // 0x2C Green
@@ -1385,28 +1397,28 @@ void renderTutorial()
         for (int j = 0; j < 25; j++)
         {
             // Black -> '*' -> Walls
-            if (TutorialLevel.LevelArray[i][j] == 'x')
+            if (Level.LevelArray[i][j] == 'x')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (TutorialLevel.LevelArray[i][j] == '.')
+            if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
             // White -> '#'
-            if (TutorialLevel.LevelArray[i][j] == '#')
+            if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (TutorialLevel.LevelArray[i][j] == '*')
+            if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
@@ -1484,6 +1496,13 @@ void render()
             healthbar();
             renderFramerate();      // renders debug information, frame rate, elapsed time, etc
             renderInputEvents();    // renders status of input events
+            for (int i = 0; i < 20; i++)
+            {
+                if (lvlmanager[i] != nullptr)
+                {
+                    lvlmanager[i]->EVERYTHINGUPDATE();
+                }
+            }
         }
         break;
     }

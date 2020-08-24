@@ -24,10 +24,6 @@ Bullet::~Bullet()
 
 void Bullet::UpdateXandY(Console& console)
 {
-	COORD c;
-	
-
-
 	if (direction == 'U')
 	{
 		y -= 1;
@@ -44,11 +40,17 @@ void Bullet::UpdateXandY(Console& console)
 	{
 		x += 2;
 	}
+}
+
+void Bullet::print()
+{
+	COORD c;
+
 	c.X = x;
 	c.Y = y;
 
 	if (x >= 0 && x < 80 && y >= 0 && y < 25)
 	{
-		console.writeToBuffer(c, "*", 0x3D);
+		g_Console.writeToBuffer(c, "*", 0x3D);
 	}
 }

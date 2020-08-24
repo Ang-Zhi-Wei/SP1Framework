@@ -17,6 +17,6 @@ public:
 
 	string Getname();
 	virtual COORD get_coord(void);
-	virtual void updategame();
+	virtual void EVERYTHINGUPDATE();
 };
 

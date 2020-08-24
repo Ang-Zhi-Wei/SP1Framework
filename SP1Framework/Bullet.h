@@ -13,5 +13,6 @@ public:
 	
 
 	void  UpdateXandY(Console& console);
+	void print();
 };
 

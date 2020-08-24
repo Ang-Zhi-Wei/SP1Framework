@@ -2,6 +2,8 @@
 #pragma once
 #include "Entities.h"
 #include <Windows.h>
+#include "game.h"
+#include "Framework/console.h"
 
 class firehydrant : public Entity
 {
@@ -19,7 +21,7 @@ public:
 	static void SetTotalHydrant(int SetTotalHr);
 	static int GetTotalHydrant();
 
-	void updategame();
+	void EVERYTHINGUPDATE();
 
 
 	
