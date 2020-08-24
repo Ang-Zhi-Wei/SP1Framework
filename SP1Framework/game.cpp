@@ -47,6 +47,7 @@ int storyincreaseX[100] = { 0, };
 int StoryText[100] = { 0, };
 int storytime[100] = { 0, };
 int Ammo = 50;
+LevelMap Level;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
 // Game specific variables here
@@ -965,8 +966,8 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+    g_sChar.m_cLocation.X = 73;
+    g_sChar.m_cLocation.Y = 17;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -1185,29 +1186,34 @@ void updateGame()       // gameplay logic
 
 void moveCharacter()
 {    
+
     // Updating the location of the character based on the key release
     // providing a beep sound whenver we shift the character
     if (g_skKeyEvent[K_UP].keyDown && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x')
         g_sChar.m_cLocation.Y--;
         play.SetDirection('U');
     }
     if (g_skKeyEvent[K_LEFT].keyDown && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X--;
         play.SetDirection('L');
     }
     if (g_skKeyEvent[K_DOWN].keyDown && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x')
         g_sChar.m_cLocation.Y++;   
         play.SetDirection('D');
     }
     if (g_skKeyEvent[K_RIGHT].keyDown && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
+        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x')
         g_sChar.m_cLocation.X++;    
         play.SetDirection('R');
     }
@@ -1255,9 +1261,9 @@ void renderLevel1() {
 }
 void renderTutorial()
 {
-    LevelMap TutorialLevel;
-    TutorialLevel.LoadLevel1();
-    TutorialLevel.TransferArray();
+    
+    Level.LoadLevel1();
+    Level.TransferArray();
     // Set up sample colours, and output shadings
     const char colors[] = {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x0F,0xF7, 0xFF,0x7C,0xA2,0xAA,
@@ -1286,28 +1292,28 @@ void renderTutorial()
         for (int j = 0; j < 25; j++)
         {
             // Black -> '*' -> Walls
-            if (TutorialLevel.LevelArray[i][j] == 'x')
+            if (Level.LevelArray[i][j] == 'x')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (TutorialLevel.LevelArray[i][j] == '.')
+            if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
             // White -> '#'
-            if (TutorialLevel.LevelArray[i][j] == '#')
+            if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (TutorialLevel.LevelArray[i][j] == '*')
+            if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
