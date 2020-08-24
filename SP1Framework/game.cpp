@@ -596,19 +596,21 @@ void credits(void) {
     g_Console.writeToBuffer(C, "Back", 0x8B);
 }
 void Ammunition(void) {
-    COORD C;    
-    string Display = to_string(Ammo);
+    COORD C;
+    string Display;
 
     //border
     C.X = 0;
     C.Y = 24;
-        
-    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
+
     if (g_skKeyEvent[K_SPACE].keyDown) {
-        if (Ammo > 0)
-            Ammo -= 1;
+        if (Ammo > 0) {
+            Ammo--;
+        }
+  
     }
-        
+    Display = to_string(Ammo);
+    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
 
 }
 void levelEvents(void) {
@@ -1215,7 +1217,6 @@ void moveCharacter()
         if ((Ammo != 0) || (Ammo > 0))
         {
             MakesBullet();
-            Ammunition();
         }
     }
 
