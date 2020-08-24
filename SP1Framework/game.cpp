@@ -46,7 +46,7 @@ int storyincreaseY[100] = { 0, };
 int storyincreaseX[100] = { 0, };
 int StoryText[100] = { 0, };
 int storytime[100] = { 0, };
-int Ammo = 50;
+int Ammo = 100;
 LevelMap Level;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
@@ -611,7 +611,7 @@ void Ammunition(void) {
   
     }
     Display = to_string(Ammo);
-    g_Console.writeToBuffer(C, Display + "/50", 0x1A);
+    g_Console.writeToBuffer(C, Display + "/100", 0x1A);
 
 }
 void levelEvents(void) {
@@ -914,7 +914,7 @@ void CheckAndUpdate()
         if (Amount_ofbullet[i] != nullptr)
         {
             Amount_ofbullet[i]->UpdateXandY(g_Console);
-            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)) )
+            if ( ((Amount_ofbullet[i]->x >= 79) || (Amount_ofbullet[i]->x < 0)) || ((Amount_ofbullet[i]->y >= 24) || (Amount_ofbullet[i]->y < 0)))
             {
                 delete Amount_ofbullet[i];
                 Amount_ofbullet[i] = nullptr;
