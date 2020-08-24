@@ -1393,6 +1393,13 @@ void render()
             healthbar();
             renderFramerate();      // renders debug information, frame rate, elapsed time, etc
             renderInputEvents();    // renders status of input events
+            for (int i = 0; i < 20; i++)
+            {
+                if (lvlmanager[i] != nullptr)
+                {
+                    lvlmanager[i]->EVERYTHINGUPDATE();
+                }
+            }
         }
         break;
     }
