@@ -973,46 +973,11 @@ void pausemenu(void) {
 }
 void healthbar(void) {
     COORD C;
-    //border 
-    for (int i = 0; i < 24; i++) {
-        C.Y = 0;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 0; i < 24; i++) {
-        C.Y = 2;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 0; i < 2; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 22; i < 24; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    //health bars
-    //red
-    for (int i = 2; i < 10; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x4A);
-    }
-    //yellow
-    for (int i = 10; i < 16; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x6A);
-    }
-    //green
-    for (int i = 16; i < 22; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x2A);
-    }
+    C.X = 0;
+    C.Y = 23;
+    g_Console.writeToBuffer(C, "Health:/", 0x4A);
+    //if health...............
+   
 }
 void CheckAndUpdate()
 {
