@@ -1319,9 +1319,7 @@ void renderdadlevel() {
 void rendermomlevel() {
 
 }
-void renderLevel3() {
 
-}
 void renderLevel2() {
 
 }
@@ -1343,7 +1341,7 @@ void renderTutorial()
     // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
-        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xEE),
     };
     // 0x1C No colour
     // 0x2C Green
@@ -1375,13 +1373,13 @@ void renderTutorial()
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (Level.LevelArray[i][j] == '.')
+            if (Level.LevelArray[i][j] == '@')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
-            // White -> '#'
+            // White (yellow) -> '#'
             if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
@@ -1389,11 +1387,90 @@ void renderTutorial()
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (Level.LevelArray[i][j] == '*')
+            if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+        }
+    }
+
+    for (int i = 0; i < 20; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+
+            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
+        }
+
+    }
+}
+void renderLevel3()
+{
+
+    Level.LoadLevel3();
+    Level.TransferArray();
+    // Set up sample colours, and output shadings
+    const char colors[] = {
+        char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xEE), char(0x64),
+    };
+    // 0x1C No colour
+    // 0x2C Green
+    // 0x3C Light Blue
+    // 0x4C Red
+    // 0x5C Purple
+    // 0x6C Yellow
+    // 0x7C Gray
+    // 0x8C Reddish Pink with gray border
+    // 0x9C Reddish Pink with blue border
+    // 0x1D No colour
+    // 0x2D Green
+    // 0x3D Light Blue
+    // 0xFF White
+    COORD c;
+    LevelMap Level1;
+    // Checking for Symbol
+
+
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // Black -> '*' -> Walls
+            if (Level.LevelArray[i][j] == 'x')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[5]);
+            }
+            // Gray -> '@'
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
+            }
+            // White (yellow) -> '#'
+            if (Level.LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[19]);
+            }
+            // Green -> '&'
+            if (Level.LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+            //brown
+            if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[19]);
             }
         }
     }
