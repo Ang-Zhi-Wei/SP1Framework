@@ -75,13 +75,13 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
     COORD C;
     if (storytimer(float(storytime[no]), speed) == true) {
         if (direction == "LEFT") {
-            storyincreaseX[no]-=1;
+            storyincreaseX[no]--;
         }
         else if (direction == "RIGHT") {
             storyincreaseX[no]++;
         }
         else if (direction == "UP") {
-            storyincreaseY[no] -= 1;
+            storyincreaseY[no]--;
         }
         else if (direction == "DOWN") {
             storyincreaseY[no]++;
@@ -96,7 +96,10 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
+            }
+            else if (type == "ENEMY") {
+                g_Console.writeToBuffer(C, char(1), 0x4A);
             }
         }
         else if (C.Y <= startingy && C.Y >= endingy && direction == "UP") {
@@ -104,17 +107,23 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
+            }
+            else if (type == "ENEMY") {
+                g_Console.writeToBuffer(C, char(1), 0x4A);
             }
         }
     }
-    else if (endingy == NULL) {
+    if (endingy == NULL) {
         if (C.X >= startingx && C.X <= endingx && direction=="RIGHT") {
             if (text != "EMPTY") {
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
+            }
+            else if (type == "ENEMY") {
+                g_Console.writeToBuffer(C, char(1), 0x4A);
             }
         }
         else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
@@ -122,7 +131,10 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
+            }
+            else if (type == "ENEMY") {
+                g_Console.writeToBuffer(C, char(1), 0x4A);
             }
         }
     }
@@ -138,8 +150,10 @@ void storytutorialskip(void) {
             Storytutorial = false;
             soundcheck = true;
             for (int i = 0; i < 100; i++) {
-                storyincreaseX[i] = -1;
-                storyincreaseY[i] = -1;
+                storyincreaseX[i] = 0;
+                storyincreaseY[i] = 0;
+                storytime[i] = 0;
+                StoryText[i] = 0;
             }
         }
     }
@@ -149,7 +163,7 @@ void storytutorial(void) {
     //skip button
     C.X = 76;
     C.Y = 0;
-    g_Console.writeToBuffer(C, "skip", 0x8B);
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
     //Actor
     if (storytimer(float(k), 0) == true) {
         //mainpeople
@@ -157,7 +171,7 @@ void storytutorial(void) {
         actorandtextmovement(19, 8, NULL, 18, "EMPTY", "DOWN", 1, 2.0, "ACTOR");
         actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "ACTOR");
         //randompeople
-        actorandtextmovement(79, 6, 0, NULL, "EMPTY", "LEFT", 3, 1.0, "ACTOR");
+        actorandtextmovement(0, 6, 80, NULL, "EMPTY", "RIGHT", 3, 1.0, "ACTOR");
     }
     if (storytimer(float(k), 6.0) == true) {
         actorandtextmovement(25, 10, NULL, 13, "Player:There's only one person here...","DOWN",4,2.0,"EMPTY");
@@ -195,7 +209,7 @@ void storytutorial(void) {
         if (storytimer(float(k), 48.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Mum:This should be have been exciting for us!", 0x8B);
+            g_Console.writeToBuffer(C, "Mum:This should have been exciting for us!", 0x8B);
         }
     }
     if (storytimer(float(k), 48.0) == true) {
@@ -258,7 +272,7 @@ void storytutorial(void) {
         if (storytimer(float(k), 102.0) != true) {
             C.X = 25;
             C.Y = 21;
-            g_Console.writeToBuffer(C, "Dad: You quit your firefighting job because of that.", 0x8B);
+            g_Console.writeToBuffer(C, "Dad:You quit your firefighting job because of that", 0x8B);
         }
     }
     if (storytimer(float(k), 102.0) == true) {
@@ -283,17 +297,19 @@ void storytutorial(void) {
         }
         
         //mom
-        C.X = 65;
-        C.Y = 18;
-        g_Console.writeToBuffer(C, char(1), 0x1A);
-        //dad
-        C.X = 66;
-        C.Y = 17;
-        g_Console.writeToBuffer(C, char(1), 0x1A);
-        //player
-        C.X = 67;
-        C.Y = 18;
-        g_Console.writeToBuffer(C, char(1), 0x1A);
+        if (storytimer(k, 148.0) != true) {
+            C.X = 65;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+            //dad
+            C.X = 66;
+            C.Y = 17;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+            //player
+            C.X = 67;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+        }
     }
     if (storytimer(float(k), 122.0) == true) {
         if (storytimer(float(k), 128.0) != true) {
@@ -304,6 +320,93 @@ void storytutorial(void) {
     }
     if (storytimer(float(k), 128.0) == true) {
         actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 9, 0.5, "ACTOR");
+        actorandtextmovement(69, 5, 0, NULL, "Help me!!!!!","LEFT",10, 0.5, "EMPTY");
+    }
+    if (storytimer(k, 132.0) == true) {
+        actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 11, 0.5, "ENEMY");
+        actorandtextmovement(65, 5, 0, NULL, "GET BACK HERE!!!", "LEFT", 12, 0.5, "EMPTY");
+    }
+    if (storytimer(k, 138.0) == true) {
+        if (storytimer(k, 146.0) != true) {
+            C.X = 25;
+            C.Y = 21;
+            g_Console.writeToBuffer(C, "Mum:What....",0x8B);
+        }
+    }
+    if (storytimer(k, 146.0) == true) {
+        actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ENEMY");
+    }
+    if (storytimer(k, 148.0) == true) {
+        if (storytimer(k, 157.0) != true) {
+            C.X = 0;
+            C.Y = 17;
+            g_Console.writeToBuffer(C, "Mum:AH!!!!", 0x8B);
+            C.Y = 18;
+            g_Console.writeToBuffer(C, "Dad:AH!!!!", 0x8B);
+            C.X = 67;
+            C.Y = 19;
+            g_Console.writeToBuffer(C, "Mum!Dad!", 0x8B);
+            C.X = 67;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+        }
+    }
+    if (storytimer(k, 157.0) == true) {
+        actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "ACTOR");
+    }
+    if (storytimer(k, 158.0) == true) {
+        //enemies
+        C.X = 36;
+        C.Y = 16;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 34;
+        C.Y = 19;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 36;
+        C.Y = 18;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        if (storytimer(k, 166.5) != true) {
+            C.X = 40;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+            C.X = 20;
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Dammit!Who are you guys?!Some weird fire monster?", 0x8B);
+        }
+    }
+    if (storytimer(k, 166.0) == true) {
+        actorandtextmovement(40, 18, 50, NULL, "EMPTY", "RIGHT", 15, 0.5, "ACTOR");
+    }
+    if (storytimer(k, 167.0)==true){
+        if (storytimer(k, 173.0) != true) {
+            C.X = 50;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+            C.X = 20;
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Somehow there's a fire extinguisher here,looks like it work", 0x8B);
+        }  
+    }
+    if (storytimer(k, 173.0) == true) {
+        if (storytimer(k, 179.0) != true) {
+            C.X = 50;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, char(1), 0xA1);
+            C.X = 20;
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Looks like they are heading to the forest,but these guys....", 0x8B);
+        }
+    }
+    if (storytimer(k, 179.0) == true) {
+        Tutorial = true;
+        Storytutorial = false;
+        soundcheck = true;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
     }
 }
 bool credittimer(int currenttime,float interval) {
