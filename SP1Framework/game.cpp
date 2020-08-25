@@ -96,7 +96,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
@@ -107,7 +107,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
@@ -120,7 +120,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
@@ -131,7 +131,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
             else if (type == "ACTOR") {
-                g_Console.writeToBuffer(C, char(1), 0x1A);
+                g_Console.writeToBuffer(C, char(1), 0xA1);
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
@@ -300,15 +300,15 @@ void storytutorial(void) {
         if (storytimer(k, 148.0) != true) {
             C.X = 65;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
             //dad
             C.X = 66;
             C.Y = 17;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
             //player
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
         }
     }
     if (storytimer(float(k), 122.0) == true) {
@@ -348,7 +348,7 @@ void storytutorial(void) {
             g_Console.writeToBuffer(C, "Mum!Dad!", 0x8B);
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
         }
     }
     if (storytimer(k, 157.0) == true) {
@@ -368,7 +368,7 @@ void storytutorial(void) {
         if (storytimer(k, 166.5) != true) {
             C.X = 40;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Dammit!Who are you guys?!Some weird fire monster?", 0x8B);
@@ -381,7 +381,7 @@ void storytutorial(void) {
         if (storytimer(k, 173.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Somehow there's a fire extinguisher here,looks like it work", 0x8B);
@@ -391,7 +391,7 @@ void storytutorial(void) {
         if (storytimer(k, 179.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0x1A);
+            g_Console.writeToBuffer(C, char(1), 0xA1);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Looks like they are heading to the forest,but these guys....", 0x8B);
