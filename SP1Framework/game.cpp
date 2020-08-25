@@ -28,11 +28,11 @@ bool loading = false;
 bool Credits = false;
 int level = -1;
 bool Tutorial = false;
-bool level1 = false;
+bool level1 = true;
 bool level2 = false;
 bool level3 = false;
 bool level4 = false;
-bool level1status = false;
+bool level1status = true;
 bool level2status = false;
 bool level3status = false;
 bool level4status = false;
@@ -51,6 +51,24 @@ int Ammo = 100;
 LevelMap Level;
 SKeyEvent g_skKeyEvent[K_COUNT];
 SMouseEvent g_mouseEvent;
+const char colors[] = {
+        char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0),
+};
+// 0x1C No colour
+// 0x2C Green
+// 0x3C Light Blue
+// 0x4C Red
+// 0x5C Purple
+// 0x6C Yellow
+// 0x7C Gray
+// 0x8C Reddish Pink with gray border
+// 0x9C Reddish Pink with blue border
+// 0x1D No colour
+// 0x2D Green
+// 0x3D Light Blue
+// 0xFF White
+COORD c;
 // Game specific variables here
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
@@ -102,6 +120,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
             }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
+            }
         }
         else if (C.Y <= startingy && C.Y >= endingy && direction == "UP") {
             if (text != "EMPTY") {
@@ -112,6 +136,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
+            }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
@@ -126,6 +156,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
             }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
+            }
         }
         else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
             if (text != "EMPTY") {
@@ -136,6 +172,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
+            }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
@@ -159,6 +201,9 @@ void storytutorialskip(void) {
         }
     }
 }
+void storylevel1(void) {
+
+}
 void storytutorial(void) {
     COORD C;
     //skip button
@@ -170,7 +215,7 @@ void storytutorial(void) {
         //mainpeople
         actorandtextmovement(20, 7, NULL, 17, "EMPTY", "DOWN", 0, 2.0, "ACTOR");
         actorandtextmovement(19, 8, NULL, 18, "EMPTY", "DOWN", 1, 2.0, "ACTOR");
-        actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "ACTOR");
+        actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "PROTAGONIST");
         //randompeople
         actorandtextmovement(0, 6, 80, NULL, "EMPTY", "RIGHT", 3, 1.0, "ACTOR");
     }
@@ -183,7 +228,7 @@ void storytutorial(void) {
     if (storytimer(float(k), 22.0) == true) {
         actorandtextmovement(20, 17, 66, NULL, "EMPTY", "RIGHT", 6, 2.0, "ACTOR");
         actorandtextmovement(19, 18, 65, NULL, "EMPTY", "RIGHT", 7, 2.0, "ACTOR");
-        actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "ACTOR");
+        actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "PROTAGONIST");
     }
     if (storytimer(float(k), 22.0) == true) {
         if (storytimer(float(k), 28.0) != true) {
@@ -309,7 +354,7 @@ void storytutorial(void) {
             //player
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
         }
     }
     if (storytimer(float(k), 122.0) == true) {
@@ -335,7 +380,7 @@ void storytutorial(void) {
         }
     }
     if (storytimer(float(k), 146.0) == true) {
-        actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ENEMY");
+        actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ANTAGONIST");
     }
     if (storytimer(float(k), 148.0) == true) {
         if (storytimer(float(k), 157.0) != true) {
@@ -349,11 +394,11 @@ void storytutorial(void) {
             g_Console.writeToBuffer(C, "Mum!Dad!", 0x8B);
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
         }
     }
     if (storytimer(float(k), 157.0) == true) {
-        actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "ACTOR");
+        actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "PROTAGONIST");
     }
     if (storytimer(float(k), 158.0) == true) {
         //enemies
@@ -369,20 +414,20 @@ void storytutorial(void) {
         if (storytimer(float(k), 166.5) != true) {
             C.X = 40;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Dammit!Who are you guys?!Some weird fire monster?", 0x8B);
         }
     }
     if (storytimer(float(k), 166.0) == true) {
-        actorandtextmovement(40, 18, 50, NULL, "EMPTY", "RIGHT", 15, 0.5, "ACTOR");
+        actorandtextmovement(40, 18, 50, NULL, "EMPTY", "RIGHT", 15, 0.5, "PROTAGONIST");
     }
     if (storytimer(float(k), 167.0)==true){
         if (storytimer(float(k), 173.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Somehow there's a fire extinguisher here,looks like it work", 0x8B);
@@ -392,7 +437,7 @@ void storytutorial(void) {
         if (storytimer(float(k), 179.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Looks like they are heading to the forest,but these guys....", 0x8B);
@@ -717,7 +762,7 @@ void Ammunition(void) {
   
     }
     Display = to_string(Ammo);
-    g_Console.writeToBuffer(C, Display + "/100", 0x1A);
+    g_Console.writeToBuffer(C, "Ammo:" + Display + "/100", 0x1A);
 
 }
 void levelEvents(void) {
@@ -733,6 +778,10 @@ void levelEvents(void) {
             loading = true;
             level = 0;
             k = int(g_dElapsedTime);
+        }
+        else if (g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            level1 = true;
         }
     }
 }
@@ -1324,6 +1373,8 @@ void renderLevel2() {
 
 }
 void renderLevel1() {
+    Level.LoadLevel2();
+    Level.TransferArray();
     for (int i = 0; i < 20; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
@@ -1331,6 +1382,30 @@ void renderLevel1() {
             g_Console.writeToBuffer(obj_curr, " ", 0x4C);
         }
 
+    }
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            if (Level.LevelArray[i][j] == ',')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[1]);
+            }
+            if (Level.LevelArray[i][j] == '~')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[2]);
+            }
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+        }
     }
 }
 void renderTutorial()
@@ -1445,6 +1520,7 @@ void renderLevel3()
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
+            // Green -> '*'
             if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
@@ -1507,7 +1583,7 @@ void render()
         }
         else if (Levelselect == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             levelselect();
@@ -1528,7 +1604,7 @@ void render()
         }
         else if (startingscreen == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             StartingGamescreen();
@@ -1536,7 +1612,7 @@ void render()
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             renderGame();

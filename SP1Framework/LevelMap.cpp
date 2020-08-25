@@ -7,7 +7,7 @@ using namespace std;
 LevelMap::LevelMap()
 {
 }
-
+// Tutorial Level
 void LevelMap::LoadLevel1(void)
 {
     ifstream fin;
@@ -30,6 +30,11 @@ void LevelMap::LoadLevel3(void)
 {
     ifstream fin;
     fin.open("Level_3.txt");
+// Level 1
+void LevelMap::LoadLevel2(void)
+{
+    ifstream fin;
+    fin.open("Level2.txt");
     string line;
 
     //let's assume here the proper size of input Map
@@ -45,6 +50,8 @@ void LevelMap::LoadLevel3(void)
     //let's assume here the proper size of input Map
 }
 
+}
+// Places each char into LevelArray
 void LevelMap::TransferArray()
 {
     for (unsigned int i = 0; i < 80 ; i++)
