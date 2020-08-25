@@ -12,7 +12,7 @@ protected:
 
 public:
 	Entity();
-	~Entity();
+	~Entity(); 
 	Entity(int health, int dmg);
 
 	string Getname();
