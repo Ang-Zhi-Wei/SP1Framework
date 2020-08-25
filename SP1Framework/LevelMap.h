@@ -9,6 +9,7 @@ private:
 public:
 	 LevelMap();
 	 void LoadLevel1(void);
+	 void LoadLevel2(void);
 	 char LevelArray[80][25];
 	 void TransferArray();
 };
