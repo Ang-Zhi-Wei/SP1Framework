@@ -29,12 +29,12 @@ bool Credits = false;
 int level = -1;
 bool Tutorial = true;
 bool level1 = true;
-bool level2 = false;
-bool level3 = true;
+bool level2 = true;
+bool level3 = false;
 bool level4 = false;
 bool level1status = true;
-bool level2status = false;
-bool level3status = true;
+bool level2status = true;
+bool level3status = false;
 bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
@@ -1382,8 +1382,7 @@ void renderdadlevel() {
 void rendermomlevel() {
 
 }
-
-void renderLevel2() {
+void renderLevel3() {
 
 }
 void renderLevel1() {
@@ -1494,7 +1493,7 @@ void renderTutorial()
 
     }
 }
-void renderLevel3()
+void renderLevel2()
 {
 
     Level.LoadLevel3();
@@ -1502,7 +1501,7 @@ void renderLevel3()
     // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
-        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xEE), char(0x64),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xE), char(0x64),
     };
     // 0x1C No colour
     // 0x2C Green
