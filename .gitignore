@@ -24,3 +24,4 @@ ipch/
 *.json
 *.db
 *.sqlite
+enc_temp_folder/6245a39072a6bd759da281ad96752014/game.cpp
