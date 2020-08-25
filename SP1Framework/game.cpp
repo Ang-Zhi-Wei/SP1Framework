@@ -27,17 +27,19 @@ bool Levelselect = false;
 bool loading = false;
 bool Credits = false;
 int level = -1;
-bool Tutorial = true;
-bool level1 = true;
+//if you want work on one level make sure all except your level is false
+bool Tutorial = false;
+bool level1 = false;
 bool level2 = true;
 bool level3 = false;
 bool level4 = false;
-bool level1status = true;
+bool level1status = false;
 bool level2status = true;
 bool level3status = false;
 bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
+//if you want work on one level make sure all except your level is false
 bool Storytutorial = false;
 bool resetvalues = false;
 int Text =  0;
@@ -793,7 +795,7 @@ void levelEvents(void) {
             loading = true;
             k = int(g_dElapsedTime);
         }
-        else if (level2status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             level2 = true;
         }
@@ -1467,7 +1469,7 @@ void renderTutorial()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
-            // White (yellow) -> '#'
+            // White -> '#'
             if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
@@ -1501,7 +1503,7 @@ void renderLevel2()
     // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x1A), char(0x2B), char(0x3C), char(0x4D), char(0x5E), char(0x0F),char(0xF7), char(0xFF),char(0x7C),char(0xA2),char(0xAA),
-        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xE), char(0x64),
+        char(0xA1), char(0xB2), char(0xC3), char(0xD4), char(0xE5), char(0xF6),char(0xC0), char(0xE), char(0x6E), char(0x6C),
     };
     // 0x1C No colour
     // 0x2C Green
@@ -1538,14 +1540,14 @@ void renderLevel2()
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[8]);
+                g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // White (yellow) -> '#'
             if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[19]);
+                g_Console.writeToBuffer(c, " ", colors[8]);
             }
             // Green -> '&'
             if (Level.LevelArray[i][j] == '#')
@@ -1556,6 +1558,18 @@ void renderLevel2()
             }
             //brown
             if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[20]);
+            }
+            if (Level.LevelArray[i][j] == '~')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+            if (Level.LevelArray[i][j] == '=')
             {
                 c.X = i;
                 c.Y = j;
