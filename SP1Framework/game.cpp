@@ -27,7 +27,7 @@ bool Levelselect = false;
 bool loading = false;
 bool Credits = false;
 int level = -1;
-bool Tutorial = false;
+bool Tutorial = true;
 bool level1 = true;
 bool level2 = false;
 bool level3 = true;
@@ -1452,7 +1452,7 @@ void renderTutorial()
                 g_Console.writeToBuffer(c, " ", colors[5]);
             }
             // Gray -> '@'
-            if (Level.LevelArray[i][j] == '@')
+            if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
@@ -1466,7 +1466,7 @@ void renderTutorial()
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // Green -> '&'
-            if (Level.LevelArray[i][j] == '#')
+            if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
