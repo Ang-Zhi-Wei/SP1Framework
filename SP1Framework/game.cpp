@@ -39,6 +39,7 @@ bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
 bool Storytutorial = false;
+bool resetvalues = false;
 int Text =  0;
 int increaseY = 0;
 int increaseX = 0;
@@ -849,6 +850,7 @@ void pauseEvents(void) {
             paused = false;
             Tutorial = false;
             soundcheck = true;
+            resetvalues = true;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
             paused = false;
@@ -1605,6 +1607,12 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     if (Tutorial == true) {
+        if (resetvalues == true) {
+            g_sChar.m_cLocation.X = 73;
+            g_sChar.m_cLocation.Y = 16;
+            Ammo = 100;
+            resetvalues = false;
+        }
         renderTutorial();// renders the map to the buffer first
 
     }
