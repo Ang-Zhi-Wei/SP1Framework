@@ -202,7 +202,14 @@ void storytutorialskip(void) {
     }
 }
 void storylevel1(void) {
-
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    if (storytimer(k, 0) == true) {
+        actorandtextmovement(80, 17, 60, NULL, "EMPTY", "LEFT", 0, 0.5, "PROTAGONIST");
+    }
 }
 void storytutorial(void) {
     COORD C;
@@ -771,7 +778,7 @@ void levelEvents(void) {
             Levelselect = false;
             startingscreen = true;
         }
-        else if (Tutorial==true &&g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storytutorial = true;
             randomtext = true;
@@ -779,13 +786,16 @@ void levelEvents(void) {
             level = 0;
             k = int(g_dElapsedTime);
         }
-        else if (level1==true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (level1status==true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             level1 = true;
+            randomtext = true;
+            loading = true;
+            k = int(g_dElapsedTime);
         }
-        else if (level3 == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (level2status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
-            level3 = true;
+            level2 = true;
         }
     }
 }
