@@ -30,11 +30,11 @@ int level = -1;
 bool Tutorial = false;
 bool level1 = true;
 bool level2 = false;
-bool level3 = true;
+bool level3 = false;
 bool level4 = false;
 bool level1status = true;
 bool level2status = false;
-bool level3status = true;
+bool level3status = false;
 bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
@@ -771,7 +771,7 @@ void levelEvents(void) {
             Levelselect = false;
             startingscreen = true;
         }
-        else if (Tutorial==true &&g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storytutorial = true;
             randomtext = true;
@@ -779,13 +779,9 @@ void levelEvents(void) {
             level = 0;
             k = int(g_dElapsedTime);
         }
-        else if (level1==true &&g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             level1 = true;
-        }
-        else if (level3 == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
-            Levelselect = false;
-            level3 = true;
         }
     }
 }

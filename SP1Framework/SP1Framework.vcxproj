@@ -107,11 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Level1.txt" />
-<<<<<<< HEAD
     <Text Include="Level_3.txt" />
-=======
-    <Text Include="Level2.txt" />
->>>>>>> 619f177f01db958e2a6c2882f0ec3b1b95b974b3
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
