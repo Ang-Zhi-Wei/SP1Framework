@@ -39,6 +39,7 @@ bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
 bool Storytutorial = false;
+bool resetvalues = false;
 int Text =  0;
 int increaseY = 0;
 int increaseX = 0;
@@ -101,6 +102,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
             }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
+            }
         }
         else if (C.Y <= startingy && C.Y >= endingy && direction == "UP") {
             if (text != "EMPTY") {
@@ -111,6 +118,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
+            }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
@@ -125,6 +138,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
             }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
+            }
         }
         else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
             if (text != "EMPTY") {
@@ -135,6 +154,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
             }
             else if (type == "ENEMY") {
                 g_Console.writeToBuffer(C, char(1), 0x4A);
+            }
+            else if (type == "ANTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x64);
+            }
+            else if (type == "PROTAGONIST") {
+                g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
@@ -158,6 +183,9 @@ void storytutorialskip(void) {
         }
     }
 }
+void storylevel1(void) {
+
+}
 void storytutorial(void) {
     COORD C;
     //skip button
@@ -169,7 +197,7 @@ void storytutorial(void) {
         //mainpeople
         actorandtextmovement(20, 7, NULL, 17, "EMPTY", "DOWN", 0, 2.0, "ACTOR");
         actorandtextmovement(19, 8, NULL, 18, "EMPTY", "DOWN", 1, 2.0, "ACTOR");
-        actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "ACTOR");
+        actorandtextmovement(21, 8, NULL, 18, "EMPTY", "DOWN", 2, 2.0, "PROTAGONIST");
         //randompeople
         actorandtextmovement(0, 6, 80, NULL, "EMPTY", "RIGHT", 3, 1.0, "ACTOR");
     }
@@ -182,7 +210,7 @@ void storytutorial(void) {
     if (storytimer(float(k), 22.0) == true) {
         actorandtextmovement(20, 17, 66, NULL, "EMPTY", "RIGHT", 6, 2.0, "ACTOR");
         actorandtextmovement(19, 18, 65, NULL, "EMPTY", "RIGHT", 7, 2.0, "ACTOR");
-        actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "ACTOR");
+        actorandtextmovement(21, 18, 67, NULL, "EMPTY", "RIGHT", 8, 2.0, "PROTAGONIST");
     }
     if (storytimer(float(k), 22.0) == true) {
         if (storytimer(float(k), 28.0) != true) {
@@ -297,7 +325,7 @@ void storytutorial(void) {
         }
         
         //mom
-        if (storytimer(k, 148.0) != true) {
+        if (storytimer(float(k), 148.0) != true) {
             C.X = 65;
             C.Y = 18;
             g_Console.writeToBuffer(C, char(1), 0xA1);
@@ -308,7 +336,7 @@ void storytutorial(void) {
             //player
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
         }
     }
     if (storytimer(float(k), 122.0) == true) {
@@ -322,22 +350,22 @@ void storytutorial(void) {
         actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 9, 0.5, "ACTOR");
         actorandtextmovement(69, 5, 0, NULL, "Help me!!!!!","LEFT",10, 0.5, "EMPTY");
     }
-    if (storytimer(k, 132.0) == true) {
+    if (storytimer(float(k), 132.0) == true) {
         actorandtextmovement(80, 6, 0, NULL, "EMPTY", "LEFT", 11, 0.5, "ENEMY");
         actorandtextmovement(65, 5, 0, NULL, "GET BACK HERE!!!", "LEFT", 12, 0.5, "EMPTY");
     }
-    if (storytimer(k, 138.0) == true) {
-        if (storytimer(k, 146.0) != true) {
+    if (storytimer(float(k), 138.0) == true) {
+        if (storytimer(float(k), 146.0) != true) {
             C.X = 25;
             C.Y = 21;
             g_Console.writeToBuffer(C, "Mum:What....",0x8B);
         }
     }
-    if (storytimer(k, 146.0) == true) {
-        actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ENEMY");
+    if (storytimer(float(k), 146.0) == true) {
+        actorandtextmovement(0, 17, 64, NULL, "EMPTY", "RIGHT", 13, 0.5, "ANTAGONIST");
     }
-    if (storytimer(k, 148.0) == true) {
-        if (storytimer(k, 157.0) != true) {
+    if (storytimer(float(k), 148.0) == true) {
+        if (storytimer(float(k), 157.0) != true) {
             C.X = 0;
             C.Y = 17;
             g_Console.writeToBuffer(C, "Mum:AH!!!!", 0x8B);
@@ -348,13 +376,13 @@ void storytutorial(void) {
             g_Console.writeToBuffer(C, "Mum!Dad!", 0x8B);
             C.X = 67;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
         }
     }
-    if (storytimer(k, 157.0) == true) {
-        actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "ACTOR");
+    if (storytimer(float(k), 157.0) == true) {
+        actorandtextmovement(67, 18, 40, NULL, "EMPTY", "LEFT", 14, 0.5, "PROTAGONIST");
     }
-    if (storytimer(k, 158.0) == true) {
+    if (storytimer(float(k), 158.0) == true) {
         //enemies
         C.X = 36;
         C.Y = 16;
@@ -365,39 +393,39 @@ void storytutorial(void) {
         C.X = 36;
         C.Y = 18;
         g_Console.writeToBuffer(C, char(1), 0x4A);
-        if (storytimer(k, 166.5) != true) {
+        if (storytimer(float(k), 166.5) != true) {
             C.X = 40;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Dammit!Who are you guys?!Some weird fire monster?", 0x8B);
         }
     }
-    if (storytimer(k, 166.0) == true) {
-        actorandtextmovement(40, 18, 50, NULL, "EMPTY", "RIGHT", 15, 0.5, "ACTOR");
+    if (storytimer(float(k), 166.0) == true) {
+        actorandtextmovement(40, 18, 50, NULL, "EMPTY", "RIGHT", 15, 0.5, "PROTAGONIST");
     }
-    if (storytimer(k, 167.0)==true){
-        if (storytimer(k, 173.0) != true) {
+    if (storytimer(float(k), 167.0)==true){
+        if (storytimer(float(k), 173.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Somehow there's a fire extinguisher here,looks like it work", 0x8B);
         }  
     }
-    if (storytimer(k, 173.0) == true) {
-        if (storytimer(k, 179.0) != true) {
+    if (storytimer(float(k), 173.0) == true) {
+        if (storytimer(float(k), 179.0) != true) {
             C.X = 50;
             C.Y = 18;
-            g_Console.writeToBuffer(C, char(1), 0xA1);
+            g_Console.writeToBuffer(C, char(1), 0x5A);
             C.X = 20;
             C.Y = 22;
             g_Console.writeToBuffer(C, "Looks like they are heading to the forest,but these guys....", 0x8B);
         }
     }
-    if (storytimer(k, 179.0) == true) {
+    if (storytimer(float(k), 179.0) == true) {
         Tutorial = true;
         Storytutorial = false;
         soundcheck = true;
@@ -849,6 +877,7 @@ void pauseEvents(void) {
             paused = false;
             Tutorial = false;
             soundcheck = true;
+            resetvalues = true;
         }
         else if (g_mouseEvent.mousePosition.X >= 55 && g_mouseEvent.mousePosition.X <= 62 && g_mouseEvent.mousePosition.Y == 15) {
             paused = false;
@@ -971,46 +1000,11 @@ void pausemenu(void) {
 }
 void healthbar(void) {
     COORD C;
-    //border 
-    for (int i = 0; i < 24; i++) {
-        C.Y = 0;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 0; i < 24; i++) {
-        C.Y = 2;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 0; i < 2; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    for (int i = 22; i < 24; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x9A);
-    }
-    //health bars
-    //red
-    for (int i = 2; i < 10; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x4A);
-    }
-    //yellow
-    for (int i = 10; i < 16; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x6A);
-    }
-    //green
-    for (int i = 16; i < 22; i++) {
-        C.Y = 1;
-        C.X = i;
-        g_Console.writeToBuffer(C, " ", 0x2A);
-    }
+    C.X = 0;
+    C.Y = 23;
+    g_Console.writeToBuffer(C, "Health:/", 0x4A);
+    //if health...............
+   
 }
 void CheckAndUpdate()
 {
@@ -1475,7 +1469,7 @@ void render()
         }
         else if (Levelselect == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             levelselect();
@@ -1496,7 +1490,7 @@ void render()
         }
         else if (startingscreen == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("435378__kojiro-miura__mission-of-a-little-elf.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             StartingGamescreen();
@@ -1504,7 +1498,7 @@ void render()
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("414214__sirkoto51__anime-fight-music-loop-1.wav"), NULL, SND_ASYNC | SND_LOOP);
+                PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
             renderGame();
@@ -1617,6 +1611,12 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     if (Tutorial == true) {
+        if (resetvalues == true) {
+            g_sChar.m_cLocation.X = 73;
+            g_sChar.m_cLocation.Y = 16;
+            Ammo = 100;
+            resetvalues = false;
+        }
         renderTutorial();// renders the map to the buffer first
 
     }
