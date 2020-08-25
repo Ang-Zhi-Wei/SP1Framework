@@ -29,12 +29,12 @@ bool Credits = false;
 int level = -1;
 bool Tutorial = true;
 bool level1 = true;
-bool level2 = false;
-bool level3 = true;
+bool level2 = true;
+bool level3 = false;
 bool level4 = false;
 bool level1status = true;
-bool level2status = false;
-bool level3status = true;
+bool level2status = true;
+bool level3status = false;
 bool level4status = false;
 bool dadstatus = false;
 bool momstatus = false;
@@ -783,9 +783,9 @@ void levelEvents(void) {
             Levelselect = false;
             level1 = true;
         }
-        else if (level3 == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
+        else if (level2 = true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
-            level3 = true;
+            level2 = true;
         }
     }
 }
