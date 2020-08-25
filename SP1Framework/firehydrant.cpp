@@ -6,11 +6,11 @@ firehydrant::firehydrant(int x, int y)
 {
 	position.X = x;
 	position.Y = y;
-
 }
 
 firehydrant::~firehydrant()
 {
+	//left blank for now
 }
 
 void firehydrant::SetTotalHydrant(int SetTotalHr)
