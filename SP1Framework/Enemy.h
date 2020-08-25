@@ -3,11 +3,13 @@
 #include "game.h"
 #include "Framework/timer.h"
 #include "Framework/console.h"
+#include "game.h"
 class Enemy : public Entity
 {
 protected:
 	double rate_of_fire;
 	static int total_no_of_enemy;
+	double ctimer;
 
 	COORD EnemyPos;
 public:
@@ -19,6 +21,6 @@ public:
 	static void SetTotalEnemy(int SetTotalEn);
 	static int GetTotalEnemy();
 
-	void EVERYTHINGUPDATE();
+	void EVERYTHINGUPDATE(void);
 };
 

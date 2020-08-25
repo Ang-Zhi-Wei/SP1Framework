@@ -6,6 +6,7 @@ extern bool g_bQuitGame;
 class Console;
 extern Console g_Console;
 extern int Ammo;
+extern double g_dDeltaTime;
 // struct to store keyboard events
 // a small subset of KEY_EVENT_RECORD
 struct SKeyEvent
