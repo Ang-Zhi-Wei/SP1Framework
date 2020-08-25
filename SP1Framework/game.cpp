@@ -27,20 +27,20 @@ bool Levelselect = false;
 bool loading = false;
 bool Credits = false;
 int level = -1;
-//if you want work on one level make sure all except your level is false
 bool Tutorial = false;
 bool level1 = false;
-bool level2 = true;
+bool level2 = false;
 bool level3 = false;
 bool level4 = false;
-bool level1status = false;
+bool Tutorialstatus = true;
+bool level1status = true;
 bool level2status = true;
-bool level3status = false;
-bool level4status = false;
+bool level3status = true;
+bool level4status = true;
 bool dadstatus = false;
 bool momstatus = false;
-//if you want work on one level make sure all except your level is false
 bool Storytutorial = false;
+bool Storylevel1 = false;
 bool resetvalues = false;
 int Text =  0;
 int increaseY = 0;
@@ -191,11 +191,17 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
     }
     StoryText[no]++;
 }
-void storytutorialskip(void) {
+void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
-            Tutorial = true;
-            Storytutorial = false;
+            if (Storylevel1 == true) {
+                Storylevel1 = false;
+                level1 = true;
+            }
+            else if (Storytutorial == true) {
+                Storytutorial = false;
+                Tutorial = true;
+            }
             soundcheck = true;
             for (int i = 0; i < 100; i++) {
                 storyincreaseX[i] = 0;
@@ -783,6 +789,25 @@ void levelEvents(void) {
             Levelselect = false;
             startingscreen = true;
         }
+        else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            level4 = true;
+        }
+        else if (level3status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            level3 = true;
+        }
+        else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            level2 = true;
+        }
+        else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
+            Levelselect = false;
+            Storylevel1 = true;
+            randomtext = true;
+            loading = true;
+            k = int(g_dElapsedTime);
+        }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storytutorial = true;
@@ -790,17 +815,6 @@ void levelEvents(void) {
             loading = true;
             level = 0;
             k = int(g_dElapsedTime);
-        }
-        else if (level1status==true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
-            Levelselect = false;
-            level1 = true;
-            randomtext = true;
-            loading = true;
-            k = int(g_dElapsedTime);
-        }
-        else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
-            Levelselect = false;
-            level2 = true;
         }
     }
 }
@@ -917,6 +931,10 @@ void pauseEvents(void) {
             Levelselect = true;
             paused = false;
             Tutorial = false;
+            level1 = false;
+            level2 = false;
+            level3 = false;
+            level4 = false;
             soundcheck = true;
             resetvalues = true;
         }
@@ -1650,7 +1668,12 @@ void render()
         else if (Storytutorial == true) {
             renderTutorial();
             storytutorial();
-            storytutorialskip();
+            storybuttonskip();
+        }
+        else if (Storylevel1 == true) {
+            renderLevel1();
+            storylevel1();
+            storybuttonskip();
         }
         else if (startingscreen == true) {
             if (soundcheck == true) {
@@ -1774,7 +1797,27 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
-    if (Tutorial == true) {
+   if (level4status == true && level4==true) {
+     if (momstatus == true) {
+         rendermomlevel();
+     }
+     else if (dadstatus == true) {
+         renderdadlevel();
+     }
+
+    }
+   else if (level3status == true && level3==true) {
+       renderLevel3();
+
+   }
+   else if (level2status == true && level2==true) {
+       renderLevel2();
+
+   }
+   else if (level1status == true && level1==true) {
+       renderLevel1();
+   }
+   else if (Tutorialstatus == true && Tutorial==true) {
         if (resetvalues == true) {
             g_sChar.m_cLocation.X = 73;
             g_sChar.m_cLocation.Y = 16;
@@ -1784,27 +1827,9 @@ void renderGame()
         renderTutorial();// renders the map to the buffer first
 
     }
-    else if (level1 == true) {
-        renderLevel1();
-
-    }
-    else if (level2 == true) {
-        renderLevel2();
-
-    }
-    else if (level3 == true) {
-        renderLevel3();
-
-    }
-    else if (level4 == true) {
-        if (momstatus == true) {
-            rendermomlevel();
-        }
-        else if (dadstatus == true) {
-            renderdadlevel();
-        }
-
-    }
+   
+   
+   
 
     CheckAndUpdate();
     renderCharacter();  // renders the character into the buffer
