@@ -6,12 +6,14 @@
 #include "game.h"
 #include "Functions.h"
 #include <iostream>
+#include "EnemyBullet.h"
 class Enemy : public Entity
 {
 protected:
 	double rate_of_fire;
 	static int total_no_of_enemy;
 	double ctimer;
+	EnemyBullet* EneBulletArray[256];
 
 	COORD EnemyPos;
 public:
@@ -27,5 +29,8 @@ public:
 	static int GetTotalEnemy();
 
 	void EVERYTHINGUPDATE(void);
+
+	void EnemyMakeBullet();
+	void UpdateEnemyBullet();
 };
 

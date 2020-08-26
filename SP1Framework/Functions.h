@@ -3,4 +3,5 @@
 
 	double fRand(double fMin, double fMax);
 
+	int Sign(int dxy);
 
