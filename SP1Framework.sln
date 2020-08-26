@@ -1,7 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SP1Framework", "SP1Framework\SP1Framework.vcxproj", "{1A587CA1-7340-416F-94D6-7C400A833946}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8F1D1E3-C81D-46C0-B9BB-5CA9206EAE1E}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Luke\Desktop\Level3.txt = C:\Users\Luke\Desktop\Level3.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD96482C-B33D-4A71-9339-26F157E3567E}
 	EndGlobalSection
 EndGlobal
