@@ -1668,7 +1668,7 @@ void renderLevel3() {
         }
     }
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 2; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
 
@@ -1680,7 +1680,7 @@ void renderLevel3() {
 void renderLevel1() {
     Level.LoadLevel1();
     Level.TransferArray();
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 2; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
 
@@ -1904,7 +1904,7 @@ void renderLevel2()
         }
     }
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 2; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
 
