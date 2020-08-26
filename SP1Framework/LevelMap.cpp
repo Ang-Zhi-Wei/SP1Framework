@@ -63,7 +63,7 @@ void LevelMap::LoadLevel1(void)
 void LevelMap::LoadLevel3(void)
 {
     ifstream fin;
-    fin.open("Level_3.txt");
+    fin.open("Level3.txt");
 
     string line;
 

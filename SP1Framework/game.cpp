@@ -1745,7 +1745,7 @@ void renderTutorial()
 void renderLevel2()
 {
 
-    Level.LoadLevel3();
+    Level.LoadLevel2();
     Level.TransferArray();
     // Set up sample colours, and output shadings
     const char colors[] = {
