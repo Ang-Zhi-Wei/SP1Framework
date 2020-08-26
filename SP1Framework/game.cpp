@@ -146,12 +146,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, char(1), 0x64);
             }
             else if (type == "PROTAGONIST") {
-                g_Console.writeToBuffer(C, char(1), 0x5A);
+g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
     if (endingy == NULL) {
-        if (C.X >= startingx && C.X <= endingx && direction=="RIGHT") {
+        if (C.X >= startingx && C.X <= endingx && direction == "RIGHT") {
             if (text != "EMPTY") {
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
@@ -168,7 +168,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
-        else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
+        else if (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
             if (text != "EMPTY") {
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
@@ -220,6 +220,54 @@ void storylevel1(void) {
     g_Console.writeToBuffer(C, "Skip", 0x8B);
     if (storytimer(k, 0) == true) {
         actorandtextmovement(80, 17, 60, NULL, "EMPTY", "LEFT", 0, 0.5, "PROTAGONIST");
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 50;
+            C.Y = 3;
+            g_Console.writeToBuffer(C, char(1), 0x5A);
+            C.Y = 2;
+            g_Console.writeToBuffer(C, "Mom?Dad?", 0x8B);
+        }
+    }
+    if (storytimer(k, 9) == true) {
+        if (storytimer(k, 13) != true) {
+            C.X = 55;
+            C.Y = 23;
+            g_Console.writeToBuffer(C, char(1), 0x5A);
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Not here either", 0x8B);
+        }
+    }
+    if (storytimer(k, 14) == true) {
+        C.X = 45;
+        C.Y = 13;
+        g_Console.writeToBuffer(C, char(1), 0x5A);
+        C.Y = 12;
+        g_Console.writeToBuffer(C, "Ah ****,here we go again", 0x8B);
+        C.X = 10;
+        C.Y = 3;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 17;
+        C.Y = 18;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 23;
+        C.Y = 8;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 20;
+        C.Y = 14;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+    }
+    if (storytimer(k, 20) == true){
+        Storylevel1 = false;
+        level1 = true;
+        soundcheck = true;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
     }
 }
 void storytutorial(void) {
@@ -1847,7 +1895,7 @@ void renderCharacter()
     WORD charColor = 0xC3;
     if (g_sChar.m_bActive)
     {
-        charColor = 0xA1;
+        charColor = 0x5A;
     }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)1, charColor);
 }
