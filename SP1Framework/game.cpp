@@ -23,7 +23,8 @@ int randomNO=0;
 bool startingscreen = true;
 bool soundcheck = true;
 bool storysoundcheck1 = true;
-bool storysoundcheck2 = true;;
+bool storysoundcheck2 = true;
+bool storysoundcheck3 = true;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
@@ -43,6 +44,7 @@ bool dadstatus = false;
 bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
+bool Storylevel2 = false;
 bool resetvalues = false;
 int Text =  0;
 int increaseY = 0;
@@ -196,14 +198,24 @@ g_Console.writeToBuffer(C, char(1), 0x5A);
 void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
+            if (Storylevel2 == true) {
+                Storylevel2 = false;
+                level2 = true;
+                soundcheck = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
+                storysoundcheck3 = true;
+            }
             if (Storylevel1 == true) {
                 Storylevel1 = false;
                 level1 = true;
+                soundcheck = true;
                 storysoundcheck1 = true;
                 storysoundcheck2 = true;
             }
             else if (Storytutorial == true) {
                 Storytutorial = false;
+                soundcheck = true;
                 Tutorial = true;
                 storysoundcheck1 = true;
                 storysoundcheck2 = true;
@@ -216,6 +228,98 @@ void storybuttonskip(void) {
                 StoryText[i] = 0;
             }
         }
+    }
+}
+void storylevel2(void) {
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    //player
+    C.X = 30;
+    C.Y = 14;
+    //Antagonist
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 35;
+    C.Y = 14;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    //player text
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("52624__lunardrive__creepy-loop-soundsmith.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 30;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "Finally found you,should've recognize you earlier", 0x8B);
+        }
+    }
+    //Antagonist text
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 35;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "Ah yes,the one who killed my friend", 0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 35;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "And almost killed ME!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        if (storytimer(k, 16) != true) {
+            C.X = 30;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "I didn't have a Choice!", 0x8B);
+        }
+    }
+    if (storytimer(k, 16) == true) {
+        if (storytimer(k, 20) != true) {
+            C.X = 30;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "That fire is too big,i have to save myself", 0x8B);
+        }
+    }
+    if (storytimer(k, 20) == true) {
+        if (storytimer(k, 24) != true) {
+            if (storysoundcheck2 == true) {
+                PlaySound(NULL, 0, 0);
+                storysoundcheck2 = false;
+            }
+            C.X = 35;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "Forget it!If you want to save your parents...", 0x8B);
+        }
+    }
+    if (storytimer(k, 24) == true) {
+        if (storytimer(k, 28) != true) {
+            if (storysoundcheck3 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck3 = false;
+            }
+            C.X = 35;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "We'll settle it here!", 0x8B);
+        }
+    }
+    if (storytimer(k, 28) == true) {
+        Storylevel2 = false;
+        level2 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
     }
 }
 void storylevel1(void) {
@@ -271,7 +375,7 @@ void storylevel1(void) {
     if (storytimer(k, 20) == true){
         Storylevel1 = false;
         level1 = true;
-        soundcheck = true;
+        soundcheck = false;
         for (int i = 0; i < 100; i++) {
             storyincreaseX[i] = 0;
             storyincreaseY[i] = 0;
@@ -532,13 +636,15 @@ void storytutorial(void) {
     if (storytimer(float(k), 179.0) == true) {
         Tutorial = true;
         Storytutorial = false;
-        soundcheck = true;
+        soundcheck = false;
         for (int i = 0; i < 100; i++) {
             storyincreaseX[i] = 0;
             storyincreaseY[i] = 0;
             storytime[i] = 0;
             StoryText[i] = 0;
         }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
     }
 }
 bool credittimer(int currenttime,float interval) {
@@ -871,7 +977,10 @@ void levelEvents(void) {
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             soundcheck = true;
-            level2 = true;
+            loading = true;
+            Storylevel2 = true;
+            k = int(g_dElapsedTime);
+            randomtext = true;
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1755,6 +1864,11 @@ void render()
         else if (Storylevel1 == true) {
             renderLevel1();
             storylevel1();
+            storybuttonskip();
+        }
+        else if (Storylevel2 == true) {
+            renderLevel2();
+            storylevel2();
             storybuttonskip();
         }
         else if (startingscreen == true) {
