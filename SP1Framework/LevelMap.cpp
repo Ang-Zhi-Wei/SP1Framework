@@ -26,12 +26,30 @@ void LevelMap::LoadTutorialLevel(void)
 
     //let's assume here the proper size of input Map
 }
-void LevelMap::LoadLevel3(void)
+
+void LevelMap::LoadLevel2(void)
 {
     ifstream fin;
-    fin.open("Level_3.txt");
+    fin.open("Level2.txt");
     string line;
 
+    //let's assume here the proper size of input Map
+    for (unsigned int i = 0; i < HEIGHT; i++)
+    {
+        getline(fin, line);
+        for (unsigned int j = 0; j < WIDTH; j++)
+        {
+            MapArray[i][j] = line[j];
+        }
+    }
+
+    //let's assume here the proper size of input Map
+}
+void LevelMap::LoadLevel1(void)
+{
+    ifstream fin;
+    fin.open("Level1.txt");
+    string line;
     //let's assume here the proper size of input Map
     for (unsigned int i = 0; i < HEIGHT; i++)
     {
@@ -42,10 +60,11 @@ void LevelMap::LoadLevel3(void)
         }
     }
 }
-void LevelMap::LoadLevel1(void)
+void LevelMap::LoadLevel3(void)
 {
     ifstream fin;
-    fin.open("Level1.txt");
+    fin.open("Level_3.txt");
+
     string line;
 
     //let's assume here the proper size of input Map
@@ -57,8 +76,6 @@ void LevelMap::LoadLevel1(void)
             MapArray[i][j] = line[j];
         }
     }
-
-    //let's assume here the proper size of input Map
 }
 
 
