@@ -22,6 +22,8 @@ int k = 0;
 int randomNO=0;
 bool startingscreen = true;
 bool soundcheck = true;
+bool storysoundcheck1 = true;
+bool storysoundcheck2 = true;;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
@@ -146,12 +148,12 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, char(1), 0x64);
             }
             else if (type == "PROTAGONIST") {
-                g_Console.writeToBuffer(C, char(1), 0x5A);
+g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
     }
     if (endingy == NULL) {
-        if (C.X >= startingx && C.X <= endingx && direction=="RIGHT") {
+        if (C.X >= startingx && C.X <= endingx && direction == "RIGHT") {
             if (text != "EMPTY") {
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
@@ -168,7 +170,7 @@ void actorandtextmovement(int startingx,int startingy,int endingx,int endingy,st
                 g_Console.writeToBuffer(C, char(1), 0x5A);
             }
         }
-        else if  (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
+        else if (C.X <= startingx && C.X >= endingx && direction == "LEFT") {
             if (text != "EMPTY") {
                 g_Console.writeToBuffer(C, text, 0x8B);
             }
@@ -197,10 +199,14 @@ void storybuttonskip(void) {
             if (Storylevel1 == true) {
                 Storylevel1 = false;
                 level1 = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
             }
             else if (Storytutorial == true) {
                 Storytutorial = false;
                 Tutorial = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
             }
             soundcheck = true;
             for (int i = 0; i < 100; i++) {
@@ -220,6 +226,54 @@ void storylevel1(void) {
     g_Console.writeToBuffer(C, "Skip", 0x8B);
     if (storytimer(k, 0) == true) {
         actorandtextmovement(80, 17, 60, NULL, "EMPTY", "LEFT", 0, 0.5, "PROTAGONIST");
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 50;
+            C.Y = 3;
+            g_Console.writeToBuffer(C, char(1), 0x5A);
+            C.Y = 2;
+            g_Console.writeToBuffer(C, "Mom?Dad?", 0x8B);
+        }
+    }
+    if (storytimer(k, 9) == true) {
+        if (storytimer(k, 13) != true) {
+            C.X = 55;
+            C.Y = 23;
+            g_Console.writeToBuffer(C, char(1), 0x5A);
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Not here either", 0x8B);
+        }
+    }
+    if (storytimer(k, 14) == true) {
+        C.X = 45;
+        C.Y = 13;
+        g_Console.writeToBuffer(C, char(1), 0x5A);
+        C.Y = 12;
+        g_Console.writeToBuffer(C, "Ah ****,here we go again", 0x8B);
+        C.X = 10;
+        C.Y = 3;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 17;
+        C.Y = 18;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 23;
+        C.Y = 8;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+        C.X = 20;
+        C.Y = 14;
+        g_Console.writeToBuffer(C, char(1), 0x4A);
+    }
+    if (storytimer(k, 20) == true){
+        Storylevel1 = false;
+        level1 = true;
+        soundcheck = true;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
     }
 }
 void storytutorial(void) {
@@ -355,6 +409,10 @@ void storytutorial(void) {
     }
     if (storytimer(float(k), 116.0) == true) {
         if (storytimer(float(k), 122.0) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("235968__tommccann__explosion-01.wav"), NULL, SND_ASYNC);
+                storysoundcheck1 = false;
+            }
             C.X = 65;
             C.Y = 0;
             g_Console.writeToBuffer(C, "BOOM!!", 0x1B);
@@ -430,6 +488,10 @@ void storytutorial(void) {
         C.Y = 18;
         g_Console.writeToBuffer(C, char(1), 0x4A);
         if (storytimer(float(k), 166.5) != true) {
+            if (storysoundcheck2 == true) {
+                PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck2 = false;
+            }
             C.X = 40;
             C.Y = 18;
             g_Console.writeToBuffer(C, char(1), 0x5A);
@@ -811,6 +873,7 @@ void levelEvents(void) {
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storytutorial = true;
+            soundcheck = true;
             randomtext = true;
             loading = true;
             level = 0;
@@ -1670,6 +1733,10 @@ void render()
             credittext();
         }
         else if (Storytutorial == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("52624__lunardrive__creepy-loop-soundsmith.wav"), NULL, SND_ASYNC | SND_LOOP);
+                soundcheck = false;
+            }
             renderTutorial();
             storytutorial();
             storybuttonskip();
@@ -1847,7 +1914,7 @@ void renderCharacter()
     WORD charColor = 0xC3;
     if (g_sChar.m_bActive)
     {
-        charColor = 0xA1;
+        charColor = 0x5A;
     }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)1, charColor);
 }
