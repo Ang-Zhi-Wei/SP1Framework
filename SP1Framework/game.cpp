@@ -1773,6 +1773,12 @@ void renderLevel2()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[14]);
             }
+            if (Level.LevelArray[i][j] == '$')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
         }
     }
 
