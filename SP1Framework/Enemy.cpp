@@ -24,7 +24,13 @@ Enemy::Enemy(int x, int y)
 
 Enemy::~Enemy()
 {
-	
+	for (int i = 0; i < 256; i++)
+	{
+		if (EneBulletArray[i] != nullptr)
+		{
+			delete EneBulletArray[i];
+		}
+	}
 }
 
 COORD Enemy::get_enemy_coord(void)
