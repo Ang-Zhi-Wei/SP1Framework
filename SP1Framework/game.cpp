@@ -1577,9 +1577,11 @@ void moveCharacter()
 void processUserInput()
 {
     // pause the game if player hits the escape key
-    if (g_skKeyEvent[K_ESCAPE].keyReleased) {
-        paused = true;
-        PlaySound(NULL, 0, 0);
+    if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
+        if (g_skKeyEvent[K_ESCAPE].keyReleased) {
+            paused = true;
+            PlaySound(NULL, 0, 0);
+        }
     }
 }
 void renderdadlevel() {
