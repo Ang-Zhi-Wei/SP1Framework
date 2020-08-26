@@ -246,6 +246,10 @@ void storylevel1(void) {
         }
     }
     if (storytimer(k, 14) == true) {
+        if (storysoundcheck1 == true) {
+            PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC|SND_LOOP);
+            storysoundcheck1 = false;
+        }
         C.X = 45;
         C.Y = 13;
         g_Console.writeToBuffer(C, char(1), 0x5A);
@@ -274,6 +278,8 @@ void storylevel1(void) {
             storytime[i] = 0;
             StoryText[i] = 0;
         }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
     }
 }
 void storytutorial(void) {
@@ -849,24 +855,29 @@ void levelEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 15 && g_mouseEvent.mousePosition.X <= 18 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
+            soundcheck = true;
             startingscreen = true;
         }
         else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
+            soundcheck = true;
             level4 = true;
         }
         else if (level3status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
+            soundcheck = true;
             level3 = true;
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
+            soundcheck = true;
             level2 = true;
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storylevel1 = true;
             randomtext = true;
+            soundcheck = true;
             loading = true;
             k = int(g_dElapsedTime);
         }
@@ -1756,7 +1767,12 @@ void render()
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
+                if (level2 == true) {
+                    PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                }
+                else {
+                    PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
+                }
                 soundcheck = false;
             }
             renderGame();
