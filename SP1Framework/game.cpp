@@ -1699,19 +1699,15 @@ void renderTutorial()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
-            // Green -> '&'
-            if (Level.LevelArray[i][j] == '*')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[10]);
-            }
+            
+            //red
             if (Level.LevelArray[i][j] == '&')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[19]);
             }
+            //
             if (Level.LevelArray[i][j] == '%')
             {
                 c.X = i;
@@ -1729,6 +1725,13 @@ void renderTutorial()
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[22]);
+            }
+            // Green -> '&'
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
             }
         }
     }
