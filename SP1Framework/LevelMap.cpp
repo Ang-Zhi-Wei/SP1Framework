@@ -49,7 +49,7 @@ void LevelMap::LoadLevel2(void)
 void LevelMap::LoadLevel3(void)
 {
     ifstream fin;
-    fin.open("Level3trees.txt");
+    fin.open("Level_3.txt");
     string line;
 
     //let's assume here the proper size of input Map

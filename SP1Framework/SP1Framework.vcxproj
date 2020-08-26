@@ -108,7 +108,6 @@
     <ClInclude Include="Position.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Level3trees.txt" />
     <Text Include="Level1.txt" />
     <Text Include="Level_3.txt" />
   </ItemGroup>
