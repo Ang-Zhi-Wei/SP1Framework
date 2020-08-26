@@ -1699,19 +1699,15 @@ void renderTutorial()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
-            // Green -> '&'
-            if (Level.LevelArray[i][j] == '*')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[10]);
-            }
+            
+            //red
             if (Level.LevelArray[i][j] == '&')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[19]);
             }
+            //
             if (Level.LevelArray[i][j] == '%')
             {
                 c.X = i;
@@ -1730,16 +1726,21 @@ void renderTutorial()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[22]);
             }
+            // Green -> '&'
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
         }
     }
 
     for (int i = 0; i < 20; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
-
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
         }
-
     }
 }
 void renderLevel2()
