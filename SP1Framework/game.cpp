@@ -22,6 +22,8 @@ int k = 0;
 int randomNO=0;
 bool startingscreen = true;
 bool soundcheck = true;
+bool storysoundcheck1 = true;
+bool storysoundcheck2 = true;;
 bool paused = false;
 bool Levelselect = false;
 bool loading = false;
@@ -197,10 +199,14 @@ void storybuttonskip(void) {
             if (Storylevel1 == true) {
                 Storylevel1 = false;
                 level1 = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
             }
             else if (Storytutorial == true) {
                 Storytutorial = false;
                 Tutorial = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
             }
             soundcheck = true;
             for (int i = 0; i < 100; i++) {
@@ -403,6 +409,10 @@ void storytutorial(void) {
     }
     if (storytimer(float(k), 116.0) == true) {
         if (storytimer(float(k), 122.0) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("235968__tommccann__explosion-01.wav"), NULL, SND_ASYNC);
+                storysoundcheck1 = false;
+            }
             C.X = 65;
             C.Y = 0;
             g_Console.writeToBuffer(C, "BOOM!!", 0x1B);
@@ -478,6 +488,10 @@ void storytutorial(void) {
         C.Y = 18;
         g_Console.writeToBuffer(C, char(1), 0x4A);
         if (storytimer(float(k), 166.5) != true) {
+            if (storysoundcheck2 == true) {
+                PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck2 = false;
+            }
             C.X = 40;
             C.Y = 18;
             g_Console.writeToBuffer(C, char(1), 0x5A);
@@ -859,6 +873,7 @@ void levelEvents(void) {
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             Storytutorial = true;
+            soundcheck = true;
             randomtext = true;
             loading = true;
             level = 0;
@@ -1718,6 +1733,10 @@ void render()
             credittext();
         }
         else if (Storytutorial == true) {
+            if (soundcheck == true) {
+                PlaySound(TEXT("52624__lunardrive__creepy-loop-soundsmith.wav"), NULL, SND_ASYNC | SND_LOOP);
+                soundcheck = false;
+            }
             renderTutorial();
             storytutorial();
             storybuttonskip();
