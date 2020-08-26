@@ -13,6 +13,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="GlobalVar.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="GlobalVar.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Functions.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Level1.txt" />
