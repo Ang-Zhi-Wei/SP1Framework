@@ -1736,7 +1736,7 @@ void renderTutorial()
         }
     }
 
-    for (int i = 3; i < 5; i++) {
+    for (int i = 0; i < 20; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
             g_Console.writeToBuffer(obj_curr, " ", 0x4A);
