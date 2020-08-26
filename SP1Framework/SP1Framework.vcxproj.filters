@@ -33,5 +33,6 @@
   <ItemGroup>
     <Text Include="Level1.txt" />
     <Text Include="Level_3.txt" />
+    <Text Include="..\Level3trees.txt" />
   </ItemGroup>
 </Project>
