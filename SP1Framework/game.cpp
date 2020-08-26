@@ -245,8 +245,8 @@ void storylevel2(void) {
     C.Y = 14;
     g_Console.writeToBuffer(C, char(1), 0x64);
     //player text
-    if (storytimer(k, 0) == true) {
-        if (storytimer(k, 4) != true) {
+    if (storytimer(float(k), 0) == true) {
+        if (storytimer(float(k), 4) != true) {
             if (storysoundcheck1 == true) {
                 PlaySound(TEXT("52624__lunardrive__creepy-loop-soundsmith.wav"), NULL, SND_ASYNC | SND_LOOP);
                 storysoundcheck1 = false;
@@ -257,36 +257,36 @@ void storylevel2(void) {
         }
     }
     //Antagonist text
-    if (storytimer(k, 4) == true) {
-        if (storytimer(k, 8) != true) {
+    if (storytimer(float(k), 4) == true) {
+        if (storytimer(float(k), 8) != true) {
             C.X = 35;
             C.Y = 13;
             g_Console.writeToBuffer(C, "Ah yes,the one who killed my friend", 0x8B);
         }
     }
-    if (storytimer(k, 8) == true) {
-        if (storytimer(k, 12) != true) {
+    if (storytimer(float(k), 8) == true) {
+        if (storytimer(float(k), 12) != true) {
             C.X = 35;
             C.Y = 13;
             g_Console.writeToBuffer(C, "And almost killed ME!", 0x8B);
         }
     }
-    if (storytimer(k, 12) == true) {
-        if (storytimer(k, 16) != true) {
+    if (storytimer(float(k), 12) == true) {
+        if (storytimer(float(k), 16) != true) {
             C.X = 30;
             C.Y = 13;
             g_Console.writeToBuffer(C, "I didn't have a Choice!", 0x8B);
         }
     }
-    if (storytimer(k, 16) == true) {
-        if (storytimer(k, 20) != true) {
+    if (storytimer(float(k), 16) == true) {
+        if (storytimer(float(k), 20) != true) {
             C.X = 30;
             C.Y = 13;
             g_Console.writeToBuffer(C, "That fire is too big,i have to save myself", 0x8B);
         }
     }
-    if (storytimer(k, 20) == true) {
-        if (storytimer(k, 24) != true) {
+    if (storytimer(float(k), 20) == true) {
+        if (storytimer(float(k), 24) != true) {
             if (storysoundcheck2 == true) {
                 PlaySound(NULL, 0, 0);
                 storysoundcheck2 = false;
@@ -296,8 +296,8 @@ void storylevel2(void) {
             g_Console.writeToBuffer(C, "Forget it!If you want to save your parents...", 0x8B);
         }
     }
-    if (storytimer(k, 24) == true) {
-        if (storytimer(k, 28) != true) {
+    if (storytimer(float(k), 24) == true) {
+        if (storytimer(float(k), 28) != true) {
             if (storysoundcheck3 == true) {
                 PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
                 storysoundcheck3 = false;
@@ -307,7 +307,7 @@ void storylevel2(void) {
             g_Console.writeToBuffer(C, "We'll settle it here!", 0x8B);
         }
     }
-    if (storytimer(k, 28) == true) {
+    if (storytimer(float(k), 28) == true) {
         Storylevel2 = false;
         level2 = true;
         soundcheck = false;
@@ -328,11 +328,11 @@ void storylevel1(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
-    if (storytimer(k, 0) == true) {
+    if (storytimer(float(k), 0) == true) {
         actorandtextmovement(0, 10, 20, NULL, "EMPTY", "RIGHT", 0, 0.5, "PROTAGONIST");
     }
-    if (storytimer(k, 4) == true) {
-        if (storytimer(k, 8) != true) {
+    if (storytimer(float(k), 4) == true) {
+        if (storytimer(float(k), 8) != true) {
             C.X = 25;
             C.Y = 7;
             g_Console.writeToBuffer(C, char(1), 0x5A);
@@ -340,8 +340,8 @@ void storylevel1(void) {
             g_Console.writeToBuffer(C, "Mom?Dad?", 0x8B);
         }
     }
-    if (storytimer(k, 9) == true) {
-        if (storytimer(k, 13) != true) {
+    if (storytimer(float(k), 9) == true) {
+        if (storytimer(float(k), 13) != true) {
             C.X = 30;
             C.Y = 19;
             g_Console.writeToBuffer(C, char(1), 0x5A);
@@ -349,7 +349,7 @@ void storylevel1(void) {
             g_Console.writeToBuffer(C, "Not here either", 0x8B);
         }
     }
-    if (storytimer(k, 14) == true) {
+    if (storytimer(float(k), 14) == true) {
         if (storysoundcheck1 == true) {
             PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC|SND_LOOP);
             storysoundcheck1 = false;
@@ -372,7 +372,7 @@ void storylevel1(void) {
         C.Y = 14;
         g_Console.writeToBuffer(C, char(1), 0x4A);
     }
-    if (storytimer(k, 20) == true){
+    if (storytimer(float(k), 20) == true){
         Storylevel1 = false;
         level1 = true;
         soundcheck = false;
