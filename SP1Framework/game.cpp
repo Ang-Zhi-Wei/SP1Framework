@@ -60,7 +60,7 @@ const char colors[] = {
         char(0x0F), char(0xF7), char(0xFF), char(0x7C), char(0xA2),
         char(0xAA), char(0xA1), char(0xB2), char(0xC3), char(0xD4),
         char(0xE5), char(0xF6), char(0xC0), char(0x88), char(0xC4),
-        char(0xF7), char(0x6E), char(0x66)
+        char(0xF7), char(0x6E), char(0x6E), char(0x84)
 };
 // 0x1C No colour
 // 0x2C Green
@@ -1483,7 +1483,7 @@ void renderLevel3() {
 
 }
 void renderLevel1() {
-    Level.LoadLevel2();
+    Level.LoadLevel1();
     Level.TransferArray();
     for (int i = 0; i < 20; i++) {
         if (lvlmanager[i] != nullptr) {
@@ -1497,31 +1497,68 @@ void renderLevel1() {
     {
         for (int j = 0; j < 25; j++)
         {
-            if (Level.LevelArray[i][j] == ',')
+            if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, ",", colors[1]);
+                g_Console.writeToBuffer(c, ".", 0x22);
             }
             if (Level.LevelArray[i][j] == '~')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "~", colors[2]);
+                g_Console.writeToBuffer(c, "~", 0x31);
+            }
+            if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x66);
+            }
+            if (Level.LevelArray[i][j] == '|')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
+            }
+            if (Level.LevelArray[i][j] == '=')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[18]);
+            }
+            if (Level.LevelArray[i][j] == '&')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xAA);
             }
             if (Level.LevelArray[i][j] == '*')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, "'", colors[10]);
+                g_Console.writeToBuffer(c, " ", 0x77);
             }
+            if (Level.LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xFF);
+            }
+            if (Level.LevelArray[i][j] == '^')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xFF);
+            }
+
         }
     }
 }
 void renderTutorial()
 {
     
-    Level.LoadLevel1();
+    Level.LoadTutorialLevel();
     Level.TransferArray();
     // Checking for Symbol
 

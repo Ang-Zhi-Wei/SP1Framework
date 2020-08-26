@@ -8,10 +8,10 @@ LevelMap::LevelMap()
 {
 }
 // Tutorial Level
-void LevelMap::LoadLevel1(void)
+void LevelMap::LoadTutorialLevel(void)
 {
     ifstream fin;
-    fin.open("Level1.txt");
+    fin.open("TutorialLevel.txt");
     string line;
 
     //let's assume here the proper size of input Map
@@ -42,10 +42,10 @@ void LevelMap::LoadLevel3(void)
         }
     }
 }
-void LevelMap::LoadLevel2(void)
+void LevelMap::LoadLevel1(void)
 {
     ifstream fin;
-    fin.open("Level2.txt");
+    fin.open("Level1.txt");
     string line;
 
     //let's assume here the proper size of input Map

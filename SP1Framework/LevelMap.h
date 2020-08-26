@@ -8,10 +8,10 @@ private:
 	const unsigned int WIDTH = 80;
 public:
 	 LevelMap();
-	 void LoadLevel1(void);
+	 void LoadTutorialLevel(void);
 	 void LoadLevel3(void);
-	 void LoadLevel2(void);
-	 char LevelArray[80][25];
+	 void LoadLevel1(void);
+	 char LevelArray[80][25]{};
 	 void TransferArray();
 };
 
