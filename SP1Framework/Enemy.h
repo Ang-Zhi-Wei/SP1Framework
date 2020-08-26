@@ -4,6 +4,8 @@
 #include "Framework/timer.h"
 #include "Framework/console.h"
 #include "game.h"
+#include "Functions.h"
+#include <iostream>
 class Enemy : public Entity
 {
 protected:
@@ -13,10 +15,13 @@ protected:
 
 	COORD EnemyPos;
 public:
+
+
 	Enemy(int x = 10, int y = 10);
 	~Enemy();
 
 	COORD get_enemy_coord(void);
+
 
 	static void SetTotalEnemy(int SetTotalEn);
 	static int GetTotalEnemy();

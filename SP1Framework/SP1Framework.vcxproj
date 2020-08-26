@@ -84,6 +84,7 @@
     <ClCompile Include="firehydrant.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GlobalVar.cpp" />
     <ClCompile Include="LevelMap.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="firehydrant.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GlobalVar.h" />
     <ClInclude Include="LevelMap.h" />

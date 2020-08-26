@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+
 int Enemy::total_no_of_enemy = 0;
 
 Enemy::Enemy(int x, int y)
@@ -11,8 +12,8 @@ Enemy::Enemy(int x, int y)
 	EnemyPos.Y = y;
 	ctimer = 0;
 
-	rate_of_fire = double(3.0);
-
+	rate_of_fire = 3;
+	ctimer = fRand(0, rate_of_fire);
 }
 
 Enemy::~Enemy()
@@ -46,3 +47,4 @@ void Enemy::EVERYTHINGUPDATE(void)
 
 	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1, "PEWPEWPEW", 0x8B);
 }
+
