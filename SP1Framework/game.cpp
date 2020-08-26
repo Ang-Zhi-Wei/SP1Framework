@@ -45,7 +45,7 @@ bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
-bool resetvalues = false;
+bool resetvalues = true;
 int Text =  0;
 int increaseY = 0;
 int increaseX = 0;
@@ -1982,16 +1982,28 @@ void renderGame()
 
    }
    else if (level2status == true && level2==true) {
+       if (resetvalues == true) {
+           g_sChar.m_cLocation.X = 30;
+           g_sChar.m_cLocation.Y = 14;
+           Ammo = 100;
+           resetvalues = false;
+       }
        renderLevel2();
 
    }
    else if (level1status == true && level1==true) {
+       if (resetvalues == true) {
+           g_sChar.m_cLocation.X = 45;
+           g_sChar.m_cLocation.Y = 13;
+           Ammo = 100;
+           resetvalues = false;
+       }
        renderLevel1();
    }
    else if (Tutorialstatus == true && Tutorial==true) {
         if (resetvalues == true) {
-            g_sChar.m_cLocation.X = 73;
-            g_sChar.m_cLocation.Y = 16;
+            g_sChar.m_cLocation.X = 50;
+            g_sChar.m_cLocation.Y = 18;
             Ammo = 100;
             resetvalues = false;
         }
