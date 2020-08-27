@@ -41,8 +41,8 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = true;
-bool momstatus = false;
+bool dadstatus = false;
+bool momstatus = true;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
@@ -319,7 +319,7 @@ void storymum(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
-    C.X = 15;
+    C.X = 20;
     C.Y = 12;
     g_Console.writeToBuffer(C, char(1), 0x5A);
     C.X = 40;
@@ -334,7 +334,7 @@ void storymum(void) {
                 PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
                 storysoundcheck1 = false;
             }
-            C.X = 15;
+            C.X = 20;
             C.Y = 11;
             g_Console.writeToBuffer(C, "Mum!", 0x8B);
         }
