@@ -2224,11 +2224,11 @@ void renderLevel2()
         for (int j = 0; j < 25; j++)
         {
             // Black -> '*' -> Walls
-            if (Level.LevelArray[i][j] == 'x')
+            if (Level.LevelArray[i][j] == '^')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[0]);
+                g_Console.writeToBuffer(c, " ", 0x22);
             }
             // Gray -> '@'
             // Green -> '*'
@@ -2245,13 +2245,6 @@ void renderLevel2()
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[7]);
             }
-            // Green -> '&'
-            if (Level.LevelArray[i][j] == '#')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[2]);
-            }
             //brown
             if (Level.LevelArray[i][j] == '+')
             {
@@ -2263,7 +2256,7 @@ void renderLevel2()
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[10]);
+                g_Console.writeToBuffer(c, "~", 0x72);
             }
             
             if (Level.LevelArray[i][j] == '=')
@@ -2277,6 +2270,20 @@ void renderLevel2()
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+            //tree leaves
+            if (Level.LevelArray[i][j] == '?')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "~", 0x26);
+            }
+            // apples
+            if (Level.LevelArray[i][j] == '/')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "*", 0x24);
             }
         }
     }
