@@ -1853,7 +1853,7 @@ void renderdadlevel() {
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0xCC);
             }
-            // light green (grass)
+            // apple on tree
             if (Level.LevelArray[i][j] == '/')
             {
                 c.X = i;
@@ -2048,6 +2048,12 @@ void renderLevel3()
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+            if (Level.LevelArray[i][j] == '/')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "*", 0x24);
             }
         }
     }
