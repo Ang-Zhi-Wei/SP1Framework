@@ -41,8 +41,8 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = false;
-bool momstatus = true;
+bool dadstatus = true;
+bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
@@ -2500,7 +2500,7 @@ void renderGame()
         if (momstatus == true) {
             rendermomlevel();
             if (resetvalues == true) {
-                g_sChar.m_cLocation.X = 15;
+                g_sChar.m_cLocation.X = 20;
                 g_sChar.m_cLocation.Y = 12;
                 Ammo = 100;
                 resetvalues = false;
@@ -2508,7 +2508,7 @@ void renderGame()
         }
         else if (dadstatus == true) {
             if (resetvalues == true) {
-                g_sChar.m_cLocation.X = 20;
+                g_sChar.m_cLocation.X = 15;
                 g_sChar.m_cLocation.Y = 23;
                 Ammo = 100;
                 resetvalues = false;
