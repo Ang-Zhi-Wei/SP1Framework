@@ -87,7 +87,7 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 
 // Console object
-Console g_Console(80, 25, "Phlogiston");
+Console g_Console(80, 25, "SP1 Framework");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
@@ -202,16 +202,7 @@ g_Console.writeToBuffer(C, char(1), 0x5A);
 void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
-           
-            if (StoryDad == true) {
-            StoryDad = false;
-            level4 = true;
-            soundcheck = true;
-            storysoundcheck1 = true;
-            storysoundcheck2 = true;
-            storysoundcheck3 = true;
-            }
-            else if (Storylevel3 == true) {
+            if (Storylevel3 == true) {
                 Storylevel3 = false;
                 level3 = true;
                 soundcheck = true;
@@ -219,7 +210,7 @@ void storybuttonskip(void) {
                 storysoundcheck2 = true;
                 storysoundcheck3 = true;
             }
-            else if (Storylevel2 == true) {
+            if (Storylevel2 == true) {
                 Storylevel2 = false;
                 level2 = true;
                 soundcheck = true;
@@ -252,11 +243,7 @@ void storybuttonskip(void) {
     }
 }
 void storydad(void) {
-    COORD C;
-    //skip button
-    C.X = 76;
-    C.Y = 0;
-    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    
 }
 void storymum(void) {
 
@@ -1090,12 +1077,6 @@ void levelEvents(void) {
             startingscreen = true;
         }
         else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
-            if (momstatus == true) {
-                StoryMum = true;
-            }
-            else if (dadstatus == true) {
-                StoryDad = true;
-            }
             Levelselect = false;
             soundcheck = true;
             level4 = true;
@@ -1730,35 +1711,23 @@ void renderdadlevel() {
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x22);
+                g_Console.writeToBuffer(c, " ", 0x66);
             }
             // Green -> '*'
-            if (Level.LevelArray[i][j] == '?')
+            if (Level.LevelArray[i][j] == '&')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0xCC);
             }
             // light green (grass)
-            if (Level.LevelArray[i][j] == '/')
+            if (Level.LevelArray[i][j] == '+')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0xEE);
             }
             if (Level.LevelArray[i][j] == '.')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0xAA);
-            }
-            if (Level.LevelArray[i][j] == '*')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x77);
-            }
-            if (Level.LevelArray[i][j] == '%')
             {
                 c.X = i;
                 c.Y = j;
@@ -2152,11 +2121,6 @@ void render()
             storylevel3();
             storybuttonskip();
         }
-        else if (StoryDad == true) {
-            renderdadlevel();
-            storydad();
-            storybuttonskip();
-        }
         else if (startingscreen == true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -2167,7 +2131,7 @@ void render()
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                if (level2 == true ||level4==true) {
+                if (level2 == true) {
                     PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
                 }
                 else {
