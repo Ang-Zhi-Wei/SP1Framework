@@ -41,8 +41,8 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = false;
-bool momstatus = true;
+bool dadstatus = true;
+bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
@@ -1203,6 +1203,7 @@ void levelEvents(void) {
             }
             else if (dadstatus == true) {
                 StoryDad = true;
+                level = 5;
             }
             Levelselect = false;
             soundcheck = true;
@@ -1491,7 +1492,7 @@ void healthbar(void) {
     COORD C;
     C.X = 0;
     C.Y = 23;
-    g_Console.writeToBuffer(C, "Health:/", 0x4A);
+    g_Console.writeToBuffer(C, "Health:/100", 0x4A);
     //if health...............
    
 }
@@ -1877,6 +1878,12 @@ void renderdadlevel() {
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0x66);
             }
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
         }
     }
 }
