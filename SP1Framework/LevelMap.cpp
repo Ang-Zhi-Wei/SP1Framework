@@ -78,6 +78,23 @@ void LevelMap::LoadLevel3(void)
     }
 }
 
+void LevelMap::LoadLevel4MomStage(void)
+{
+    ifstream fin;
+    fin.open("LevelBoss.txt");
+    string line;
+
+    //let's assume here the proper size of input Map
+    for (unsigned int i = 0; i < HEIGHT; i++)
+    {
+        getline(fin, line);
+        for (unsigned int j = 0; j < WIDTH; j++)
+        {
+            MapArray[i][j] = line[j];
+        }
+    }
+}
+
 void LevelMap::LoadLevel4DadStage(void)
 {
     ifstream fin;
