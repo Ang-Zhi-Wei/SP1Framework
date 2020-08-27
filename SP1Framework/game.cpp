@@ -319,6 +319,54 @@ void storymum(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
+    C.X = 15;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 40;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0x2B);
+    C.X = 40;
+    C.Y = 14;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 15;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "Mum!", 0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 40;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "MMMMhmhmhmhmhhmhm!!!", 0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "HA!HA!HA!Let's get the party started!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        StoryMum = false;
+        level4 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
+    }
 }
 void storylevel3(void) {
     COORD C;
@@ -2414,6 +2462,12 @@ void renderGame()
     if (level4status == true && level4 == true) {
         if (momstatus == true) {
             rendermomlevel();
+            if (resetvalues == true) {
+                g_sChar.m_cLocation.X = 15;
+                g_sChar.m_cLocation.Y = 12;
+                Ammo = 100;
+                resetvalues = false;
+            }
         }
         else if (dadstatus == true) {
             if (resetvalues == true) {
