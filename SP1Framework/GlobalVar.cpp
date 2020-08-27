@@ -9,4 +9,3 @@ Entity* tut_objects[20] = { new firehydrant(27,12),new firehydrant(51,12), new E
 
 Entity** lvl_array[5] = { tut_objects, nullptr, };
 
-
