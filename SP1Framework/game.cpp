@@ -1711,23 +1711,35 @@ void renderdadlevel() {
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0x66);
+                g_Console.writeToBuffer(c, " ", 0x22);
             }
             // Green -> '*'
-            if (Level.LevelArray[i][j] == '&')
+            if (Level.LevelArray[i][j] == '?')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0xCC);
             }
             // light green (grass)
-            if (Level.LevelArray[i][j] == '+')
+            if (Level.LevelArray[i][j] == '/')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0xEE);
             }
             if (Level.LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xAA);
+            }
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x77);
+            }
+            if (Level.LevelArray[i][j] == '%')
             {
                 c.X = i;
                 c.Y = j;
@@ -1738,7 +1750,7 @@ void renderdadlevel() {
 }
 void rendermomlevel() 
 {
-    Level.LoadLevelMomStage();
+    Level.LoadLevel4MomStage();
     Level.TransferArray();
 }
 void renderLevel3() 
