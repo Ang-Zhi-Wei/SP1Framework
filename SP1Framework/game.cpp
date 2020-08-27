@@ -41,8 +41,8 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = false;
-bool momstatus = true;
+bool dadstatus = true;
+bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
@@ -319,7 +319,7 @@ void storymum(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
-    C.X = 15;
+    C.X = 20;
     C.Y = 12;
     g_Console.writeToBuffer(C, char(1), 0x5A);
     C.X = 40;
@@ -334,7 +334,7 @@ void storymum(void) {
                 PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
                 storysoundcheck1 = false;
             }
-            C.X = 15;
+            C.X = 20;
             C.Y = 11;
             g_Console.writeToBuffer(C, "Mum!", 0x8B);
         }
@@ -1203,6 +1203,7 @@ void levelEvents(void) {
             }
             else if (dadstatus == true) {
                 StoryDad = true;
+                level = 5;
             }
             Levelselect = false;
             soundcheck = true;
@@ -1491,7 +1492,7 @@ void healthbar(void) {
     COORD C;
     C.X = 0;
     C.Y = 23;
-    g_Console.writeToBuffer(C, "Health:/", 0x4A);
+    g_Console.writeToBuffer(C, "Health:/100", 0x4A);
     //if health...............
    
 }
@@ -1877,6 +1878,12 @@ void renderdadlevel() {
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0x66);
             }
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
         }
     }
 }
@@ -2493,7 +2500,7 @@ void renderGame()
         if (momstatus == true) {
             rendermomlevel();
             if (resetvalues == true) {
-                g_sChar.m_cLocation.X = 15;
+                g_sChar.m_cLocation.X = 20;
                 g_sChar.m_cLocation.Y = 12;
                 Ammo = 100;
                 resetvalues = false;
@@ -2501,7 +2508,7 @@ void renderGame()
         }
         else if (dadstatus == true) {
             if (resetvalues == true) {
-                g_sChar.m_cLocation.X = 20;
+                g_sChar.m_cLocation.X = 15;
                 g_sChar.m_cLocation.Y = 23;
                 Ammo = 100;
                 resetvalues = false;

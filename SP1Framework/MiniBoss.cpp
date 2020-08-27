@@ -48,7 +48,7 @@ int MiniBoss::GetTotalBoss()
 
 void MiniBoss::EVERYTHINGUPDATE(void)
 {
-	g_Console.writeToBuffer(MiniBossPos.X + 1, MiniBossPos.Y + 1, char(1), 0xAA);
+	g_Console.writeToBuffer(MiniBossPos.X + 1, MiniBossPos.Y + 1, char(1), 0x64);
 	UpdateBossBullet();
 	minibossctimer += g_dDeltaTime;
 	if (minibossctimer < 1)
