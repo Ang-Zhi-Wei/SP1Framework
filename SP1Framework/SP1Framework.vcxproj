@@ -90,6 +90,8 @@
     <ClCompile Include="GlobalVar.cpp" />
     <ClCompile Include="LevelMap.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MiniBoss.cpp" />
+    <ClCompile Include="MiniBossBullet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Position.cpp" />
   </ItemGroup>
@@ -106,6 +108,8 @@
     <ClInclude Include="GlobalVar.h" />
     <ClInclude Include="LevelMap.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MiniBoss.h" />
+    <ClInclude Include="MiniBossBullet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
   </ItemGroup>
