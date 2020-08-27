@@ -78,6 +78,11 @@ void LevelMap::LoadLevel3(void)
     }
 }
 
+
+void LevelMap::LoadLevelMomStage(void)
+{
+}
+
 void LevelMap::LoadLevel4DadStage(void)
 {
     ifstream fin;
