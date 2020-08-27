@@ -83,7 +83,7 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(80, 25, "Phlogiston");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
 

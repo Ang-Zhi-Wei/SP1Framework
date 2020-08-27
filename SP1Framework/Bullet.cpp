@@ -49,7 +49,7 @@ void Bullet::print()
 	c.X = x;
 	c.Y = y;
 
-	if (x >= 0 && x < 80 && y >= 0 && y < 25)
+	if (x >= 0 && x < 81 && y >= 0 && y < 26)
 	{
 		g_Console.writeToBuffer(c, "*", 0x3D);
 	}
