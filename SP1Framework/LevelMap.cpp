@@ -81,7 +81,7 @@ void LevelMap::LoadLevel3(void)
 void LevelMap::LoadLevel4MomStage(void)
 {
     ifstream fin;
-    fin.open("LevelBoss.txt");
+    fin.open("Level4BossLevelMomStage.txt");
     string line;
 
     //let's assume here the proper size of input Map

@@ -12,7 +12,7 @@ Enemy::Enemy(int x, int y)
 	EnemyPos.Y = y;
 	ctimer = 0;
 
-	rate_of_fire = 3;
+	rate_of_fire = 3.5;
 	ctimer = fRand(0, rate_of_fire);
 
 	for (int i = 0; i < 256; i++)
@@ -50,10 +50,10 @@ int Enemy::GetTotalEnemy()
 
 void Enemy::EVERYTHINGUPDATE(void)
 {
-	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1,char(1), 0x64);
+	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1,char(1), 0x4A);
 	UpdateEnemyBullet();
 	ctimer += g_dDeltaTime;
-	if (ctimer < 3)
+	if (ctimer < 3.5)
 		return;
 
 	ctimer = 0;

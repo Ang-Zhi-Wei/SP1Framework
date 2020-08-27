@@ -41,8 +41,8 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = true;
-bool momstatus = false;
+bool dadstatus = false;
+bool momstatus = true;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
@@ -87,7 +87,7 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(80, 25, "Phlogiston");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
@@ -202,7 +202,23 @@ g_Console.writeToBuffer(C, char(1), 0x5A);
 void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
-            if (Storylevel3 == true) {
+            if (StoryMum == true) {
+                StoryMum = false;
+                level4 = true;
+                soundcheck = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
+                storysoundcheck3 = true;
+           }
+            else if (StoryDad == true) {
+            StoryDad = false;
+            level4 = true;
+            soundcheck = true;
+            storysoundcheck1 = true;
+            storysoundcheck2 = true;
+            storysoundcheck3 = true;
+            }
+            else if (Storylevel3 == true) {
                 Storylevel3 = false;
                 level3 = true;
                 soundcheck = true;
@@ -210,7 +226,7 @@ void storybuttonskip(void) {
                 storysoundcheck2 = true;
                 storysoundcheck3 = true;
             }
-            if (Storylevel2 == true) {
+            else if (Storylevel2 == true) {
                 Storylevel2 = false;
                 level2 = true;
                 soundcheck = true;
@@ -243,10 +259,114 @@ void storybuttonskip(void) {
     }
 }
 void storydad(void) {
-    
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    C.X = 20;
+    C.Y = 23;
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 70;
+    C.Y = 17;
+    g_Console.writeToBuffer(C, char(1), 0x2B);
+    C.X = 72;
+    C.Y = 19;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 20;
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Dad!", 0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 57;
+            C.Y = 16;
+            g_Console.writeToBuffer(C, "MMMMhmhmhmhmhhmhm!!!",0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 40;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, "HA!HA!HA!Let's get the party started!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        StoryDad = false;
+        level4 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
+    }
 }
 void storymum(void) {
-
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    C.X = 15;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 40;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0xA2);
+    C.X = 40;
+    C.Y = 14;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 15;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "Mum!", 0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 40;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "MMMMhmhmhmhmhhmhm!!!", 0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "HA!HA!HA!Let's get the party started!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        StoryMum = false;
+        level4 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
+    }
 }
 void storylevel3(void) {
     COORD C;
@@ -1077,9 +1197,18 @@ void levelEvents(void) {
             startingscreen = true;
         }
         else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
+            if (momstatus == true) {
+                StoryMum = true;
+                level = 4;
+            }
+            else if (dadstatus == true) {
+                StoryDad = true;
+            }
             Levelselect = false;
             soundcheck = true;
-            level4 = true;
+            loading = true;
+            randomtext = true;
+            k = int(g_dElapsedTime);
         }
         else if (level3status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1087,6 +1216,7 @@ void levelEvents(void) {
             Storylevel3 = true;
             loading = true;
             randomtext = true;
+            level = 3;
             k = int(g_dElapsedTime);
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
@@ -1096,6 +1226,7 @@ void levelEvents(void) {
             Storylevel2 = true;
             k = int(g_dElapsedTime);
             randomtext = true;
+            level = 2;
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1103,6 +1234,7 @@ void levelEvents(void) {
             randomtext = true;
             soundcheck = true;
             loading = true;
+            level = 1;
             k = int(g_dElapsedTime);
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
@@ -1752,22 +1884,96 @@ void rendermomlevel()
 {
     Level.LoadLevel4MomStage();
     Level.TransferArray();
-}
-void renderLevel3() 
-{
 
-    Level.LoadLevel3();
-    Level.TransferArray();
-    // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
         char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
     };
     //  black       blue        green       aqua        red         purple      yellow       white
     //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
-    COORD c;
-    LevelMap Level1;
-    // Checking for Symbol
+
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // Red border
+            if (Level.LevelArray[i][j] == 'x')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+            // Green -> '*'
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[6]);
+            }
+            // light green (grass)
+            if (Level.LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[2]);
+            }
+            // 
+            if (Level.LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[2]);
+            }
+            //
+            if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[6]);
+            }
+            // light yellow path
+            if (Level.LevelArray[i][j] == '~')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[14]);
+            }
+            // gray path highlight
+            if (Level.LevelArray[i][j] == '=')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
+            }
+            if (Level.LevelArray[i][j] == '$')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+    }
+}
+void renderLevel3() 
+{
+
+    Level.LoadLevel3();
+    Level.TransferArray();
+    
+    const char colors[] = {
+        char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
+        char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
+    };
+    //  black       blue        green       aqua        red         purple      yellow       white
+    //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
+    
+    
 
 
     for (int i = 0; i < 80; i++)
@@ -1831,8 +2037,7 @@ void renderLevel3()
             }
         }
     }
-
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
 
@@ -1840,18 +2045,12 @@ void renderLevel3()
         }
 
     }
+    
 }
 void renderLevel1() {
     Level.LoadLevel1();
     Level.TransferArray();
-    for (int i = 0; i < 2; i++) {
-        if (lvlmanager[i] != nullptr) {
-            COORD obj_curr = lvlmanager[i]->get_coord();
-
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
-        }
-
-    }
+    
     for (int i = 0; i < 80; i++)
     {
         for (int j = 0; j < 25; j++)
@@ -1906,6 +2105,13 @@ void renderLevel1() {
             }
 
         }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+
     }
 }
 void renderTutorial()
@@ -2133,6 +2339,16 @@ void render()
             storylevel3();
             storybuttonskip();
         }
+        else if (StoryDad == true) {
+            renderdadlevel();
+            storydad();
+            storybuttonskip();
+        }
+        else if (StoryMum == true) {
+            rendermomlevel();
+            storymum();
+            storybuttonskip();
+        }
         else if (startingscreen == true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -2143,7 +2359,7 @@ void render()
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
             if (soundcheck == true) {
-                if (level2 == true) {
+                if (level2 == true ||level4==true) {
                     PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
                 }
                 else {
@@ -2263,8 +2479,20 @@ void renderGame()
     if (level4status == true && level4 == true) {
         if (momstatus == true) {
             rendermomlevel();
+            if (resetvalues == true) {
+                g_sChar.m_cLocation.X = 15;
+                g_sChar.m_cLocation.Y = 12;
+                Ammo = 100;
+                resetvalues = false;
+            }
         }
         else if (dadstatus == true) {
+            if (resetvalues == true) {
+                g_sChar.m_cLocation.X = 20;
+                g_sChar.m_cLocation.Y = 23;
+                Ammo = 100;
+                resetvalues = false;
+            }
             renderdadlevel();
         }
 
