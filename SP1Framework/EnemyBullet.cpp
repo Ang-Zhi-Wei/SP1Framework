@@ -23,6 +23,7 @@ EnemyBullet::EnemyBullet(int x1, int y1, int x2, int y2)
 
 EnemyBullet::~EnemyBullet()
 {
+	//left blank for now
 }
 
 void EnemyBullet::EVERYTHINGUPDATE()
