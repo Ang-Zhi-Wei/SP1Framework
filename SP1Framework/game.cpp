@@ -324,7 +324,7 @@ void storymum(void) {
     g_Console.writeToBuffer(C, char(1), 0x5A);
     C.X = 40;
     C.Y = 12;
-    g_Console.writeToBuffer(C, char(1), 0x2B);
+    g_Console.writeToBuffer(C, char(1), 0xA2);
     C.X = 40;
     C.Y = 14;
     g_Console.writeToBuffer(C, char(1), 0x64);
@@ -1224,6 +1224,7 @@ void levelEvents(void) {
             Storylevel2 = true;
             k = int(g_dElapsedTime);
             randomtext = true;
+            level = 2;
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1231,6 +1232,7 @@ void levelEvents(void) {
             randomtext = true;
             soundcheck = true;
             loading = true;
+            level = 1;
             k = int(g_dElapsedTime);
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
@@ -2033,14 +2035,7 @@ void renderLevel3()
 void renderLevel1() {
     Level.LoadLevel1();
     Level.TransferArray();
-    for (int i = 0; i < 2; i++) {
-        if (lvlmanager[i] != nullptr) {
-            COORD obj_curr = lvlmanager[i]->get_coord();
-
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
-        }
-
-    }
+    
     for (int i = 0; i < 80; i++)
     {
         for (int j = 0; j < 25; j++)
@@ -2095,6 +2090,13 @@ void renderLevel1() {
             }
 
         }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+
     }
 }
 void renderTutorial()
