@@ -94,7 +94,6 @@ void LevelMap::LoadLevel4MomStage(void)
         }
     }
 }
-
 void LevelMap::LoadLevel4DadStage(void)
 {
     ifstream fin;

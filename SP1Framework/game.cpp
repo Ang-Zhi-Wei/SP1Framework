@@ -1738,7 +1738,7 @@ void renderdadlevel() {
 }
 void rendermomlevel() 
 {
-    Level.LoadLevel4MomStage();
+    Level.LoadLevelMomStage();
     Level.TransferArray();
 }
 void renderLevel3() 
