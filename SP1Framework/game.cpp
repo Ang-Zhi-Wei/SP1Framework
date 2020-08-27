@@ -202,8 +202,15 @@ g_Console.writeToBuffer(C, char(1), 0x5A);
 void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
-           
-            if (StoryDad == true) {
+            if (StoryMum == true) {
+                StoryMum = false;
+                level4 = true;
+                soundcheck = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
+                storysoundcheck3 = true;
+           }
+            else if (StoryDad == true) {
             StoryDad = false;
             level4 = true;
             soundcheck = true;
@@ -257,9 +264,61 @@ void storydad(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
+    C.X = 20;
+    C.Y = 23;
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 70;
+    C.Y = 17;
+    g_Console.writeToBuffer(C, char(1), 0x2B);
+    C.X = 72;
+    C.Y = 19;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 20;
+            C.Y = 22;
+            g_Console.writeToBuffer(C, "Dad!", 0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 57;
+            C.Y = 16;
+            g_Console.writeToBuffer(C, "MMMMhmhmhmhmhhmhm!!!",0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 40;
+            C.Y = 18;
+            g_Console.writeToBuffer(C, "HA!HA!HA!Let's get the party started!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        StoryDad = false;
+        level4 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
+    }
 }
 void storymum(void) {
-
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
 }
 void storylevel3(void) {
     COORD C;
@@ -1098,7 +1157,9 @@ void levelEvents(void) {
             }
             Levelselect = false;
             soundcheck = true;
-            level4 = true;
+            loading = true;
+            randomtext = true;
+            k = int(g_dElapsedTime);
         }
         else if (level3status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -2157,6 +2218,11 @@ void render()
             storydad();
             storybuttonskip();
         }
+        else if (StoryMum == true) {
+            rendermomlevel();
+            storymum();
+            storybuttonskip();
+        }
         else if (startingscreen == true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -2289,6 +2355,12 @@ void renderGame()
             rendermomlevel();
         }
         else if (dadstatus == true) {
+            if (resetvalues == true) {
+                g_sChar.m_cLocation.X = 20;
+                g_sChar.m_cLocation.Y = 23;
+                Ammo = 100;
+                resetvalues = false;
+            }
             renderdadlevel();
         }
 
