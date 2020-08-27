@@ -1911,7 +1911,7 @@ void rendermomlevel()
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[10]);
+                g_Console.writeToBuffer(c, " ", colors[2]);
             }
             // 
             if (Level.LevelArray[i][j] == '#')
