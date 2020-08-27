@@ -1732,28 +1732,28 @@ void moveCharacter()
     if (g_skKeyEvent[K_UP].keyDown && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '/' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '?')
+        if ((Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x') && (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '/') && (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '?') && (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '^') && (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != ','))
            g_sChar.m_cLocation.Y--;
            play.SetDirection('U');
     }
     if (g_skKeyEvent[K_LEFT].keyDown && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '?')
+        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '?' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '^' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != ',')
            g_sChar.m_cLocation.X--;
            play.SetDirection('L');
     }
     if (g_skKeyEvent[K_DOWN].keyDown && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '/' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '?')
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '/' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '?' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '^' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != ',')
            g_sChar.m_cLocation.Y++;   
            play.SetDirection('D');
     }
     if (g_skKeyEvent[K_RIGHT].keyDown && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '?')
+        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '?' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '^' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != ',')
            g_sChar.m_cLocation.X++;    
            play.SetDirection('R');
     }
@@ -1844,60 +1844,67 @@ void rendermomlevel()
     {
         for (int j = 0; j < 25; j++)
         {
-            // Red border
+            // Red boss temple
             if (Level.LevelArray[i][j] == 'x')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[4]);
+                g_Console.writeToBuffer(c, " ", colors[12]);
             }
-            // Green -> '*'
-            if (Level.LevelArray[i][j] == '*')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[6]);
-            }
+            
             // light green (grass)
             if (Level.LevelArray[i][j] == '.')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[2]);
+                g_Console.writeToBuffer(c, " ", colors[14]);
             }
             // 
             if (Level.LevelArray[i][j] == '#')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[2]);
-            }
-            //
-            if (Level.LevelArray[i][j] == '+')
-            {
-                c.X = i;
-                c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[6]);
             }
-            // light yellow path
-            if (Level.LevelArray[i][j] == '~')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[14]);
-            }
-            // gray path highlight
-            if (Level.LevelArray[i][j] == '=')
+            // sigils
+            if (Level.LevelArray[i][j] == '+')
             {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[8]);
             }
-            if (Level.LevelArray[i][j] == '$')
+            // burns on the path
+            if (Level.LevelArray[i][j] == '~')
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[10]);
+                g_Console.writeToBuffer(c, " ", colors[0]);
+            }
+            // green border
+            if (Level.LevelArray[i][j] == '^')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x22);
+            }
+            //tree leaves
+            if (Level.LevelArray[i][j] == '?')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "~", 0x26);
+            }
+            if (Level.LevelArray[i][j] == '/')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "*", 0x24);
+            }
+            if (Level.LevelArray[i][j] == ',')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, "~", 0x06);
             }
         }
     }
