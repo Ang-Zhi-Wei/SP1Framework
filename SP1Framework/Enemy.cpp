@@ -50,7 +50,7 @@ int Enemy::GetTotalEnemy()
 
 void Enemy::EVERYTHINGUPDATE(void)
 {
-	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1,char(1), 0x64);
+	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1,char(1), 0x4A);
 	UpdateEnemyBullet();
 	ctimer += g_dDeltaTime;
 	if (ctimer < 3.5)

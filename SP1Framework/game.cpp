@@ -319,6 +319,54 @@ void storymum(void) {
     C.X = 76;
     C.Y = 0;
     g_Console.writeToBuffer(C, "Skip", 0x8B);
+    C.X = 15;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0x5A);
+    C.X = 40;
+    C.Y = 12;
+    g_Console.writeToBuffer(C, char(1), 0xA2);
+    C.X = 40;
+    C.Y = 14;
+    g_Console.writeToBuffer(C, char(1), 0x64);
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            if (storysoundcheck1 == true) {
+                PlaySound(TEXT("353272__adnova__boss-intro-01.wav"), NULL, SND_ASYNC | SND_LOOP);
+                storysoundcheck1 = false;
+            }
+            C.X = 15;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "Mum!", 0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 40;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "MMMMhmhmhmhmhhmhm!!!", 0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "HA!HA!HA!Let's get the party started!", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        StoryMum = false;
+        level4 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
+    }
 }
 void storylevel3(void) {
     COORD C;
@@ -1151,6 +1199,7 @@ void levelEvents(void) {
         else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
             if (momstatus == true) {
                 StoryMum = true;
+                level = 4;
             }
             else if (dadstatus == true) {
                 StoryDad = true;
@@ -1167,6 +1216,7 @@ void levelEvents(void) {
             Storylevel3 = true;
             loading = true;
             randomtext = true;
+            level = 3;
             k = int(g_dElapsedTime);
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
@@ -1176,6 +1226,7 @@ void levelEvents(void) {
             Storylevel2 = true;
             k = int(g_dElapsedTime);
             randomtext = true;
+            level = 2;
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1183,6 +1234,7 @@ void levelEvents(void) {
             randomtext = true;
             soundcheck = true;
             loading = true;
+            level = 1;
             k = int(g_dElapsedTime);
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 10) {
@@ -1908,6 +1960,12 @@ void rendermomlevel()
             }
         }
     }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+    }
 }
 void renderLevel3() 
 {
@@ -1986,13 +2044,7 @@ void renderLevel3()
             }
         }
     }
-
-    
-}
-void renderLevel1() {
-    Level.LoadLevel1();
-    Level.TransferArray();
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         if (lvlmanager[i] != nullptr) {
             COORD obj_curr = lvlmanager[i]->get_coord();
 
@@ -2000,6 +2052,12 @@ void renderLevel1() {
         }
 
     }
+    
+}
+void renderLevel1() {
+    Level.LoadLevel1();
+    Level.TransferArray();
+    
     for (int i = 0; i < 80; i++)
     {
         for (int j = 0; j < 25; j++)
@@ -2054,6 +2112,13 @@ void renderLevel1() {
             }
 
         }
+    }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+
     }
 }
 void renderTutorial()
@@ -2421,6 +2486,12 @@ void renderGame()
     if (level4status == true && level4 == true) {
         if (momstatus == true) {
             rendermomlevel();
+            if (resetvalues == true) {
+                g_sChar.m_cLocation.X = 15;
+                g_sChar.m_cLocation.Y = 12;
+                Ammo = 100;
+                resetvalues = false;
+            }
         }
         else if (dadstatus == true) {
             if (resetvalues == true) {
