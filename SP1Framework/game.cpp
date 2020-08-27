@@ -1199,6 +1199,7 @@ void levelEvents(void) {
         else if (level4status == true && g_mouseEvent.mousePosition.X >= 52 && g_mouseEvent.mousePosition.X <= 59 && g_mouseEvent.mousePosition.Y == 10) {
             if (momstatus == true) {
                 StoryMum = true;
+                level = 4;
             }
             else if (dadstatus == true) {
                 StoryDad = true;
@@ -1215,6 +1216,7 @@ void levelEvents(void) {
             Storylevel3 = true;
             loading = true;
             randomtext = true;
+            level = 3;
             k = int(g_dElapsedTime);
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
@@ -1951,6 +1953,12 @@ void rendermomlevel()
             }
         }
     }
+    for (int i = 0; i < 2; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
+            g_Console.writeToBuffer(obj_curr, " ", 0x4A);
+        }
+    }
 }
 void renderLevel3() 
 {
@@ -2029,7 +2037,14 @@ void renderLevel3()
             }
         }
     }
+    for (int i = 0; i < 1; i++) {
+        if (lvlmanager[i] != nullptr) {
+            COORD obj_curr = lvlmanager[i]->get_coord();
 
+            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
+        }
+
+    }
     
 }
 void renderLevel1() {
