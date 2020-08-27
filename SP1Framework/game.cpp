@@ -41,12 +41,14 @@ bool level1status = true;
 bool level2status = true;
 bool level3status = true;
 bool level4status = true;
-bool dadstatus = false;
+bool dadstatus = true;
 bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
 bool Storylevel3 = false;
+bool StoryDad = false;
+bool StoryMum = false;
 bool resetvalues = true;
 int Text =  0;
 int increaseY = 0;
@@ -239,6 +241,12 @@ void storybuttonskip(void) {
             }
         }
     }
+}
+void storydad(void) {
+    
+}
+void storymum(void) {
+
 }
 void storylevel3(void) {
     COORD C;
