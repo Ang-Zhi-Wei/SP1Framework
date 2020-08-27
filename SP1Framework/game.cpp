@@ -1537,38 +1537,30 @@ void moveCharacter()
     if (g_skKeyEvent[K_UP].keyDown && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x')
-            if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '/')
-                if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '?')
-                    g_sChar.m_cLocation.Y--;
-                     play.SetDirection('U');
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '/' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '?')
+           g_sChar.m_cLocation.Y--;
+           play.SetDirection('U');
     }
     if (g_skKeyEvent[K_LEFT].keyDown && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x')
-            if (Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '/')
-                if (Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '?')
-                     g_sChar.m_cLocation.X--;
-                     play.SetDirection('L');
+        if (Level.LevelArray[g_sChar.m_cLocation.X-1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '?')
+           g_sChar.m_cLocation.X--;
+           play.SetDirection('L');
     }
     if (g_skKeyEvent[K_DOWN].keyDown && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x')
-            if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '/')
-                if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '?')
-                    g_sChar.m_cLocation.Y++;   
-                    play.SetDirection('D');
+        if (Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y+1] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '/' && Level.LevelArray[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '?')
+           g_sChar.m_cLocation.Y++;   
+           play.SetDirection('D');
     }
     if (g_skKeyEvent[K_RIGHT].keyDown && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
-        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x')
-            if (Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '/')
-                if (Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '?')
-                    g_sChar.m_cLocation.X++;    
-                    play.SetDirection('R');
+        if (Level.LevelArray[g_sChar.m_cLocation.X+1][g_sChar.m_cLocation.Y] != 'x' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '/' && Level.LevelArray[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '?')
+           g_sChar.m_cLocation.X++;    
+           play.SetDirection('R');
     }
     if (g_skKeyEvent[K_SPACE].keyDown)
     {
@@ -1593,12 +1585,48 @@ void processUserInput()
     }
 }
 void renderdadlevel() {
+    Level.LoadLevel4DadStage();
+    Level.TransferArray();
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // Green border
+            if (Level.LevelArray[i][j] == 'x')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x66);
+            }
+            // Green -> '*'
+            if (Level.LevelArray[i][j] == '&')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xCC);
+            }
+            // light green (grass)
+            if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0xEE);
+            }
+            if (Level.LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", 0x66);
+            }
+        }
+    }
+}
+void rendermomlevel() 
+{
 
 }
-void rendermomlevel() {
-
-}
-void renderLevel3() {
+void renderLevel3() 
+{
 
     Level.LoadLevel3();
     Level.TransferArray();
@@ -1741,12 +1769,6 @@ void renderLevel1() {
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", 0x77);
-            }
-            if (Level.LevelArray[i][j] == '/')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", 0xFF);
             }
             if (Level.LevelArray[i][j] == '^')
             {

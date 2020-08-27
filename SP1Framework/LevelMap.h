@@ -13,6 +13,7 @@ public:
 	 void LoadLevel1(void);
      void LoadLevel2(void);
 	 void LoadLevel3(void);
+	 void LoadLevel4DadStage(void);
 	 void TransferArray();
 };
 
