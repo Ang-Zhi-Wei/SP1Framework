@@ -14,6 +14,7 @@
 #include "mmsystem.h"
 #include "Bullet.h"
 #include "firehydrant.h"
+#include "Enemy.h"
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -45,6 +46,7 @@ bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
 bool Storylevel2 = false;
+bool Storylevel3 = false;
 bool resetvalues = true;
 int Text =  0;
 int increaseY = 0;
@@ -198,6 +200,14 @@ g_Console.writeToBuffer(C, char(1), 0x5A);
 void storybuttonskip(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
         if (g_mouseEvent.mousePosition.X >= 76 && g_mouseEvent.mousePosition.X <= 80 && g_mouseEvent.mousePosition.Y == 0) {
+            if (Storylevel3 == true) {
+                Storylevel3 = false;
+                level3 = true;
+                soundcheck = true;
+                storysoundcheck1 = true;
+                storysoundcheck2 = true;
+                storysoundcheck3 = true;
+            }
             if (Storylevel2 == true) {
                 Storylevel2 = false;
                 level2 = true;
@@ -206,7 +216,7 @@ void storybuttonskip(void) {
                 storysoundcheck2 = true;
                 storysoundcheck3 = true;
             }
-            if (Storylevel1 == true) {
+            else if (Storylevel1 == true) {
                 Storylevel1 = false;
                 level1 = true;
                 soundcheck = true;
@@ -228,6 +238,100 @@ void storybuttonskip(void) {
                 StoryText[i] = 0;
             }
         }
+    }
+}
+void storylevel3(void) {
+    COORD C;
+    //skip button
+    C.X = 76;
+    C.Y = 0;
+    g_Console.writeToBuffer(C, "Skip", 0x8B);
+    if (storytimer(k, 0) == true) {
+        if (storysoundcheck1 == true) {
+            PlaySound(TEXT("86758__vicces1212__oldvideogame.wav"), NULL, SND_ASYNC | SND_LOOP);
+            storysoundcheck1 = false;
+        }
+        C.X = 20;
+        C.Y = 12;
+        g_Console.writeToBuffer(C, char(1), 0x5A);
+        if (storytimer(k, 24) != true) {
+            C.X = 60;
+            C.Y = 14;
+            g_Console.writeToBuffer(C, char(1), 0x64);
+        }
+    }
+    if (storytimer(k, 0) == true) {
+        if (storytimer(k, 4) != true) {
+            C.X = 20;
+            C.Y = 11;
+            g_Console.writeToBuffer(C, "Nice try,you're not running away",0x8B);
+        }
+    }
+    if (storytimer(k, 4) == true) {
+        if (storytimer(k, 8) != true) {
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "And what about your parents?HA!HA!",0x8B);
+        }
+    }
+    if (storytimer(k, 8) == true) {
+        if (storytimer(k, 12) != true) {
+            C.X = 50;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "An eye for an eye", 0x8B);
+        }
+    }
+    if (storytimer(k, 12) == true) {
+        if (storytimer(k, 16) != true) {
+            C.X = 25;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "Your parents are both locked up in separate locations", 0x8B);
+        }
+    }
+    if (storytimer(k, 16) == true) {
+        if (storytimer(k, 20) != true) {
+            C.X = 50;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "If you go one way", 0x8B);
+        }
+    }
+    if (storytimer(k, 20) == true) {
+        if (storytimer(k, 24) != true) {
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "The other will be killed by my minions", 0x8B);
+        }
+    }
+    if (storytimer(k, 24) == true) {
+        actorandtextmovement(60, 14, 80, NULL, "EMPTY", "RIGHT", 0, 0.5, "ANTAGONIST");
+        if (storytimer(k, 28) != true) {
+            C.X = 65;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, "Take your pick", 0x8B);
+            C.X = 40;
+            C.Y = 13;
+            g_Console.writeToBuffer(C, char(1), 0x4A);
+            C.X = 52;
+            C.Y = 12;
+            g_Console.writeToBuffer(C, char(1), 0x4A);
+            C.X = 50;
+            C.Y = 14;
+            g_Console.writeToBuffer(C, char(1), 0x4A);
+        }
+    }
+    if (storytimer(k, 28) == true) {
+        Storylevel3 = false;
+        level3 = true;
+        soundcheck = false;
+        for (int i = 0; i < 100; i++) {
+            storyincreaseX[i] = 0;
+            storyincreaseY[i] = 0;
+            storytime[i] = 0;
+            StoryText[i] = 0;
+        }
+        storysoundcheck1 = true;
+        storysoundcheck2 = true;
+        storysoundcheck3 = true;
     }
 }
 void storylevel2(void) {
@@ -972,7 +1076,10 @@ void levelEvents(void) {
         else if (level3status == true && g_mouseEvent.mousePosition.X >= 45 && g_mouseEvent.mousePosition.X <= 52 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
             soundcheck = true;
-            level3 = true;
+            Storylevel3 = true;
+            loading = true;
+            randomtext = true;
+            k = int(g_dElapsedTime);
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1978,6 +2085,11 @@ void render()
             storylevel2();
             storybuttonskip();
         }
+        else if (Storylevel3 == true) {
+            renderLevel3();
+            storylevel3();
+            storybuttonskip();
+        }
         else if (startingscreen == true) {
             if (soundcheck == true) {
                 PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
@@ -2105,39 +2217,44 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
-   if (level4status == true && level4==true) {
-     if (momstatus == true) {
-         rendermomlevel();
-     }
-     else if (dadstatus == true) {
-         renderdadlevel();
-     }
+    if (level4status == true && level4 == true) {
+        if (momstatus == true) {
+            rendermomlevel();
+        }
+        else if (dadstatus == true) {
+            renderdadlevel();
+        }
 
     }
-   else if (level3status == true && level3==true) {
-       renderLevel3();
+    else if (level3status == true && level3 == true) {
+        if (resetvalues == true) {
+            g_sChar.m_cLocation.X = 20;
+            g_sChar.m_cLocation.Y = 11;
+            Ammo = 100;
+            resetvalues = false;
+        }
+        renderLevel3();
 
-   }
-   else if (level2status == true && level2==true) {
-       if (resetvalues == true) {
-           g_sChar.m_cLocation.X = 30;
-           g_sChar.m_cLocation.Y = 14;
-           Ammo = 100;
-           resetvalues = false;
-       }
-       renderLevel2();
-
-   }
-   else if (level1status == true && level1==true) {
-       if (resetvalues == true) {
-           g_sChar.m_cLocation.X = 45;
-           g_sChar.m_cLocation.Y = 13;
-           Ammo = 100;
-           resetvalues = false;
-       }
-       renderLevel1();
-   }
-   else if (Tutorialstatus == true && Tutorial==true) {
+    }
+    else if (level2status == true && level2 == true) {
+        if (resetvalues == true) {
+            g_sChar.m_cLocation.X = 30;
+            g_sChar.m_cLocation.Y = 14;
+            Ammo = 100;
+            resetvalues = false;
+        }
+        renderLevel2();
+    }
+    else if (level1status == true && level1 == true) {
+        if (resetvalues == true) {
+            g_sChar.m_cLocation.X = 45;
+            g_sChar.m_cLocation.Y = 13;
+            Ammo = 100;
+            resetvalues = false;
+        }
+        renderLevel1();
+    }
+    else if (Tutorialstatus == true && Tutorial == true) {
         if (resetvalues == true) {
             g_sChar.m_cLocation.X = 50;
             g_sChar.m_cLocation.Y = 18;
@@ -2147,8 +2264,8 @@ void renderGame()
         renderTutorial();// renders the map to the buffer first
 
     }
-   
-   
+
+
    
 
     CheckAndUpdate();
