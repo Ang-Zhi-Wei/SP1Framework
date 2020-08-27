@@ -87,7 +87,7 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN; // initial state
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(80, 25, "Phlogiston");
 
 Bullet* Amount_ofbullet[256] = { nullptr,};
 
@@ -1832,22 +1832,90 @@ void rendermomlevel()
 {
     Level.LoadLevel4MomStage();
     Level.TransferArray();
-}
-void renderLevel3() 
-{
 
-    Level.LoadLevel3();
-    Level.TransferArray();
-    // Set up sample colours, and output shadings
     const char colors[] = {
         char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
         char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
     };
     //  black       blue        green       aqua        red         purple      yellow       white
     //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
-    COORD c;
-    LevelMap Level1;
-    // Checking for Symbol
+
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // Red border
+            if (Level.LevelArray[i][j] == 'x')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+            // Green -> '*'
+            if (Level.LevelArray[i][j] == '*')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[6]);
+            }
+            // light green (grass)
+            if (Level.LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+            // 
+            if (Level.LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[2]);
+            }
+            //
+            if (Level.LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[6]);
+            }
+            // light yellow path
+            if (Level.LevelArray[i][j] == '~')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[14]);
+            }
+            // gray path highlight
+            if (Level.LevelArray[i][j] == '=')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
+            }
+            if (Level.LevelArray[i][j] == '$')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[10]);
+            }
+        }
+    }
+}
+void renderLevel3() 
+{
+
+    Level.LoadLevel3();
+    Level.TransferArray();
+    
+    const char colors[] = {
+        char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
+        char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
+    };
+    //  black       blue        green       aqua        red         purple      yellow       white
+    //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
+    
+    
 
 
     for (int i = 0; i < 80; i++)
@@ -1912,14 +1980,7 @@ void renderLevel3()
         }
     }
 
-    for (int i = 0; i < 2; i++) {
-        if (lvlmanager[i] != nullptr) {
-            COORD obj_curr = lvlmanager[i]->get_coord();
-
-            g_Console.writeToBuffer(obj_curr, " ", 0x4C);
-        }
-
-    }
+    
 }
 void renderLevel1() {
     Level.LoadLevel1();

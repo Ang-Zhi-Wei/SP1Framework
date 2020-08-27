@@ -28,9 +28,9 @@ EnemyBullet::~EnemyBullet()
 
 void EnemyBullet::EVERYTHINGUPDATE()
 {
-	if ((x1 <= 79) || x1 > 0 || (y1 <= 24) || y1 > 0)
+	if ((x1 <= 80) || x1 > 0 || (y1 <= 25) || y1 > 0)
 	{
-		g_Console.writeToBuffer(x1, y1, "*", 0x8B);
+		g_Console.writeToBuffer(x1, y1, "*", 0x66);
 	}
 	simulatedirection();
 
