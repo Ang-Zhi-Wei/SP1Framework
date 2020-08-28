@@ -933,14 +933,14 @@ void randomdots(int g, int k) {
 }
 void StartingEvents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 29 && g_mouseEvent.mousePosition.Y == 12) {
+        if (g_mouseEvent.mousePosition.X >= 18 && g_mouseEvent.mousePosition.X <= 27 && g_mouseEvent.mousePosition.Y == 11) {
             startingscreen = false;
             Levelselect = true;
         }
-        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 16) {
+        else if (g_mouseEvent.mousePosition.X >= 38 && g_mouseEvent.mousePosition.X <= 41 && g_mouseEvent.mousePosition.Y == 12) {
             g_bQuitGame = true;
         }
-        else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 26 && g_mouseEvent.mousePosition.Y == 14) {
+        else if (g_mouseEvent.mousePosition.X >= 18 && g_mouseEvent.mousePosition.X <= 24 && g_mouseEvent.mousePosition.Y == 13) {
             startingscreen = false;
             Credits = true;
         }
@@ -1608,18 +1608,17 @@ void potentialmainmenu(void){
     }
 
     COORD C;
-    //Phlogiston
-    C.X = 20;
-    C.Y = 10;
-    g_Console.writeToBuffer(C, "Phlogiston", 0x4A);
     //Story Mode
-    C.Y += 2;
+    C.X = 18;
+    C.Y =11;
     g_Console.writeToBuffer(C, "Story Mode", 0x8B);
     //Credits
-    C.Y += 2;
+    C.X = 18;
+    C.Y = 13;
     g_Console.writeToBuffer(C, "Credits", 0x8B);
     //Exit
-    C.Y += 2;
+    C.X = 38;
+    C.Y = 12;
     g_Console.writeToBuffer(C, "Exit", 0x8B);
     
 }
