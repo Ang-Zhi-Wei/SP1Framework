@@ -1533,26 +1533,28 @@ void potentialmainmenu(void){
     g_Console.writeToBuffer(C, "Exit", 0x8B);
 }
 void portalcheck(void) {
-    //if number of enemies==0...
-    if (Tutorial == true) {
-        //display portal
-        //if player reach portal....
-    }
-    else if (level1 == true) {
+    if (Enemy::GetTotalEnemy == 0) {
+        if (Tutorial == true) {
+            //display portal
+            //if player reach portal....
+        }
+        else if (level1 == true) {
 
-    }
-    else if (level2 == true) {
+        }
+        else if (level2 == true) {
 
-    }
-    else if (level3 == true) {
+        }
+        else if (level3 == true) {
 
-    }
-    else if (level4 == true && momstatus == true) {
+        }
+        else if (level4 == true && momstatus == true) {
 
-    }
-    else if (level4 == true && dadstatus == true) {
+        }
+        else if (level4 == true && dadstatus == true) {
 
+        }
     }
+   
 }
 
 void MakesBullet()
