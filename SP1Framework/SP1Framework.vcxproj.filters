@@ -17,6 +17,7 @@
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="MiniBoss.cpp" />
     <ClCompile Include="MiniBossBullet.cpp" />
+    <ClCompile Include="Portal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="MiniBoss.h" />
     <ClInclude Include="MiniBossBullet.h" />
+    <ClInclude Include="Portal.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Level1.txt" />
