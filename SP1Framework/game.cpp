@@ -1654,200 +1654,125 @@ void portalcheck(void) {
             c.Y = portal.GetPositionY();
             //display portal
             g_Console.writeToBuffer(c, " ", 0x99);
-
-            if (Enemy::GetTotalEnemy() == 0) {
-                if (Tutorial == true) {
-                    Portal portal;
-                    portal.SetPositionX(79);
-                    portal.SetPositionY(7);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    //display portal
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        portal.~Portal();
-                        Tutorial = false;
-                        level1status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                    }
-
-
-                }
-                else if (level1 == true) {
-                    Portal portal;
-                    portal.SetPositionX(79);
-                    portal.SetPositionY(11);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    //display portal
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        portal.~Portal();
-                        level2 = false;
-                        level3status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                    }
-                }
-                else if (level3 == true) {
-                    Portal portal, portal2;
-                    portal.SetPositionX(72);
-                    portal.SetPositionY(0);
-                    portal2.SetPositionX(73);
-                    portal2.SetPositionY(24);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    g_Console.writeToBuffer(c, " ", 0x99);
-                    //display portal
-                    c.X = portal2.GetPositionX();
-                    c.Y = portal2.GetPositionY();
-                    //display portal 2
-
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        momstatus = true;
-                        dadstatus = false;
-                        level3 = false;
-                        level4status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                        portal.~Portal();
-                        portal2.~Portal();
-
-                        //if player reach portal....
-                        if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                        {
-                            portal.~Portal();
-                            level1 = false;
-                            level2status = true;
-                            Levelselect = true;
-                            soundcheck = true;
-                            resetvalues = true;
-                        }
-
-                    }
-                    else if (level2 == true) {
-                        Portal portal;
-                        portal.SetPositionX(38);
-                        portal.SetPositionY(13);
-                        c.X = portal.GetPositionX();
-                        c.Y = portal.GetPositionY();
-                        //display portal
-                        g_Console.writeToBuffer(c, " ", 0x99);
-
-                        //if player reach portal....
-                        if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                        {
-                            portal.~Portal();
-                            level2 = false;
-                            level3status = true;
-                            Levelselect = true;
-                            soundcheck = true;
-                            resetvalues = true;
-                        }
-                    }
-
-                }
-            }
-
-            else if (level3 == true) {
-                Portal portal, portal2;
-                portal.SetPositionX(72);
-                portal.SetPositionY(0);
-                portal2.SetPositionX(73);
-                portal2.SetPositionY(24);
-                c.X = portal.GetPositionX();
-                c.Y = portal.GetPositionY();
-                g_Console.writeToBuffer(c, " ", 0x99);
-                //display portal
-                c.X = portal2.GetPositionX();
-                c.Y = portal2.GetPositionY();
-                //display portal 2
-
-                g_Console.writeToBuffer(c, " ", 0x99);
-
-                //if player reach portal....
-                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                {
-                    momstatus = true;
-                    dadstatus = false;
-                    level3 = false;
-                    level4status = true;
-                    Levelselect = true;
-                    soundcheck = true;
-                    resetvalues = true;
-                    portal.~Portal();
-                    portal2.~Portal();
-                }
-                if ((g_sChar.m_cLocation.X == portal2.GetPositionX()) && (g_sChar.m_cLocation.Y == portal2.GetPositionY()))
-                {
-                    dadstatus = true;
-                    momstatus = false;
-                    level3 = false;
-                    level4status = true;
-                    Levelselect = true;
-                    soundcheck = true;
-                    resetvalues = true;
-                    portal.~Portal();
-                    portal2.~Portal();
-                }
-            }
-            else if (level4 == true && momstatus == true) {
-                Portal portal;
-                portal.SetPositionX(40);
-                portal.SetPositionY(12);
-                c.X = portal.GetPositionX();
-                c.Y = portal.GetPositionY();
-                //display portal
-                g_Console.writeToBuffer(c, " ", 0x99);
-
-                //if player reach portal....
-                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                {
-                    portal.~Portal();
-                    level4 = false;
-                    soundcheck = true;
-                    resetvalues = true;
-                    Levelselect = true;
-                }
-            }
-            else if (level4 == true && dadstatus == true) {
-                Portal portal;
-                portal.SetPositionX(46);
-                portal.SetPositionY(24);
-                c.X = portal.GetPositionX();
-                c.Y = portal.GetPositionY();
-                //display portal
-                g_Console.writeToBuffer(c, " ", 0x99);
-                //if player reach portal....
-                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                {
-                    portal.~Portal();
-                    level4 = false;
-                    soundcheck = true;
-                    resetvalues = true;
-                    Levelselect = true;
-                }
+            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+            {
+                portal.~Portal();
+                level1 = false;
+                level2status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
             }
         }
+        else if (level2 == true) {
+            Portal portal;
+            portal.SetPositionX(38);
+            portal.SetPositionY(13);
+            c.X = portal.GetPositionX();
+            c.Y = portal.GetPositionY();
+            //display portal
+            g_Console.writeToBuffer(c, " ", 0x99);
 
+            //if player reach portal....
+            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+            {
+                portal.~Portal();
+                level2 = false;
+                level3status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
+            }
+        }
+        else if (level3 == true) {
+            Portal portal, portal2;
+            portal.SetPositionX(72);
+            portal.SetPositionY(0);
+            portal2.SetPositionX(73);
+            portal2.SetPositionY(24);
+            c.X = portal.GetPositionX();
+            c.Y = portal.GetPositionY();
+            g_Console.writeToBuffer(c, " ", 0x99);
+            //display portal
+            c.X = portal2.GetPositionX();
+            c.Y = portal2.GetPositionY();
+            //display portal 2
 
+            g_Console.writeToBuffer(c, " ", 0x99);
+
+            //if player reach portal....
+            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+            {
+                momstatus = true;
+                dadstatus = false;
+                level3 = false;
+                level4status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
+                portal.~Portal();
+                portal2.~Portal();
+            }
+            else if ((g_sChar.m_cLocation.X == portal2.GetPositionX()) && (g_sChar.m_cLocation.Y == portal2.GetPositionY()))
+            {
+                dadstatus = true;
+                momstatus = false;
+                level3 = false;
+                level4status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
+                portal.~Portal();
+                portal2.~Portal();
+            }
+        }
+        else if (level4 == true && momstatus == true) {
+            Portal portal;
+            portal.SetPositionX(40);
+            portal.SetPositionY(12);
+            c.X = portal.GetPositionX();
+            c.Y = portal.GetPositionY();
+            //display portal
+            g_Console.writeToBuffer(c, " ", 0x99);
+
+            //if player reach portal....
+            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+            {
+                portal.~Portal();
+                level4 = false;
+                soundcheck = true;
+                resetvalues = true;
+                Levelselect = true;
+            }
+        }
+        else if (level4 == true && dadstatus == true) {
+            Portal portal;
+            portal.SetPositionX(46);
+            portal.SetPositionY(24);
+            c.X = portal.GetPositionX();
+            c.Y = portal.GetPositionY();
+            //display portal
+            g_Console.writeToBuffer(c, " ", 0x99);
+            //if player reach portal....
+            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+            {
+                portal.~Portal();
+                level4 = false;
+                soundcheck = true;
+                resetvalues = true;
+                Levelselect = true;
+            }
+        }
     }
 }
+   
+            
+
+        
+
+
+
+   
 void liveordeathstatus(void) 
 {
     //if(player::health==0)

@@ -65,6 +65,7 @@ void Enemy::EVERYTHINGUPDATE(void)
 	if (health <= 0)
 	{
 		alive = false;
+		total_no_of_enemy--;
 	}
 
 	g_Console.writeToBuffer(EnemyPos.X, EnemyPos.Y,char(1), 0x4A);
