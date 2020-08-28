@@ -16,6 +16,7 @@
 #include "firehydrant.h"
 #include "Enemy.h"
 #include "Portal.h"
+#include <fstream>
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -1525,6 +1526,77 @@ void CheckAndUpdate()
 
 }
 void potentialmainmenu(void){
+    ifstream fin;
+    fin.open("PotentialMenu.txt");
+    string line;
+
+    char MapArray[25][80]{};
+    char LevelArray[80][25]{};
+
+    for (unsigned int i = 0; i < 25; i++)
+    {
+        getline(fin, line);
+        for (unsigned int j = 0; j < 80; j++)
+        {
+            MapArray[i][j] = line[j];
+        }
+    }
+
+    for (unsigned int i = 0; i < 80; i++)
+    {
+
+        for (unsigned int j = 0; j < 25; j++)
+        {
+            LevelArray[i][j] = MapArray[j][i];
+        }
+    }
+    
+
+    
+
+    const char colors[] = {
+        char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
+        char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
+    };
+    //  black       blue        green       aqua        red         purple      yellow       white
+    //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
+    COORD c;
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // 
+            if (LevelArray[i][j] == '=')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+
+            if (LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[7]);
+            }
+            // 
+            if (LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
+            }
+            //
+            if (LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[0]);
+            }
+        }
+           
+    }
+
     COORD C;
     //Phlogiston
     C.X = 20;
@@ -1539,6 +1611,7 @@ void potentialmainmenu(void){
     //Exit
     C.Y += 2;
     g_Console.writeToBuffer(C, "Exit", 0x8B);
+    
 }
 void portalcheck(void) {
         if (Enemy::GetTotalEnemy() == 0) {
