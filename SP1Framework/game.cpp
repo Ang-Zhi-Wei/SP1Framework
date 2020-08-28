@@ -1516,7 +1516,9 @@ void CheckAndUpdate()
     }
 
 }
+void potentialmainmenu(void){
 
+}
 
 
 void MakesBullet()
