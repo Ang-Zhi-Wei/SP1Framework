@@ -1535,6 +1535,7 @@ void potentialmainmenu(void){
 }
 void portalcheck(void) {
     if (Enemy::GetTotalEnemy() == 0)
+    {
         if (Tutorial == true) {
             Portal portal;
             portal.SetPositionX(79);
@@ -1611,7 +1612,7 @@ void portalcheck(void) {
             //display portal 2
 
             g_Console.writeToBuffer(c, " ", 0x99);
-       
+
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
@@ -1675,7 +1676,7 @@ void portalcheck(void) {
                 Levelselect = true;
             }
         }
-
+    }
 }
 void liveordeathstatus(void) 
 {
