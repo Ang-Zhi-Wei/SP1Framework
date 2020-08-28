@@ -2093,7 +2093,7 @@ void rendermomlevel()
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[8]);
+                g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // burns on the path
             if (Level.LevelArray[i][j] == '~')
