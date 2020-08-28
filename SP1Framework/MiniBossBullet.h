@@ -4,6 +4,7 @@
 #include "Framework/console.h"
 #include "game.h"
 #include <iostream>
+#include "GlobalVar.h"
 class MiniBossBullet : public Entity
 {
 protected:
@@ -21,5 +22,7 @@ public:
 
 	void Sety1m(int y1m);
 	int Gety1m();
+
+	void ObjectCheck();
 };
 

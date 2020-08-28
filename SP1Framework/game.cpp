@@ -18,6 +18,9 @@
 #include "Portal.h"
 #include <fstream>
 #include "Entities.h"
+#include "MiniBossBullet.h"
+#include "MiniBoss.h"
+
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;

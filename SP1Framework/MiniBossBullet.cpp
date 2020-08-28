@@ -32,6 +32,7 @@ void MiniBossBullet::EVERYTHINGUPDATE()
 		g_Console.writeToBuffer(x1m, y1m, "*", 0x4A);
 	}
 	simulatedirectionminiboss();
+	ObjectCheck();
 }
 
 void MiniBossBullet::simulatedirectionminiboss()
@@ -77,4 +78,16 @@ void MiniBossBullet::Sety1m(int y1)
 int MiniBossBullet::Gety1m()
 {
 	return y1m;
+}
+
+void MiniBossBullet::ObjectCheck()
+{
+
+	if ((x1m == g_sChar.m_cLocation.X) && (y1m == g_sChar.m_cLocation.Y))
+	{
+		int finalhealth;
+		finalhealth = playerstats.Gethealth() - 3;
+		playerstats.Sethealth(finalhealth);
+	}
+
 }

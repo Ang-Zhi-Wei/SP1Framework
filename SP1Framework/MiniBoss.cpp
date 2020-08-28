@@ -2,6 +2,7 @@
 #include "game.h"
 #include <iostream>
 #include <string>
+#include "MiniBossBullet.h"
 
 int MiniBoss::total_no_of_miniboss = 0;
 
@@ -10,6 +11,8 @@ MiniBoss::MiniBoss(int x, int y)
 	MiniBossPos.X = x;
 	MiniBossPos.Y = y;
 	minibossctimer = 0;
+	health = 20;
+	dmg = 3;
 	type = whatisit::Enemy;
 
 	miniboss_rate_of_fire = 1;
@@ -32,7 +35,7 @@ MiniBoss::~MiniBoss()
 	}
 }
 
-COORD MiniBoss::get_miniboss_coord(void)
+COORD MiniBoss::get_coord(void)
 {
 	return MiniBossPos;
 }
@@ -49,7 +52,20 @@ int MiniBoss::GetTotalBoss()
 
 void MiniBoss::EVERYTHINGUPDATE(void)
 {
-	g_Console.writeToBuffer(MiniBossPos.X + 1, MiniBossPos.Y + 1, char(1), 0x64);
+	//g_Console.writeToBuffer(MiniBossPos.X, MiniBossPos.Y - 5, to_string(health), 0x4A);
+	g_Console.writeToBuffer(MiniBossPos.X, MiniBossPos.Y - 5, to_string(int(type)), 0x4A);
+
+	if (alive != true)
+	{
+		return;
+	}
+	if (health <= 0)
+	{
+		alive = false;
+		total_no_of_miniboss--;
+	}
+
+	g_Console.writeToBuffer(MiniBossPos.X, MiniBossPos.Y, char(1), 0x64);
 	UpdateBossBullet();
 	minibossctimer += g_dDeltaTime;
 	if (minibossctimer < 1)

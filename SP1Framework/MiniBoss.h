@@ -4,10 +4,10 @@
 #include "Framework/console.h"
 #include "Functions.h"
 #include <iostream>
-#include "EnemyBullet.h"
 #include "MiniBossBullet.h"
+#include "Entities.h"
 
-class Entity;
+class MiniBossBullet;
 
 class MiniBoss : public Entity
 {
@@ -22,7 +22,7 @@ public:
 	MiniBoss(int x = 10, int y = 10);
 	~MiniBoss();
 
-	COORD get_miniboss_coord(void);
+	COORD get_coord(void);
 
 
 	static void SetTotalBoss(int SetTotalMini);
