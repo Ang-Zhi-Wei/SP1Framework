@@ -29,7 +29,7 @@ void MiniBossBullet::EVERYTHINGUPDATE()
 {
 	if ((x1m <= 80) || x1m > 0 || (y1m <= 25) || y1m > 0)
 	{
-		g_Console.writeToBuffer(x1m, y1m, " ", 0x4A);
+		g_Console.writeToBuffer(x1m, y1m, "*", 0x4A);
 	}
 	simulatedirectionminiboss();
 }

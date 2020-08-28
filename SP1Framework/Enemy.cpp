@@ -26,7 +26,6 @@ Enemy::Enemy(int x, int y)
 	{
 		EneBulletArray[i] = nullptr;
 	}
-
 }
 
 Enemy::~Enemy()

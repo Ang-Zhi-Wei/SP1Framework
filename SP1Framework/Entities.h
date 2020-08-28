@@ -31,6 +31,7 @@ public:
 	string Getname();
 	virtual COORD get_coord(void);
 	virtual void EVERYTHINGUPDATE();
+	
 
 	int Gethealth();
 	void Sethealth(int health);
