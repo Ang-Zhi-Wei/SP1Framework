@@ -40,11 +40,11 @@ bool level2 = false;
 bool level3 = false;
 bool level4 = false;
 bool Tutorialstatus = true;
-bool level1status = true;
-bool level2status = true;
-bool level3status = true;
-bool level4status = true;
-bool dadstatus = true;
+bool level1status = false;
+bool level2status = false;
+bool level3status = false;
+bool level4status = false;
+bool dadstatus = false;
 bool momstatus = false;
 bool Storytutorial = false;
 bool Storylevel1 = false;
@@ -1879,7 +1879,7 @@ void enemystatus() {
     int i=Enemy::GetTotalEnemy();
     //if enemy dies
     //i--
-    //Enemy::settotalenemy();
+    Enemy::SetTotalEnemy(i);
 }
 
 
