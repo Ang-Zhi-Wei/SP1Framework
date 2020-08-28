@@ -1535,7 +1535,8 @@ void potentialmainmenu(void){
 void portalcheck(void) {
     //if number of enemies==0...
     if (Tutorial == true) {
-
+        //display portal
+        //if player reach portal....
     }
     else if (level1 == true) {
 
