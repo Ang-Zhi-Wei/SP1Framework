@@ -16,7 +16,6 @@
 #include "firehydrant.h"
 #include "Enemy.h"
 #include "Portal.h"
-#include <fstream>
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -938,6 +937,7 @@ void StartingEvents(void) {
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 23 && g_mouseEvent.mousePosition.Y == 16) {
             g_bQuitGame = true;
+            preventmemoryleak();
         }
         else if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 26 && g_mouseEvent.mousePosition.Y == 14) {
             startingscreen = false;
@@ -1525,86 +1525,6 @@ void CheckAndUpdate()
 
 }
 void potentialmainmenu(void){
-    ifstream fin;
-    fin.open("PotentialMenu.txt");
-    string line;
-
-    char MapArray[25][80]{};
-    char LevelArray[80][25]{};
-
-    for (unsigned int i = 0; i < 25; i++)
-    {
-        getline(fin, line);
-        for (unsigned int j = 0; j < 80; j++)
-        {
-            MapArray[i][j] = line[j];
-        }
-    }
-
-    for (unsigned int i = 0; i < 80; i++)
-    {
-
-        for (unsigned int j = 0; j < 25; j++)
-        {
-            LevelArray[i][j] = MapArray[j][i];
-        }
-    }
-  
-    const char colors[] = {
-        char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
-        char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
-    };
-    //  black       blue        green       aqua        red         purple      yellow       white
-    //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
-    COORD c;
-    for (int i = 0; i < 80; i++)
-    {
-        for (int j = 0; j < 25; j++)
-        {
-            // 
-            if (LevelArray[i][j] == '=')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[4]);
-            }
-
-            if (LevelArray[i][j] == '.')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[7]);
-            }
-            // 
-            if (LevelArray[i][j] == '+')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[12]);
-            }
-            //
-            if (LevelArray[i][j] == '#')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[0]);
-            }
-            if (LevelArray[i][j] == '~')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[4]);
-            }
-            if (LevelArray[i][j] == '^')
-            {
-                c.X = i;
-                c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[8]);
-            }
-        }
-           
-    }
-
     COORD C;
     //Phlogiston
     C.X = 20;
@@ -1619,150 +1539,70 @@ void potentialmainmenu(void){
     //Exit
     C.Y += 2;
     g_Console.writeToBuffer(C, "Exit", 0x8B);
-    
 }
 void portalcheck(void) {
-    if (Enemy::GetTotalEnemy() == 0)
-    {
-        if (Tutorial == true) {
-            Portal portal;
-            portal.SetPositionX(79);
-            portal.SetPositionY(7);
-            c.X = portal.GetPositionX();
-            c.Y = portal.GetPositionY();
-            //display portal
-            g_Console.writeToBuffer(c, " ", 0x99);
+        if (Enemy::GetTotalEnemy() == 0) {
+            if (Tutorial == true) {
+                Portal portal;
+                portal.SetPositionX(79);
+                portal.SetPositionY(7);
+                c.X = portal.GetPositionX();
+                c.Y = portal.GetPositionY();
+                //display portal
+                g_Console.writeToBuffer(c, " ", 0x99);
 
-            //if player reach portal....
-            if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-            {
-                portal.~Portal();
-                Tutorial = false;
-                level1status = true;
-                Levelselect = true;
-                soundcheck = true;
-                resetvalues = true;
+                //if player reach portal....
+                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+                {
+                    portal.~Portal();
+                    Tutorial = false;
+                    level1status = true;
+                    Levelselect = true;
+                    soundcheck = true;
+                    resetvalues = true;
+                }
+
             }
+            else if (level1 == true) {
+                Portal portal;
+                portal.SetPositionX(79);
+                portal.SetPositionY(11);
+                c.X = portal.GetPositionX();
+                c.Y = portal.GetPositionY();
+                //display portal
+                g_Console.writeToBuffer(c, " ", 0x99);
 
-        }
-        else if (level1 == true) {
-            Portal portal;
-            portal.SetPositionX(79);
-            portal.SetPositionY(11);
-            c.X = portal.GetPositionX();
-            c.Y = portal.GetPositionY();
-            //display portal
-            g_Console.writeToBuffer(c, " ", 0x99);
-
-            if (Enemy::GetTotalEnemy() == 0) {
-                if (Tutorial == true) {
-                    Portal portal;
-                    portal.SetPositionX(79);
-                    portal.SetPositionY(7);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    //display portal
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        portal.~Portal();
-                        Tutorial = false;
-                        level1status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                    }
-
-
-                }
-                else if (level1 == true) {
-                    Portal portal;
-                    portal.SetPositionX(79);
-                    portal.SetPositionY(11);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    //display portal
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        portal.~Portal();
-                        level2 = false;
-                        level3status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                    }
-                }
-                else if (level3 == true) {
-                    Portal portal, portal2;
-                    portal.SetPositionX(72);
-                    portal.SetPositionY(0);
-                    portal2.SetPositionX(73);
-                    portal2.SetPositionY(24);
-                    c.X = portal.GetPositionX();
-                    c.Y = portal.GetPositionY();
-                    g_Console.writeToBuffer(c, " ", 0x99);
-                    //display portal
-                    c.X = portal2.GetPositionX();
-                    c.Y = portal2.GetPositionY();
-                    //display portal 2
-
-                    g_Console.writeToBuffer(c, " ", 0x99);
-
-                    //if player reach portal....
-                    if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                    {
-                        momstatus = true;
-                        dadstatus = false;
-                        level3 = false;
-                        level4status = true;
-                        Levelselect = true;
-                        soundcheck = true;
-                        resetvalues = true;
-                        portal.~Portal();
-                        portal2.~Portal();
-
-                        //if player reach portal....
-                        if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                        {
-                            portal.~Portal();
-                            level1 = false;
-                            level2status = true;
-                            Levelselect = true;
-                            soundcheck = true;
-                            resetvalues = true;
-                        }
-
-                    }
-                    else if (level2 == true) {
-                        Portal portal;
-                        portal.SetPositionX(38);
-                        portal.SetPositionY(13);
-                        c.X = portal.GetPositionX();
-                        c.Y = portal.GetPositionY();
-                        //display portal
-                        g_Console.writeToBuffer(c, " ", 0x99);
-
-                        //if player reach portal....
-                        if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
-                        {
-                            portal.~Portal();
-                            level2 = false;
-                            level3status = true;
-                            Levelselect = true;
-                            soundcheck = true;
-                            resetvalues = true;
-                        }
-                    }
-
+                //if player reach portal....
+                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+                {
+                    portal.~Portal();
+                    level1 = false;
+                    level2status = true;
+                    Levelselect = true;
+                    soundcheck = true;
+                    resetvalues = true;
                 }
             }
+            else if (level2 == true) {
+                Portal portal;
+                portal.SetPositionX(38);
+                portal.SetPositionY(13);
+                c.X = portal.GetPositionX();
+                c.Y = portal.GetPositionY();
+                //display portal
+                g_Console.writeToBuffer(c, " ", 0x99);
 
+                //if player reach portal....
+                if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
+                {
+                    portal.~Portal();
+                    level2 = false;
+                    level3status = true;
+                    Levelselect = true;
+                    soundcheck = true;
+                    resetvalues = true;
+                }
+            }
             else if (level3 == true) {
                 Portal portal, portal2;
                 portal.SetPositionX(72);
@@ -1842,10 +1682,9 @@ void portalcheck(void) {
                     Levelselect = true;
                 }
             }
-        }
-
-
     }
+      
+
 }
 void liveordeathstatus(void) 
 {
