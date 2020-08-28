@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include<stdio.h> 
-#include "player.h"
+#include "Player.h"
 #include "LevelMap.h"
 #include "GlobalVar.h"
 #include <Windows.h>
@@ -1556,7 +1556,10 @@ void portalcheck(void) {
     }
    
 }
-
+void liveordeathstatus(void) {
+    //if(player::health==0)
+    //Deathscreen?or send back to level select?
+}
 void MakesBullet()
 {
     for (int i = 0; i < 256; i++)
@@ -2445,6 +2448,7 @@ void render()
                 }
             }
             portalcheck();
+            liveordeathstatus();
         }
         break;
     }
