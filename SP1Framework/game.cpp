@@ -1549,6 +1549,11 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
+            Tutorial = false;
+            level1status = true;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
         
     }
@@ -1565,6 +1570,11 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
+            level1 = false;
+            level2status = true;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
     }
     else if (level2 == true) {
@@ -1580,6 +1590,11 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
+            level2 = false;
+            level3status = true;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
     }
     else if (level3 == true) {
@@ -1602,14 +1617,26 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             momstatus = true;
+            dadstatus = false;
             portal.~Portal();
             portal2.~Portal();
+            level3 = false;
+            level4status = true;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
         if ((g_sChar.m_cLocation.X == portal2.GetPositionX()) && (g_sChar.m_cLocation.Y == portal2.GetPositionY()))
         {
             dadstatus = true;
+            momstatus = false;
             portal.~Portal();
             portal2.~Portal();
+            level3 = false;
+            level4status = true;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
     }
     else if (level4 == true && momstatus == true) {
@@ -1625,6 +1652,10 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
+            level4 = false;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
         }
     }
     else if (level4 == true && dadstatus == true) {
@@ -1640,27 +1671,11 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
-            if (Enemy::GetTotalEnemy == 0) {
-                if (Tutorial == true) {
-                    //display portal
-                    //if player reach portal....
-                }
-                else if (level1 == true) {
-
-                }
-                else if (level2 == true) {
-
-                }
-                else if (level3 == true) {
-
-                }
-                else if (level4 == true && momstatus == true) {
-
-                }
-                else if (level4 == true && dadstatus == true) {
-
-                }
-            }
+            level4 = false;
+            Levelselect = true;
+            soundcheck = true;
+            resetvalues = true;
+            
         }
     }
    
