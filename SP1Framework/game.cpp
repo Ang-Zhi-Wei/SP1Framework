@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include<stdio.h> 
-#include "player.h"
+#include "Player.h"
 #include "LevelMap.h"
 #include "GlobalVar.h"
 #include <Windows.h>
@@ -1640,10 +1640,36 @@ void portalcheck(void) {
         if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
         {
             portal.~Portal();
+            if (Enemy::GetTotalEnemy == 0) {
+                if (Tutorial == true) {
+                    //display portal
+                    //if player reach portal....
+                }
+                else if (level1 == true) {
+
+                }
+                else if (level2 == true) {
+
+                }
+                else if (level3 == true) {
+
+                }
+                else if (level4 == true && momstatus == true) {
+
+                }
+                else if (level4 == true && dadstatus == true) {
+
+                }
+            }
         }
     }
+   
 }
-
+void liveordeathstatus(void) 
+{
+    //if(player::health==0)
+    //Deathscreen?or send back to level select?
+}
 void MakesBullet()
 {
     for (int i = 0; i < 256; i++)
@@ -2532,6 +2558,7 @@ void render()
                 }
             }
             portalcheck();
+            liveordeathstatus();
         }
         break;
     }
