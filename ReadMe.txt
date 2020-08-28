@@ -4,7 +4,7 @@ How To play:
 In this game,
 The goal of this game is to rescue your family but you have a choice on who you want to save. 
 There are enemies , players and fire hydrants
-Enemies are shown by _____ colour blocks,
+Enemies are shown by Green and yellow colour blocks,
 Players are shown by purple colour blocks,
 and the fire hydrant are shown by red colour blocks.
 
@@ -35,5 +35,5 @@ Press "Space_Key" to shoot a "water bullet" in the direction last moved
 ===========================================================================================
 Ammunition
 ----------
-Press 'R_Key' to refill Ammo.
+Press 'R_Key' to refill Ammo while on the location of the fire hydrant.
 
