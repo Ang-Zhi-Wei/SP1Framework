@@ -66,4 +66,11 @@ void destroy_all(void) //destroys everything when the program close
             }
         }
     }
+    for (int i = 0; i < 256; i++)
+    {
+        if (Amount_ofbullet[i] != nullptr)
+        {
+            delete Amount_ofbullet[i];
+        }
+    }
 }
