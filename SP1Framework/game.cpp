@@ -1532,7 +1532,27 @@ void potentialmainmenu(void){
     C.Y += 2;
     g_Console.writeToBuffer(C, "Exit", 0x8B);
 }
+void portalcheck(void) {
+    //if number of enemies==0...
+    if (Tutorial == true) {
 
+    }
+    else if (level1 == true) {
+
+    }
+    else if (level2 == true) {
+
+    }
+    else if (level3 == true) {
+
+    }
+    else if (level4 == true && momstatus == true) {
+
+    }
+    else if (level4 == true && dadstatus == true) {
+
+    }
+}
 
 void MakesBullet()
 {
@@ -2421,6 +2441,7 @@ void render()
                     lvlmanager[i]->EVERYTHINGUPDATE();
                 }
             }
+            portalcheck();
         }
         break;
     }
