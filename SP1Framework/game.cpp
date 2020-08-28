@@ -1549,10 +1549,7 @@ void potentialmainmenu(void){
             LevelArray[i][j] = MapArray[j][i];
         }
     }
-    
-
-    
-
+  
     const char colors[] = {
         char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
         char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
@@ -1583,7 +1580,7 @@ void potentialmainmenu(void){
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[8]);
+                g_Console.writeToBuffer(c, " ", colors[12]);
             }
             //
             if (LevelArray[i][j] == '#')
@@ -1591,6 +1588,18 @@ void potentialmainmenu(void){
                 c.X = i;
                 c.Y = j;
                 g_Console.writeToBuffer(c, " ", colors[0]);
+            }
+            if (LevelArray[i][j] == '~')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+            if (LevelArray[i][j] == '^')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[8]);
             }
         }
            
