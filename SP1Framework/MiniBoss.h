@@ -1,14 +1,14 @@
 #pragma once
-#include "Entities.h"
-#include "Entities.h"
 #include "game.h"
 #include "Framework/timer.h"
 #include "Framework/console.h"
-#include "game.h"
 #include "Functions.h"
 #include <iostream>
 #include "EnemyBullet.h"
 #include "MiniBossBullet.h"
+
+class Entity;
+
 class MiniBoss : public Entity
 {
 protected: 

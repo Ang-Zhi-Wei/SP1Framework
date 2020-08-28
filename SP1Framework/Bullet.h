@@ -1,6 +1,8 @@
 #pragma once
 #include "game.h"
 #include "Framework/console.h"
+#include "GlobalVar.h"
+#include "Entities.h"
 class Bullet 
 {
 public:
@@ -14,5 +16,6 @@ public:
 
 	void  UpdateXandY(Console& console);
 	void print();
+	void ObjectCheck();
 };
 

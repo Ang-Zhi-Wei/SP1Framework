@@ -10,6 +10,7 @@ MiniBoss::MiniBoss(int x, int y)
 	MiniBossPos.X = x;
 	MiniBossPos.Y = y;
 	minibossctimer = 0;
+	type = whatisit::Enemy;
 
 	miniboss_rate_of_fire = 1;
 	minibossctimer = fRand(0, miniboss_rate_of_fire);

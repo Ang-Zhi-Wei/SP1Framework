@@ -1,4 +1,5 @@
 #include "EnemyBullet.h"
+#include "Entities.h"
 
 EnemyBullet::EnemyBullet(int x1, int y1, int x2, int y2)
 {

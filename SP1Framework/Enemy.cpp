@@ -2,14 +2,21 @@
 #include "game.h"
 #include <iostream>
 #include <string>
+#include "EnemyBullet.h"
+
 
 
 int Enemy::total_no_of_enemy = 0;
 
 Enemy::Enemy(int x, int y)
 {
+	this->x = x;
+	this->y = y;
 	EnemyPos.X = x;
 	EnemyPos.Y = y;
+	health = 5;
+	dmg = 1;
+	type = whatisit::Enemy;
 	ctimer = 0;
 
 	rate_of_fire = 3.5;
@@ -33,7 +40,7 @@ Enemy::~Enemy()
 	}
 }
 
-COORD Enemy::get_enemy_coord(void)
+COORD Enemy::get_coord(void)
 {
 	return EnemyPos;
 }
@@ -50,7 +57,18 @@ int Enemy::GetTotalEnemy()
 
 void Enemy::EVERYTHINGUPDATE(void)
 {
-	g_Console.writeToBuffer(EnemyPos.X + 1, EnemyPos.Y + 1,char(1), 0x4A);
+	g_Console.writeToBuffer(EnemyPos.X, EnemyPos.Y - 1, to_string(health), 0x4A);
+
+	if (alive != true)
+	{
+		return;
+	}
+	if (health <= 0)
+	{
+		alive = false;
+	}
+
+	g_Console.writeToBuffer(EnemyPos.X, EnemyPos.Y,char(1), 0x4A);
 	UpdateEnemyBullet();
 	ctimer += g_dDeltaTime;
 	if (ctimer < 3.5)

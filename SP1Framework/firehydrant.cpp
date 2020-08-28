@@ -6,6 +6,8 @@ firehydrant::firehydrant(int x, int y)
 {
 	position.X = x;
 	position.Y = y;
+
+	type = whatisit::firehydrant;
 }
 
 firehydrant::~firehydrant()
