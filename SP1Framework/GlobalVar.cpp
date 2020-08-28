@@ -14,3 +14,7 @@ Entity* mumlvl_objects[20] = { new firehydrant(20,12),new firehydrant(66,12),new
 Entity* Dadlvl_objects[20] = { new firehydrant(10,14),new firehydrant(44,12),new Enemy(14,2),new Enemy(16,11),new Enemy(27,11),new Enemy(46,2),new MiniBoss(69,17),nullptr };
 Entity** lvl_array[6] = { tut_objects, lvl1_objects,lvl2_objects,lvl3_objects,mumlvl_objects,Dadlvl_objects};
 
+
+
+
+Entity playerstats(100, 1);

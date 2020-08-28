@@ -5,6 +5,8 @@
 #include "game.h"
 #include "Framework/console.h"
 
+
+
 class firehydrant : public Entity
 {
 protected:

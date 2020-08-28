@@ -17,6 +17,7 @@
 #include "Enemy.h"
 #include "Portal.h"
 #include <fstream>
+#include "Entities.h"
 using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -1500,7 +1501,8 @@ void healthbar(void) {
     COORD C;
     C.X = 0;
     C.Y = 23;
-    g_Console.writeToBuffer(C, "Health:/100", 0x4A);
+
+    g_Console.writeToBuffer(C, "Health: " + to_string(playerstats.Gethealth()) + "/100", 0x4A);
     //if health...............
    
 }
@@ -2741,6 +2743,11 @@ void render()
                 if (lvlmanager[i] != nullptr)
                 {
                     lvlmanager[i]->EVERYTHINGUPDATE();
+
+                    if (lvlmanager[i]->Gettype() == whatisit::Enemy && lvlmanager[i]->Gethealth() <= 0) {
+                        delete lvlmanager[i];
+                        lvlmanager[i] = nullptr;
+                    }
                 }
             }
             portalcheck();

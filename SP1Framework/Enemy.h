@@ -1,12 +1,11 @@
 #pragma once
-#include "Entities.h"
-#include "game.h"
 #include "Framework/timer.h"
 #include "Framework/console.h"
-#include "game.h"
 #include "Functions.h"
-#include <iostream>
-#include "EnemyBullet.h"
+#include "Entities.h"
+
+class EnemyBullet;
+
 class Enemy : public Entity
 {
 protected:
@@ -22,7 +21,7 @@ public:
 	Enemy(int x = 10, int y = 10);
 	~Enemy();
 
-	COORD get_enemy_coord(void);
+	COORD get_coord(void);
 
 
 	static void SetTotalEnemy(int SetTotalEn);

@@ -1,9 +1,11 @@
 #pragma once
-#include "Entities.h"
 #include "Functions.h"
 #include "Framework/console.h"
 #include "game.h"
 #include <iostream>
+#include "Entities.h"
+
+
 class EnemyBullet : public Entity
 {
 protected:

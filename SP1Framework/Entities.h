@@ -2,17 +2,30 @@
 #include <string>
 #include <Windows.h>
 #include "game.h"
+#include <iostream>
+
 using namespace std;
+
+enum class whatisit
+{
+	Entity,
+	Enemy,
+	firehydrant
+};
+
 class Entity
 {
+
 protected:
-	string name;
 	int x, y, health, dmg;
 
-
+	whatisit type;
 public:
+
+	bool alive;
+
 	Entity();
-	~Entity(); 
+	~Entity();
 	Entity(int health, int dmg);
 
 	string Getname();
@@ -20,6 +33,14 @@ public:
 	virtual void EVERYTHINGUPDATE();
 	
 
+	int Gethealth();
+	void Sethealth(int health);
 
+	int Getdmg();
+	void Setdmg(int dmg);
+
+
+	whatisit Gettype();
 };
+
 

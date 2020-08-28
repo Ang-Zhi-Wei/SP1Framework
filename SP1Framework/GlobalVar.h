@@ -10,4 +10,6 @@ extern Entity* tut_objects[20];
 extern Entity* lvl1_objects[20];
 extern Entity** lvl_array[6];
 
+extern Entity playerstats;
+
 
