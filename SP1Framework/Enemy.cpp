@@ -76,6 +76,7 @@ void Enemy::EVERYTHINGUPDATE(void)
 	ctimer = 0;
 
 	EnemyMakeBullet();
+
 }
 
 void Enemy::EnemyMakeBullet()

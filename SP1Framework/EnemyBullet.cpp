@@ -1,5 +1,6 @@
 #include "EnemyBullet.h"
 #include "Entities.h"
+#include "GlobalVar.h"
 
 EnemyBullet::EnemyBullet(int x1, int y1, int x2, int y2)
 {
@@ -35,7 +36,15 @@ void EnemyBullet::EVERYTHINGUPDATE()
 	}
 	simulatedirection();
 
+
+	if ((x1 == g_sChar.m_cLocation.X) && (y1 == g_sChar.m_cLocation.Y))
+	{
+			int finalhealth;
+			finalhealth = playerstats.Gethealth() - 1;
+			playerstats.Sethealth(finalhealth);
+	}
 }
+
 
 void EnemyBullet::simulatedirection()
 {
