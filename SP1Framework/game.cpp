@@ -1516,7 +1516,22 @@ void CheckAndUpdate()
     }
 
 }
-
+void potentialmainmenu(void){
+    COORD C;
+    //Phlogiston
+    C.X = 20;
+    C.Y = 10;
+    g_Console.writeToBuffer(C, "Phlogiston", 0x4A);
+    //Story Mode
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Story Mode", 0x8B);
+    //Credits
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Credits", 0x8B);
+    //Exit
+    C.Y += 2;
+    g_Console.writeToBuffer(C, "Exit", 0x8B);
+}
 
 
 void MakesBullet()
@@ -2381,7 +2396,7 @@ void render()
                 PlaySound(TEXT("386550__blockh34d__short-chillout-loop-for-games-or-layering.wav"), NULL, SND_ASYNC | SND_LOOP);
                 soundcheck = false;
             }
-            StartingGamescreen();
+            potentialmainmenu();
             StartingEvents();
         }
         else if (Tutorial == true || level1 == true || level2 == true || level3 == true || level4 == true) {
