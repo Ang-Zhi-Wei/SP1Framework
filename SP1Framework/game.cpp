@@ -1542,7 +1542,7 @@ void portalcheck(void) {
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             //display portal
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
 
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
@@ -1563,7 +1563,7 @@ void portalcheck(void) {
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             //display portal
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
 
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
@@ -1583,7 +1583,7 @@ void portalcheck(void) {
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             //display portal
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
 
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
@@ -1604,14 +1604,14 @@ void portalcheck(void) {
             portal2.SetPositionY(24);
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
             //display portal
             c.X = portal2.GetPositionX();
             c.Y = portal2.GetPositionY();
             //display portal 2
 
-            g_Console.writeToBuffer(c, " ", 0xFF);
-
+            g_Console.writeToBuffer(c, " ", 0x99);
+       
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
@@ -1640,12 +1640,12 @@ void portalcheck(void) {
         }
         else if (level4 == true && momstatus == true) {
             Portal portal;
-            portal.SetPositionX(79);
-            portal.SetPositionY(7);
+            portal.SetPositionX(40);
+            portal.SetPositionY(12);
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             //display portal
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
 
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
@@ -1659,12 +1659,12 @@ void portalcheck(void) {
         }
         else if (level4 == true && dadstatus == true) {
             Portal portal;
-            portal.SetPositionX(79);
-            portal.SetPositionY(7);
+            portal.SetPositionX(46);
+            portal.SetPositionY(24);
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             //display portal
-            g_Console.writeToBuffer(c, " ", 0xFF);
+            g_Console.writeToBuffer(c, " ", 0x99);
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
