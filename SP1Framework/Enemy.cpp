@@ -19,7 +19,7 @@ Enemy::Enemy(int x, int y)
 	{
 		EneBulletArray[i] = nullptr;
 	}
-
+	total_no_of_enemy++;
 }
 
 Enemy::~Enemy()
@@ -31,6 +31,7 @@ Enemy::~Enemy()
 			delete EneBulletArray[i];
 		}
 	}
+	total_no_of_enemy--;
 }
 
 COORD Enemy::get_enemy_coord(void)

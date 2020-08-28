@@ -1534,7 +1534,6 @@ void potentialmainmenu(void){
     g_Console.writeToBuffer(C, "Exit", 0x8B);
 }
 void portalcheck(void) {
-    //if number of enemies==0...
     if (Enemy::GetTotalEnemy() == 0)
         if (Tutorial == true) {
             Portal portal;
@@ -1549,6 +1548,11 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 portal.~Portal();
+                Tutorial = false;
+                level1status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
             }
 
         }
@@ -1565,6 +1569,11 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 portal.~Portal();
+                level1 = false;
+                level2status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
             }
         }
         else if (level2 == true) {
@@ -1580,6 +1589,11 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 portal.~Portal();
+                level2 = false;
+                level3status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
             }
         }
         else if (level3 == true) {
@@ -1602,12 +1616,24 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 momstatus = true;
+                dadstatus = false;
+                level3 = false;
+                level4status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
                 portal.~Portal();
                 portal2.~Portal();
             }
             if ((g_sChar.m_cLocation.X == portal2.GetPositionX()) && (g_sChar.m_cLocation.Y == portal2.GetPositionY()))
             {
                 dadstatus = true;
+                momstatus = false;
+                level3 = false;
+                level4status = true;
+                Levelselect = true;
+                soundcheck = true;
+                resetvalues = true;
                 portal.~Portal();
                 portal2.~Portal();
             }
@@ -1625,6 +1651,10 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 portal.~Portal();
+                level4 = false;
+                soundcheck = true;
+                resetvalues = true;
+                Levelselect = true;
             }
         }
         else if (level4 == true && dadstatus == true) {
@@ -1639,9 +1669,13 @@ void portalcheck(void) {
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
                 portal.~Portal();
+                level4 = false;
+                soundcheck = true;
+                resetvalues = true;
+                Levelselect = true;
             }
-
         }
+
 }
 void liveordeathstatus(void) 
 {
@@ -2059,7 +2093,7 @@ void rendermomlevel()
             {
                 c.X = i;
                 c.Y = j;
-                g_Console.writeToBuffer(c, " ", colors[8]);
+                g_Console.writeToBuffer(c, " ", colors[7]);
             }
             // burns on the path
             if (Level.LevelArray[i][j] == '~')
