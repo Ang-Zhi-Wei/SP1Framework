@@ -1142,7 +1142,10 @@ void loadingscreen(void) {
     }
 }
 void deathscreen(void) {
-
+    COORD C;
+    C.X = 20;
+    C.Y = 10;
+    g_Console.writeToBuffer(C, "Back to level select", 0x8B);
 }
 void victoryscreen(void) {
 
@@ -1781,7 +1784,7 @@ void portalcheck(void) {
    
 void liveordeathstatus(void) 
 {
-    //if(player::health==0)
+    //if player health 0
     //Deathscreen?or send back to level select?
 }
 void MakesBullet()
