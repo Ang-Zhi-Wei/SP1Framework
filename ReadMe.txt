@@ -30,7 +30,7 @@ Hold any of the Movement keys to move faster
 ============================================
 Attack
 ------
-Press "Space_Key" to shoot a "water bullet" in the direction last moved
+Press "Space_Key" to shoot a "water bullet" in the direction that you are facing.
  E.g if you move upwards in the last movement key pressed then bullet will be shot upwards.
 ===========================================================================================
 Ammunition
