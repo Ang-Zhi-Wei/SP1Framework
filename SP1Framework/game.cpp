@@ -1144,17 +1144,87 @@ void loadingscreen(void) {
 }
 void deathevents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 40 && g_mouseEvent.mousePosition.Y == 8) {
+        if (g_mouseEvent.mousePosition.X >= 30 && g_mouseEvent.mousePosition.X <= 50 && g_mouseEvent.mousePosition.Y == 12) {
             Levelselect = true;
             resetvalues = false;
             soundcheck = true;
+            Deathscreen = false;
         }
     }
 }
 void deathscreen(void) {
+    ifstream fin;
+    fin.open("DeathScreen.txt");
+    string line;
+
+    char MapArray[25][80]{};
+    char LevelArray[80][25]{};
+
+    for (unsigned int i = 0; i < 25; i++)
+    {
+        getline(fin, line);
+        for (unsigned int j = 0; j < 80; j++)
+        {
+            MapArray[i][j] = line[j];
+        }
+    }
+
+    for (unsigned int i = 0; i < 80; i++)
+    {
+
+        for (unsigned int j = 0; j < 25; j++)
+        {
+            LevelArray[i][j] = MapArray[j][i];
+        }
+    }
+
+    const char colors[] = {
+        char(0x00), char(0x11), char(0x22), char(0x33), char(0x44), char(0x55), char(0x66), char(0x77),
+        char(0x88), char(0x99), char(0xAA), char(0xBB), char(0xCC), char(0xDD), char(0xEE), char(0xFF),
+    };
+    //  black       blue        green       aqua        red         purple      yellow       white
+    //  gray        light blue  light green light aqua  light red   light purplelight yellow bright white
+    COORD c;
+    for (int i = 0; i < 80; i++)
+    {
+        for (int j = 0; j < 25; j++)
+        {
+            // 
+            if (LevelArray[i][j] == '=')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+
+            if (LevelArray[i][j] == '.')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[12]);
+            }
+            // 
+            if (LevelArray[i][j] == '+')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[0]);
+            }
+            //
+            if (LevelArray[i][j] == '#')
+            {
+                c.X = i;
+                c.Y = j;
+                g_Console.writeToBuffer(c, " ", colors[4]);
+            }
+            
+        }
+
+    }
+
     COORD C;
-    C.X = 20;
-    C.Y = 8;
+    C.X = 30;
+    C.Y = 12;
     g_Console.writeToBuffer(C, "Back to level select", 0x8B);
 }
 void victoryscreen(void) {
@@ -2942,8 +3012,8 @@ void renderInputEvents()
 
     // mouse events    
     ss.str("");
-    ss << "Mouse position (" << g_mouseEvent.mousePosition.X << ", " << g_mouseEvent.mousePosition.Y << ")";
-    g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y, ss.str(), 0x5A);
+   ss << "Mouse position (" << g_mouseEvent.mousePosition.X << ", " << g_mouseEvent.mousePosition.Y << ")";
+  //  g_Console.writeToBuffer(g_mouseEvent.mousePosition.X, g_mouseEvent.mousePosition.Y, ss.str(), 0x5A);
    // g_Console.writeToBuffer(g_mouseEvent.mousePosition, ss.str(), 0x59);
     ss.str("");
     switch (g_mouseEvent.eventFlags)
