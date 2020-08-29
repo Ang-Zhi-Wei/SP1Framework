@@ -1206,12 +1206,14 @@ void levelEvents(void) {
             if (momstatus == true) {
                 StoryMum = true;
                 level = 4;
-                Enemy::SetTotalEnemy(6);
+                Enemy::SetTotalEnemy(4);
+                MiniBoss::SetTotalBoss(1);
             }
             else if (dadstatus == true) {
                 StoryDad = true;
                 level = 5;
-                Enemy::SetTotalEnemy(6);
+                Enemy::SetTotalEnemy(4);
+                MiniBoss::SetTotalBoss(1);
             }
             Levelselect = false;
             soundcheck = true;
@@ -1227,7 +1229,7 @@ void levelEvents(void) {
             randomtext = true;
             level = 3;
             k = int(g_dElapsedTime);
-            Enemy::SetTotalEnemy(3);
+            Enemy::SetTotalEnemy(5);
         }
         else if (level2status == true && g_mouseEvent.mousePosition.X >= 37 && g_mouseEvent.mousePosition.X <= 44 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1237,7 +1239,8 @@ void levelEvents(void) {
             k = int(g_dElapsedTime);
             randomtext = true;
             level = 2;
-            Enemy::SetTotalEnemy(5);
+            Enemy::SetTotalEnemy(3);
+            MiniBoss::SetTotalBoss(1);
         }
         else if (level1status == true && g_mouseEvent.mousePosition.X >= 29 && g_mouseEvent.mousePosition.X <= 36 && g_mouseEvent.mousePosition.Y == 10) {
             Levelselect = false;
@@ -1626,7 +1629,7 @@ void potentialmainmenu(void){
     
 }
 void portalcheck(void) {
-    if (Enemy::GetTotalEnemy() == 0)
+    if (Enemy::GetTotalEnemy() == 0 && MiniBoss::GetTotalBoss()==0)
     {
         if (Tutorial == true) {
             Portal portal;
@@ -1803,12 +1806,7 @@ void MakesBullet()
         }
     }
 }
-void enemystatus() {
-    int i=Enemy::GetTotalEnemy();
-    //if enemy dies
-    //i--
-    Enemy::SetTotalEnemy(i);
-}
+
 
 
 //--------------------------------------------------------------
@@ -2680,7 +2678,6 @@ void render()
             }
             portalcheck();
             liveordeathstatus();
-            enemystatus();
         }
         break;
     }
