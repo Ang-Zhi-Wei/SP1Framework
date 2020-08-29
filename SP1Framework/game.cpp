@@ -1712,13 +1712,17 @@ void portalcheck(void) {
             c.X = portal.GetPositionX();
             c.Y = portal.GetPositionY();
             g_Console.writeToBuffer(c, " ", 0x99);
+            c.Y++;
+            g_Console.writeToBuffer(c, "Save mum", 0x8B);
             //display portal
             c.X = portal2.GetPositionX();
             c.Y = portal2.GetPositionY();
             //display portal 2
 
             g_Console.writeToBuffer(c, " ", 0x99);
-
+            c.Y--;
+            c.X--;
+            g_Console.writeToBuffer(c, "Save Dad", 0x8B);
             //if player reach portal....
             if ((g_sChar.m_cLocation.X == portal.GetPositionX()) && (g_sChar.m_cLocation.Y == portal.GetPositionY()))
             {
