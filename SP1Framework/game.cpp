@@ -56,6 +56,7 @@ bool Storylevel3 = false;
 bool StoryDad = false;
 bool StoryMum = false;
 bool resetvalues = true;
+bool Deathscreen = false;
 int Text =  0;
 int increaseY = 0;
 int increaseX = 0;
@@ -1141,10 +1142,19 @@ void loadingscreen(void) {
         g_Console.writeToBuffer(c, "Welcome to hell!");
     }
 }
+void deathevents(void) {
+    if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 40 && g_mouseEvent.mousePosition.Y == 8) {
+            Levelselect = true;
+            resetvalues = false;
+            soundcheck = true;
+        }
+    }
+}
 void deathscreen(void) {
     COORD C;
     C.X = 20;
-    C.Y = 10;
+    C.Y = 8;
     g_Console.writeToBuffer(C, "Back to level select", 0x8B);
 }
 void victoryscreen(void) {
@@ -1781,11 +1791,19 @@ void portalcheck(void) {
 
 
 
+
    
 void liveordeathstatus(void) 
 {
-    //if player health 0
-    //Deathscreen?or send back to level select?
+    if (playerstats.Gethealth() <= 0) {
+        Deathscreen = true;
+        Tutorial = false;
+        level1 = false;
+        level2 = false;
+        level3 = false;
+        level4 = false;
+        PlaySound(NULL, 0, 0);
+    }
 }
 void MakesBullet()
 {
@@ -2609,6 +2627,10 @@ void render()
             credits();
             creditbackselect();
             credittext();
+        }
+        else if (Deathscreen == true) {
+            deathscreen();
+            deathevents();
         }
         else if (Storytutorial == true) {
             if (soundcheck == true) {
