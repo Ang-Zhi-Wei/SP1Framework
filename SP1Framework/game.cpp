@@ -1144,10 +1144,11 @@ void loadingscreen(void) {
 }
 void deathevents(void) {
     if (g_mouseEvent.buttonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-        if (g_mouseEvent.mousePosition.X >= 20 && g_mouseEvent.mousePosition.X <= 40 && g_mouseEvent.mousePosition.Y == 8) {
+        if (g_mouseEvent.mousePosition.X >= 30 && g_mouseEvent.mousePosition.X <= 50 && g_mouseEvent.mousePosition.Y == 12) {
             Levelselect = true;
             resetvalues = false;
             soundcheck = true;
+            Deathscreen = false;
         }
     }
 }
@@ -1222,8 +1223,8 @@ void deathscreen(void) {
     }
 
     COORD C;
-    C.X = 20;
-    C.Y = 8;
+    C.X = 30;
+    C.Y = 12;
     g_Console.writeToBuffer(C, "Back to level select", 0x8B);
 }
 void victoryscreen(void) {
